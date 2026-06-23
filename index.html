@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رحلة Excel العملية — تطبيق على جدول جمعية · المهندس محمد</title>
+<meta name="description" content="حقيبة تدريبية تفاعلية لأساسيات برنامج Excel: من الخلية الأولى إلى تحليل البيانات بجداول Pivot. إعداد المهندس محمد.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700&display=swap');
+:root{
+  --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#eef2f2; --card:#ffffff;
+  --primary:#0f766e; --primary-d:#0b5751; --primary-l:#ccfbf1;
+  --gold:#b8860b; --gold-l:#fdf6e3;
+  --green:#15803d; --green-l:#dcfce7;
+  --blue:#1d4ed8; --blue-l:#dbeafe;
+  --amber:#b45309; --amber-l:#fef3c7;
+  --violet:#6d28d9; --violet-l:#ede9fe;
+  --code:#0b3d3a; --code-bg:#eef5f4;
+  --topbar-h:60px;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;scroll-behavior:smooth}
+body{
+  font-family:'Tajawal','Cairo','Segoe UI','Geeza Pro',Tahoma,sans-serif;
+  color:var(--ink); line-height:1.9; margin:0; font-size:15px; background:var(--bg);
+  overflow-x:hidden;
+}
+a{color:inherit}
+.f{
+  font-family:'Consolas','SF Mono','Menlo','Courier New',monospace;
+  direction:ltr; unicode-bidi:isolate; display:inline-block;
+  background:var(--code-bg); color:var(--code);
+  border:1px solid #d7e3e2; border-radius:6px;
+  padding:.02em .42em; margin:0 .12em; font-size:.88em; font-weight:600; white-space:nowrap;
+}
+
+/* ===== الشريط العلوي ===== */
+.topbar{
+  position:sticky; top:0; z-index:50; height:var(--topbar-h);
+  background:linear-gradient(110deg,var(--primary) 0%,var(--primary-d) 100%); color:#fff;
+  display:flex; align-items:center; gap:14px; padding:0 16px; box-shadow:0 2px 12px rgba(0,0,0,.12);
+}
+.topbar .brand{ display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; }
+.topbar .brand .x{ font-family:'Consolas',monospace; background:#fff; color:var(--primary-d); border-radius:7px; padding:2px 9px; font-weight:800; }
+.topbar .brand small{ font-weight:500; opacity:.85; font-size:12.5px; display:block; }
+.topbar .spacer{ flex:1 }
+.topbar .search{ position:relative; }
+.topbar .search input{
+  width:200px; max-width:42vw; border:none; border-radius:999px; padding:8px 36px 8px 14px;
+  font-family:inherit; font-size:13.5px; background:rgba(255,255,255,.16); color:#fff; outline:none;
+}
+.topbar .search input::placeholder{ color:rgba(255,255,255,.75) }
+.topbar .search input:focus{ background:rgba(255,255,255,.26) }
+.topbar .search::before{ content:"🔍"; position:absolute; right:11px; top:7px; font-size:13px; opacity:.85 }
+.topbar .btn{
+  background:rgba(255,255,255,.16); color:#fff; border:1px solid rgba(255,255,255,.25);
+  border-radius:9px; padding:7px 13px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap;
+}
+.topbar .btn:hover{ background:rgba(255,255,255,.28) }
+.topbar .btn.pdf{ background:var(--gold); border-color:transparent; }
+.topbar .hamb{ display:none; font-size:22px; background:none; border:none; color:#fff; cursor:pointer; padding:4px 8px; }
+
+/* ===== الهيكل ===== */
+.shell{ display:flex; gap:26px; max-width:1240px; margin:0 auto; padding:24px 20px 60px; align-items:flex-start; }
+.sidebar{
+  width:300px; flex:none; position:sticky; top:calc(var(--topbar-h) + 18px);
+  max-height:calc(100vh - var(--topbar-h) - 36px); overflow-y:auto;
+  background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 12px;
+}
+.sidebar .toc-h{ font-weight:800; color:var(--primary-d); font-size:14px; padding:4px 8px 10px; border-bottom:2px solid var(--primary-l); margin-bottom:8px; }
+.toc-unit{ margin-bottom:4px; }
+.toc-unit-link{ display:block; font-weight:700; color:var(--ink); text-decoration:none; padding:8px 10px; border-radius:8px; font-size:13.5px; }
+.toc-unit-link:hover{ background:var(--primary-l); }
+.toc-lessons{ display:flex; flex-direction:column; margin:2px 6px 8px; border-right:2px solid var(--line); }
+.toc-lesson-link{ text-decoration:none; color:var(--muted); font-size:12.8px; padding:5px 12px; border-radius:6px; }
+.toc-lesson-link:hover{ color:var(--primary-d); background:#f3faf9; }
+.toc-lesson-link.active{ color:var(--primary-d); background:var(--primary-l); font-weight:700; }
+
+.content{ flex:1; min-width:0; max-width:840px; }
+
+/* ===== الواجهة التعريفية ===== */
+.hero{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 26px 22px; margin-bottom:26px; box-shadow:0 1px 4px rgba(0,0,0,.03); }
+.hero .badge{ display:inline-block; font-size:12px; letter-spacing:1.5px; color:var(--primary-d); font-weight:700; border:1.5px solid var(--primary); border-radius:999px; padding:5px 16px; margin-bottom:14px; }
+.hero h1{ font-size:34px; font-weight:800; margin:6px 0 6px; line-height:1.3; }
+.hero h1 .x{ font-family:'Consolas',monospace; color:var(--primary); }
+.hero .sub{ color:var(--muted); font-size:16px; margin-bottom:14px; }
+.hero .by{ display:inline-block; background:var(--gold-l); color:var(--gold); border:1px solid #ecdca6; border-radius:999px; padding:6px 16px; font-weight:700; font-size:13.5px; }
+.hero .stats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.hero .stat{ background:#f7fafa; border:1px solid var(--line); border-radius:12px; padding:10px 16px; text-align:center; }
+.hero .stat b{ display:block; color:var(--primary-d); font-size:20px; }
+.hero .stat span{ font-size:12px; color:var(--muted); }
+
+.legend{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0 6px; }
+.legend .it{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:#fbfdfd; font-size:13px; }
+.legend .it .t{ font-weight:700; margin-bottom:2px; }
+.legend .it.goal-c .t{ color:var(--green) } .legend .it.tip-c .t{ color:var(--blue) }
+.legend .it.warn-c .t{ color:var(--amber) } .legend .it.ex-c .t{ color:var(--violet) }
+.legend .it.shot-c .t{ color:var(--primary-d) } .legend .it.f-c .t{ color:var(--code) }
+
+details.data-wrap{ margin-top:14px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+details.data-wrap>summary{ cursor:pointer; padding:12px 16px; font-weight:700; color:var(--primary-d); background:#f7fafa; list-style:none; }
+details.data-wrap>summary::-webkit-details-marker{ display:none }
+details.data-wrap>summary::before{ content:"📁 "; }
+details.data-wrap[open]>summary{ border-bottom:1px solid var(--line); }
+.data-wrap .inner{ padding:10px 12px; overflow-x:auto; }
+
+/* ===== الوحدات (يبنيها JS) ===== */
+.unit{ margin-bottom:22px; }
+.unit-header{
+  width:100%; text-align:right; cursor:pointer; display:flex; align-items:center; gap:12px;
+  background:linear-gradient(110deg,var(--primary) 0%,var(--primary-d) 100%); color:#fff;
+  border:none; border-radius:14px; padding:16px 20px; font-family:inherit; font-size:20px; font-weight:800;
+  box-shadow:0 4px 14px rgba(15,118,110,.18);
+}
+.unit-header .u-chevron{ font-size:15px; transition:transform .2s; opacity:.9 }
+.unit.collapsed .unit-header .u-chevron{ transform:rotate(-90deg) }
+.unit-header .u-label{ flex:1 }
+.unit-header .u-count{ font-size:12.5px; font-weight:600; background:rgba(255,255,255,.2); padding:3px 10px; border-radius:999px; }
+.unit-body{ padding-top:16px; }
+.unit.collapsed .unit-body{ display:none; }
+
+/* ===== الدرس ===== */
+.lesson{ border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:0 0 18px; background:var(--card); box-shadow:0 1px 4px rgba(0,0,0,.03); scroll-margin-top:calc(var(--topbar-h) + 14px); }
+.lesson-num{ display:inline-block; background:var(--gold-l); color:var(--gold); border:1px solid #ecdca6; border-radius:999px; padding:4px 14px; font-size:12.5px; font-weight:700; margin-bottom:10px; }
+.lesson-title{ font-size:22px; font-weight:800; color:var(--ink); margin:0 0 14px; padding-right:14px; border-right:5px solid var(--primary); line-height:1.4; }
+.lesson h3{ font-size:16.5px; color:var(--primary-d); margin:20px 0 8px; display:flex; align-items:center; gap:8px; }
+.lesson h3::before{ content:"◆"; color:var(--gold); font-size:12px; }
+.lesson p{ margin:8px 0 }
+.steps{ margin:6px 0; padding-inline-start:0; counter-reset:s; list-style:none }
+.steps li{ position:relative; padding:6px 44px 6px 8px; margin:6px 0; counter-increment:s }
+.steps li::before{ content:counter(s); position:absolute; right:6px; top:5px; width:26px; height:26px; background:var(--primary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700 }
+
+.goal,.tip,.warn,.exercise{ border-radius:11px; padding:13px 16px; margin:14px 0; font-size:14px; border-right-width:5px; border-right-style:solid }
+.goal{ background:var(--green-l); border-right-color:var(--green) } .goal strong{ color:var(--green) }
+.tip{ background:var(--blue-l); border-right-color:var(--blue) } .tip strong{ color:var(--blue) }
+.warn{ background:var(--amber-l); border-right-color:var(--amber) } .warn strong{ color:var(--amber) }
+.exercise{ background:var(--violet-l); border-right-color:var(--violet) } .exercise strong{ color:var(--violet) }
+
+table.data{ width:100%; border-collapse:collapse; margin:14px 0 18px; font-size:13.5px }
+table.data th{ background:var(--primary); color:#fff; font-weight:700; padding:9px 10px; text-align:center; border:1px solid var(--primary-d) }
+table.data td{ padding:8px 10px; border:1px solid var(--line); text-align:center }
+table.data tbody tr:nth-child(even){ background:#f7fafa }
+
+figure.shot{ margin:16px 0; border:2px dashed var(--primary); border-radius:12px; background:repeating-linear-gradient(45deg,#f7fcfb,#f7fcfb 12px,#eef7f6 12px,#eef7f6 24px); padding:18px; text-align:center }
+figure.shot .shot-ph{ font-size:38px; line-height:1; margin-bottom:8px }
+figure.shot figcaption{ color:var(--primary-d); font-size:13.5px; font-weight:500 }
+
+/* ===== مكوّن محاكاة Excel الواقعي (للمخططات الدقيقة) ===== */
+figure.xlfig{ margin:18px 0; text-align:center }
+figure.xlfig figcaption{ color:var(--muted); font-size:12.5px; margin-top:8px }
+.xl{ display:inline-block; max-width:100%; text-align:right; border:1px solid #aeb9b8; border-radius:7px; overflow:hidden; box-shadow:0 3px 12px rgba(0,0,0,.10); font-size:13px; background:#fff; direction:rtl; vertical-align:top }
+.xl-title{ display:flex; align-items:center; gap:8px; background:#217346; color:#fff; padding:6px 12px; font-weight:700; font-size:12.5px }
+.xl-title .dot{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.55) }
+.xl-title .nm{ font-family:'Consolas',monospace }
+.xl-bar{ display:flex; align-items:stretch; background:#f3f6f5; border-bottom:1px solid #cdd9d8 }
+.xl-name{ width:78px; padding:6px 8px; border-left:1px solid #cdd9d8; color:#0b3d3a; font-weight:700; font-family:'Consolas',monospace; direction:ltr; text-align:center; background:#fff }
+.xl-fx{ padding:6px 9px; color:#9aa7a6; font-style:italic; border-left:1px solid #cdd9d8; font-family:'Consolas',monospace }
+.xl-formula{ flex:1; padding:6px 12px; font-family:'Consolas',monospace; direction:ltr; text-align:left; color:#0b3d3a; font-weight:600; white-space:nowrap; overflow-x:auto }
+.xl table{ border-collapse:collapse; width:100% }
+.xl th,.xl td{ border:1px solid #dbe3e2; padding:5px 9px; text-align:center; height:28px; white-space:nowrap }
+.xl thead th{ background:#eef2f1; color:#5f6f6d; font-weight:700; font-family:'Consolas',monospace }
+.xl .rh{ background:#eef2f1; color:#5f6f6d; font-weight:700; font-family:'Consolas',monospace; width:30px }
+.xl .corner{ background:#e6eceb; width:30px }
+.xl td{ background:#fff }
+.xl .n{ font-family:'Consolas',monospace; direction:ltr }
+.xl .sel{ outline:2.5px solid #217346; outline-offset:-2px; background:#eafaf0 !important; font-weight:700 }
+.xl .rng{ background:#eafaf0 !important; box-shadow:inset 0 0 0 1px #9bd9b4 }
+.xl .on{ background:#217346 !important; color:#fff !important }
+.xl .muted{ color:#9aa7a6 }
+.xl .cf-green{ background:#c6efce !important; color:#0a6b35; font-weight:700 }
+.xl .cf-red{ background:#ffc7ce !important; color:#9c0006; font-weight:700 }
+.xl .cf-amber{ background:#ffeb9c !important; color:#9c6500; font-weight:700 }
+.xl .bar{ position:relative }
+.xl .bar i{ position:absolute; top:3px; bottom:3px; right:3px; background:linear-gradient(90deg,#9bd9b4,#5cc187); border-radius:3px; opacity:.7; z-index:0 }
+.xl .bar b{ position:relative; z-index:1; font-family:'Consolas',monospace; font-weight:700 }
+.xl .err{ color:#9c0006; font-family:'Consolas',monospace; font-weight:700 }
+.xl-tab{ display:flex; gap:0; background:#f3f6f5; border-top:1px solid #cdd9d8 }
+.xl-tab span{ padding:5px 14px; font-size:11.5px; color:#5f6f6d }
+.xl-tab .act{ background:#fff; color:#217346; font-weight:700; border-top:2px solid #217346 }
+.xl svg{ display:block; max-width:100%; height:auto }
+
+/* صناديق الملاحق (لها lesson-num نصية مثل «ملحق أ») */
+.lesson.lesson--appendix .lesson-num{ background:var(--primary-l); color:var(--primary-d); border-color:#a7e0d8 }
+
+/* تذييل */
+.site-footer{ background:#0b3d3a; color:#cdeae6; text-align:center; padding:26px 16px; font-size:13.5px }
+.site-footer b{ color:#fff }
+
+/* غلاف الطباعة (مخفي على الشاشة) */
+.print-only{ display:none }
+
+/* الجوال */
+.nav-overlay{ display:none; }
+@media (max-width:880px){
+  .topbar{ gap:8px; padding:0 10px }
+  .topbar .hamb{ display:block; flex:none }
+  .topbar .spacer{ display:none }
+  .topbar .brand{ flex:1 1 auto; min-width:0; font-size:15px; gap:7px }
+  .topbar .brand>span:last-child{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  .topbar .brand small{ display:none }
+  .topbar .search{ flex:none }
+  .topbar .search input{ width:112px; max-width:34vw }
+  .topbar .btn.fold{ display:none }
+  .topbar .btn.pdf{ flex:none; padding:7px 10px }
+  .shell{ padding:16px 12px 50px }
+  .sidebar{
+    position:fixed; top:0; right:0; height:100vh; max-height:100vh; width:84vw; max-width:300px; z-index:60;
+    border-radius:0; box-shadow:-6px 0 24px rgba(0,0,0,.18); padding-top:18px;
+    display:none; overflow-y:auto;
+  }
+  body.nav-open .sidebar{ display:block }
+  body.nav-open .nav-overlay{ display:block; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:55 }
+  .content{ max-width:100% }
+  .hero h1{ font-size:26px } .legend{ grid-template-columns:1fr }
+  .unit-header{ font-size:17px; padding:14px 16px }
+  .lesson{ padding:18px 16px }
+  /* الجداول تتمرّر أفقياً داخل بطاقتها بدل دفع الصفحة */
+  table.data{ display:block; overflow-x:auto; max-width:100%; -webkit-overflow-scrolling:touch; white-space:nowrap }
+  /* المعادلات الطويلة تلتف على الجوال بدل التجاوز */
+  .f{ white-space:normal; word-break:break-word }
+}
+
+/* ===== الطباعة (PDF) ===== */
+@media print{
+  @page{ size:A4; margin:16mm 14mm }
+  body{ background:#fff; font-size:13px }
+  .topbar,.sidebar,.nav-overlay,.site-footer,.hero .legend,.topbar .btn{ display:none !important }
+  .shell{ display:block; padding:0; max-width:100% }
+  .content{ max-width:100% }
+  .print-only{ display:block }
+  .print-cover{ height:255mm; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; page-break-after:always; border:2px solid var(--primary); border-radius:16px; }
+  .print-cover .pc-x{ font-family:'Consolas',monospace; font-size:84px; font-weight:800; color:var(--primary) }
+  .print-cover h1{ font-size:40px; margin:10px 0 6px } .print-cover .sub{ color:var(--muted); font-size:18px; margin-bottom:24px }
+  .print-cover .by{ background:var(--gold-l); color:var(--gold); border:1px solid #ecdca6; border-radius:999px; padding:8px 22px; font-weight:700; font-size:16px }
+  .hero{ border:none; box-shadow:none; padding:0; }
+  .unit{ page-break-before:always; }
+  .unit-header{ box-shadow:none; border-radius:10px; font-size:22px; }
+  .unit-body{ display:block !important; }
+  .unit.collapsed .unit-body{ display:block !important; }
+  .lesson{ box-shadow:none; break-inside:auto; }
+  .goal,.tip,.warn,.exercise,figure.shot,table.data,.steps li{ break-inside:avoid }
+  .lesson-title,.lesson h3,.unit-header{ break-after:avoid }
+  details.data-wrap{ border:none } details.data-wrap>summary{ display:none } .data-wrap .inner{ padding:0 }
+}
+
+/* ===== بطاقة النهاية ===== */
+.finalblock{ margin:26px 0 0 }
+.finalbanner{ background:linear-gradient(135deg,var(--primary) 0%,var(--primary-d) 100%); color:#fff; border-radius:14px 14px 0 0; padding:26px 22px; text-align:center }
+.finalbanner .fb-em{ font-size:44px; line-height:1 }
+.finalbanner h2{ font-size:24px; margin:8px 0 6px }
+.finalbanner p{ opacity:.92; margin:0 auto; max-width:540px; font-size:14.5px }
+.finalstats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px }
+.finalstats .fs{ flex:1; min-width:90px; background:#f7fafa; border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center }
+.finalstats .fs b{ display:block; color:var(--primary-d); font-size:20px; font-family:'Consolas',monospace }
+.finalstats .fs span{ font-size:12px; color:var(--muted) }
+
+/* ===== نافذة «وسيطات الدالة» — بشكل Excel الحقيقي ===== */
+.fxdlg{ max-width:540px; margin:16px auto; border:1px solid #93a09e; border-radius:5px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,.22); background:#eef1f0; text-align:right; direction:rtl }
+.fxdlg-h{ background:linear-gradient(#f8faf9,#dce3e1); border-bottom:1px solid #c2cdcb; color:#283b39; padding:7px 12px; font-weight:700; font-size:13px; display:flex; align-items:center; gap:8px }
+.fxdlg-h .ic{ background:#217346; color:#fff; border-radius:4px; padding:0 6px; font-family:'Consolas',monospace; font-style:italic; font-weight:800; font-size:11.5px }
+.fxdlg-h::after{ content:"✕"; margin-inline-start:auto; color:#8a9795; font-size:12px; font-weight:400 }
+.fxdlg-b{ padding:12px 14px 8px; background:#eef1f0 }
+.fxrow{ display:flex; align-items:center; gap:10px; margin:7px 0 }
+.fxa{ font-family:'Consolas',monospace; direction:ltr; min-width:116px; color:#27343f; font-weight:700; font-size:12px; text-align:left }
+.fxv{ position:relative; background:#fff; border:1px solid #7f8c8b; border-radius:2px; padding:3px 28px 3px 9px; font-family:'Consolas',monospace; direction:ltr; font-weight:700; color:#0b3d3a; min-width:108px; text-align:left; box-shadow:inset 1px 1px 2px rgba(0,0,0,.07) }
+.fxv::after{ content:"⤢"; position:absolute; left:6px; top:50%; transform:translateY(-50%); color:#217346; font-size:11px }
+.fxd{ color:#5a6470; font-size:12.5px; flex:1; min-width:150px }
+.fxres{ background:#e6edeb; border-top:1px solid #c2cdcb; padding:9px 14px; color:#283b39; font-size:13px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap }
+.fxres::after{ content:"موافق"; background:linear-gradient(#fbfdfd,#dde6e4); border:1px solid #8a9a98; border-radius:3px; padding:3px 22px; font-size:12.5px; color:#243; box-shadow:0 0 0 2px rgba(33,115,70,.12) }
+.fxres .f{ background:#fff }
+@media (max-width:680px){
+  .fxdlg{ max-width:100% }
+  .fxrow{ gap:5px }
+  .fxa{ flex-basis:100%; min-width:0 }
+  .fxv{ flex:1 }
+  .fxd{ flex-basis:100% }
+  .fxres::after{ padding:3px 16px }
+}
+
+/* ===== بطاقة المرجع (اختصارات / دوال) ===== */
+.refcard{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin:18px 0; box-shadow:0 2px 10px rgba(0,0,0,.04) }
+.refcard > h3{ color:var(--primary-d); font-size:20px; margin:0 0 6px; display:flex; align-items:center; gap:9px }
+.refcard > p{ color:var(--muted); margin:0 0 14px; font-size:14px }
+.refcard table.data td:first-child, .refcard table.data th:first-child{ white-space:nowrap }
+</style>
+</head>
+<body>
+
+<div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
+
+<!-- غلاف الطباعة فقط -->
+<div class="print-cover print-only">
+  <div class="pc-x">Excel</div>
+  <h1>أساسيات برنامج Excel</h1>
+  <div class="sub">حقيبة تدريبية — مرجع تطبيقي للموظفين</div>
+  <div class="by">إعداد: المهندس محمد</div>
+</div>
+
+<!-- الشريط العلوي -->
+<header class="topbar">
+  <button class="hamb" aria-label="القائمة" onclick="document.body.classList.toggle('nav-open')">☰</button>
+  <div class="brand"><span class="x">Excel</span><span>رحلة Excel العملية<small>إعداد: المهندس محمد</small></span></div>
+  <div class="spacer"></div>
+  <div class="search"><input id="search" type="search" placeholder="ابحث في الدروس…" autocomplete="off"></div>
+  <button class="btn fold" id="foldAll">اطوِ الكل</button>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="toc-h">محتويات الحقيبة</div>
+    <nav id="toc"></nav>
+  </aside>
+
+  <main class="content" id="content">
+
+    <!-- الواجهة التعريفية -->
+    <section class="hero">
+      <span class="badge">رحلة عملية · خطوة بخطوة</span>
+      <h1>رحلة <span class="x">Excel</span> العملية</h1>
+      <div class="sub">جدول واحد لجمعية خيرية، و١١ محطة تطبّق فيها كل فكرة بنفسك خطوة بخطوة — حتى تصل لورقة احترافية وانت بدأت من الصفر.</div>
+      <span class="by">إعداد: المهندس محمد</span>
+      <div class="stats">
+        <div class="stat"><b>11</b><span>محطة</span></div>
+        <div class="stat"><b>1</b><span>جدول واحد</span></div>
+        <div class="stat"><b>صفر</b><span>مستوى البداية</span></div>
+        <div class="stat"><b>خطوات</b><span>مفصّلة لكل محطة</span></div>
+      </div>
+
+      <div class="legend">
+        <div class="it goal-c"><div class="t">🎯 الهدف</div>ما الذي ستتعلّمه في المحطة.</div>
+        <div class="it shot-c"><div class="t">🔢 الخطوات</div>طريقة الحل مفصّلة: أي خلية وأي زر تضغط.</div>
+        <div class="it ex-c"><div class="t">✅ الحل</div>النتيجة كما تظهر في Excel على نفس الجدول.</div>
+        <div class="it tip-c"><div class="t">💡 نصيحة</div>حيلة تسهّل عليك.</div>
+        <div class="it f-c"><div class="t"><span class="f" dir="ltr">=الصيغة</span></div>المعادلات تظهر كما تُكتب في Excel تماماً.</div>
+      </div>
+
+      <details class="data-wrap" open>
+        <summary>📋 جدول الجمعية — نطبّق عليه كل المحطات</summary>
+        <div class="inner">
+          <table class="data">
+            <thead><tr><th>A — رقم</th><th>B — المتبرّع</th><th>C — المدينة</th><th>D — الحملة</th><th>E — المبلغ (ر.س)</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>عبدالله أحمد</td><td>الرياض</td><td>كسوة الشتاء</td><td>1500</td></tr>
+              <tr><td>2</td><td>منيرة سالم</td><td>جدة</td><td>سلة غذائية</td><td>800</td></tr>
+              <tr><td>3</td><td>فهد ناصر</td><td>الرياض</td><td>إفطار صائم</td><td>2000</td></tr>
+              <tr><td>4</td><td>سارة محمد</td><td>الدمام</td><td>كسوة الشتاء</td><td>500</td></tr>
+              <tr><td>5</td><td>خالد علي</td><td>جدة</td><td>سلة غذائية</td><td>1200</td></tr>
+              <tr><td>6</td><td>نورة عبدالعزيز</td><td>الرياض</td><td>إفطار صائم</td><td>3000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+    <!-- ابتداءً من هنا تُحقن الوحدات -->
+<h1 class="unit-title">🧭 رحلة التطبيق على جدول الجمعية</h1>
+
+<!-- المحطة 1 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">التعامل مع الخلايا</h2>
+  <div class="goal"><strong>الهدف:</strong> تعرف ما هي الخلية، وكيف عنوانها، وكيف تكتب فيها وتعدّلها.</div>
+  <p>كل مربّع في الشاشة اسمه «خلية»، وعنوانها = حرف العمود + رقم الصف. مثلاً اسم أول متبرّع نكتبه في الخلية <span class="f" dir="ltr">B2</span> (العمود B، الصف 2).</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>انقر بالفأرة على الخلية <span class="f" dir="ltr">B2</span> — لاحظ أن عنوانها يظهر في «مربع الاسم» أعلى يمين الشاشة.</li>
+    <li>اكتب اسم أول متبرّع: <strong>عبدالله أحمد</strong>.</li>
+    <li>اضغط <span class="f" dir="ltr">Enter</span> — تنزل تلقائياً للخلية <span class="f" dir="ltr">B3</span>، اكتب الاسم الثاني وهكذا.</li>
+    <li>لتعديل خلية مكتوبة من قبل: انقر عليها مرّتين، أو حدّدها واضغط <span class="f" dir="ltr">F2</span>.</li>
+    <li>لمسح محتوى خلية: حدّدها واضغط <span class="f" dir="ltr">Delete</span>.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">B2</div><div class="xl-fx">fx</div><div class="xl-formula">عبدالله أحمد</div></div>
+    <table><thead><tr><th class="corner"></th><th>A</th><th class="on">B</th><th>C</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td>رقم</td><td>المتبرّع</td><td>المدينة</td></tr>
+      <tr><td class="rh">2</td><td class="n">1</td><td class="sel">عبدالله أحمد</td><td>الرياض</td></tr>
+      <tr><td class="rh">3</td><td class="n">2</td><td>منيرة سالم</td><td>جدة</td></tr>
+    </tbody></table>
+    <div class="xl-tab"><span class="act">التبرّعات</span><span>ورقة2</span></div>
+  </div><figcaption>الخلية B2 محدّدة بإطار أخضر وتحتوي «عبدالله أحمد»، ونفس النص يظهر في شريط الصيغة بالأعلى.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> عنوان أي خلية = حرف العمود ثم رقم الصف دائماً (مثل <span class="f" dir="ltr">C5</span>). انظر «مربع الاسم» لتعرف وين أنت بالضبط.</div>
+</section>
+
+<!-- المحطة 2 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">الصفوف والأعمدة</h2>
+  <div class="goal"><strong>الهدف:</strong> تضيف عموداً أو صفاً، وتوسّع العرض، وتحذف ما لا تحتاجه.</div>
+  <p>الصفوف أفقية ولها أرقام (1، 2، 3…)، والأعمدة رأسية ولها حروف (A، B، C…). كل متبرّع في صف، وكل معلومة في عمود — «المدينة» مثلاً في العمود <span class="f" dir="ltr">C</span> كامل.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>لإضافة عمود جديد: انقر بزر الفأرة <strong>الأيمن</strong> على رأس العمود (الحرف)، واختر «إدراج» (Insert) — يدخل عمود فاضي قبله.</li>
+    <li>لتوسيع عمود الأسماء B لأنه ضيّق: ضع المؤشر على الحدّ بين رأسي العمودين <span class="f" dir="ltr">B</span> و<span class="f" dir="ltr">C</span>، واسحب، أو انقر مرّتين ليتوسّع تلقائياً حسب أطول نص.</li>
+    <li>لإضافة صف: انقر يمين على رقم الصف واختر «إدراج».</li>
+    <li>لحذف صف أو عمود: انقر يمين على رقمه/حرفه واختر «حذف» (Delete).</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">C1</div><div class="xl-fx">fx</div><div class="xl-formula">المدينة</div></div>
+    <table><thead><tr><th class="corner"></th><th>B</th><th class="on">C</th><th>D</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td>المتبرّع</td><td class="on">المدينة</td><td>الحملة</td></tr>
+      <tr><td class="rh">2</td><td>عبدالله أحمد</td><td class="rng">الرياض</td><td>كسوة الشتاء</td></tr>
+      <tr><td class="rh">3</td><td>منيرة سالم</td><td class="rng">جدة</td><td>سلة غذائية</td></tr>
+      <tr><td class="rh">4</td><td>فهد ناصر</td><td class="rng">الرياض</td><td>إفطار صائم</td></tr>
+    </tbody></table>
+  </div><figcaption>العمود C «المدينة» محدّد بالكامل — هكذا تحدّد عموداً كاملاً بالنقر على حرفه في الأعلى.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> للنقر على عمود كامل انقر على حرفه، وللصف كامل انقر على رقمه؛ ثم تقدر تنسّقه أو تحذفه دفعة واحدة.</div>
+</section>
+
+<!-- المحطة 3 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">النطاق (Range)</h2>
+  <div class="goal"><strong>الهدف:</strong> تحدّد مجموعة خلايا دفعة واحدة، وتفهم كيف نكتب النطاق.</div>
+  <p>«النطاق» = مجموعة خلايا مختارة مع بعض. نكتبه بأول خلية، ثم نقطتين <span class="f" dir="ltr">:</span>، ثم آخر خلية. كل بياناتنا من <span class="f" dir="ltr">A1</span> إلى <span class="f" dir="ltr">E7</span> نطاقها <span class="f" dir="ltr">A1:E7</span>.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>انقر على الخلية <span class="f" dir="ltr">A1</span> واستمر بالضغط على زر الفأرة.</li>
+    <li>اسحب حتى الخلية <span class="f" dir="ltr">E7</span> ثم أفلت — تحدّدت كل البيانات (تظهر بخلفية ملوّنة).</li>
+    <li>انظر «مربع الاسم» — يكتب لك النطاق <span class="f" dir="ltr">A1:E7</span>.</li>
+    <li>طريقة سريعة: انقر <span class="f" dir="ltr">A1</span> ثم اضغط <span class="f" dir="ltr">Ctrl + Shift + End</span> ليحدّد كل البيانات تلقائياً.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">A1:E7</div><div class="xl-fx">fx</div><div class="xl-formula"></div></div>
+    <table><thead><tr><th class="corner"></th><th>A</th><th>B</th><th>D</th><th>E</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td class="rng">رقم</td><td class="rng">المتبرّع</td><td class="rng">الحملة</td><td class="rng">المبلغ</td></tr>
+      <tr><td class="rh">2</td><td class="n rng">1</td><td class="rng">عبدالله أحمد</td><td class="rng">كسوة الشتاء</td><td class="n rng">1500</td></tr>
+      <tr><td class="rh">3</td><td class="n rng">2</td><td class="rng">منيرة سالم</td><td class="rng">سلة غذائية</td><td class="n rng">800</td></tr>
+      <tr><td class="rh">7</td><td class="n rng">6</td><td class="rng">نورة عبدالعزيز</td><td class="rng">إفطار صائم</td><td class="n rng">3000</td></tr>
+    </tbody></table>
+  </div><figcaption>النطاق المحدّد A1:E7 (كل الخلايا الخضراء) — هذا ما سنستخدمه داخل الدوال لاحقاً.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> النطاق هو أساس الدوال — لمّا تكتب <span class="f" dir="ltr">=SUM(E2:E7)</span> فأنت تعطي الدالة نطاقاً تشتغل عليه.</div>
+</section>
+
+<!-- المحطة 4 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">التعبئة التلقائية</h2>
+  <div class="goal"><strong>الهدف:</strong> تكمّل سلسلة أرقام (أو معادلة) بالسحب بدل الكتابة اليدوية.</div>
+  <p>اكتب أول قيمتين، وامسك المربّع الصغير في الزاوية السفلية للخلية («مقبض التعبئة»)، واسحب — Excel يكمّل بقية السلسلة وحده.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>في الخلية <span class="f" dir="ltr">A2</span> اكتب <span class="f" dir="ltr">1</span>، وفي الخلية <span class="f" dir="ltr">A3</span> اكتب <span class="f" dir="ltr">2</span>.</li>
+    <li>حدّد الخليتين معاً <span class="f" dir="ltr">A2:A3</span>.</li>
+    <li>ضع المؤشر على المربّع الصغير في الزاوية السفلية للتحديد حتى يتحوّل لعلامة <span class="f" dir="ltr">+</span> رفيعة.</li>
+    <li>اسحب لأسفل حتى الخلية <span class="f" dir="ltr">A7</span> ثم أفلت — تعبّأ <span class="f" dir="ltr">3, 4, 5, 6</span> تلقائياً.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">A2</div><div class="xl-fx">fx</div><div class="xl-formula">1</div></div>
+    <table><thead><tr><th class="corner"></th><th class="on">A</th><th>B</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">2</td><td class="n sel">1</td><td>عبدالله أحمد</td></tr>
+      <tr><td class="rh">3</td><td class="n rng">2</td><td>منيرة سالم</td></tr>
+      <tr><td class="rh">4</td><td class="n rng">3</td><td>فهد ناصر</td></tr>
+      <tr><td class="rh">5</td><td class="n rng">4</td><td>سارة محمد</td></tr>
+      <tr><td class="rh">6</td><td class="n rng">5</td><td>خالد علي</td></tr>
+      <tr><td class="rh">7</td><td class="n rng">6</td><td>نورة عبدالعزيز</td></tr>
+    </tbody></table>
+  </div><figcaption>عمود الرقم تعبّأ تلقائياً 1 ← 6 بالسحب، دون كتابة كل رقم يدوياً.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> نفس المقبض يكمّل التواريخ والأيام، وينسخ المعادلات لكل الصفوف — بتستخدمه كثير في المحطات الجاية.</div>
+</section>
+
+<!-- المحطة 5 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">المعادلات البسيطة</h2>
+  <div class="goal"><strong>الهدف:</strong> تكتب معادلة حسابية تشتغل على الخلايا (جمع/طرح/ضرب/قسمة).</div>
+  <p>أي معادلة تبدأ بعلامة <span class="f" dir="ltr">=</span>، وتستخدم الخلايا بدل الأرقام الثابتة. سنضيف عموداً جديداً «عدد الوجبات» = المبلغ ÷ 25 (كل وجبة بـ 25 ريالاً).</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>في الخلية <span class="f" dir="ltr">F1</span> اكتب عنوان العمود الجديد: <strong>عدد الوجبات</strong>.</li>
+    <li>انقر على الخلية <span class="f" dir="ltr">F2</span> واكتب علامة <span class="f" dir="ltr">=</span>.</li>
+    <li>انقر على الخلية <span class="f" dir="ltr">E2</span> (أو اكتبها)، ثم اكتب <span class="f" dir="ltr">/25</span>. صارت المعادلة <span class="f" dir="ltr">=E2/25</span>.</li>
+    <li>اضغط <span class="f" dir="ltr">Enter</span> — تظهر النتيجة <strong>60</strong> في الخلية <span class="f" dir="ltr">F2</span>.</li>
+    <li>حدّد الخلية <span class="f" dir="ltr">F2</span> واسحب مقبض التعبئة لأسفل حتى الخلية <span class="f" dir="ltr">F7</span> لتطبيق المعادلة على كل المتبرّعين.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">F2</div><div class="xl-fx">fx</div><div class="xl-formula">=E2/25</div></div>
+    <table><thead><tr><th class="corner"></th><th>B</th><th>E</th><th class="on">F</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td>المتبرّع</td><td>المبلغ</td><td class="on">عدد الوجبات</td></tr>
+      <tr><td class="rh">2</td><td>عبدالله أحمد</td><td class="n">1500</td><td class="n sel">60</td></tr>
+      <tr><td class="rh">3</td><td>منيرة سالم</td><td class="n">800</td><td class="n">32</td></tr>
+      <tr><td class="rh">4</td><td>فهد ناصر</td><td class="n">2000</td><td class="n">80</td></tr>
+      <tr><td class="rh">7</td><td>نورة عبدالعزيز</td><td class="n">3000</td><td class="n">120</td></tr>
+    </tbody></table>
+  </div><figcaption>المعادلة =E2/25 في الخلية F2 أعطت 60 وجبة، وبالسحب تطبّقت على الجميع.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> نفس الطريقة للجمع <span class="f" dir="ltr">+</span> والطرح <span class="f" dir="ltr">-</span> والضرب <span class="f" dir="ltr">*</span>. ابنِ معادلتك على الخلايا لا على أرقام ثابتة، فلو تغيّر المبلغ تتحدّث النتيجة وحدها.</div>
+</section>
+
+<!-- المحطة 6 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">الدوال الأساسية</h2>
+  <div class="goal"><strong>الهدف:</strong> تحسب الإجمالي والمتوسط والعدد والأعلى والأقل، وتتعلّم إدخال أي دالة عن طريق «نافذة وسيطات الدالة».</div>
+  <p>الدوال اختصارات جاهزة: المجموع <span class="f" dir="ltr">SUM</span>، المتوسط <span class="f" dir="ltr">AVERAGE</span>، العدد <span class="f" dir="ltr">COUNT</span>، الأعلى <span class="f" dir="ltr">MAX</span>، الأقل <span class="f" dir="ltr">MIN</span>. كل دالة تحتاج «وسيطات» (مدخلات)، وأسهل طريقة لتعبئتها هي زرّ <span class="f" dir="ltr">fx</span> الذي يفتح نافذة فيها خانة لكل وسيطة مع شرحها.</p>
+  <h3>الخطوات (نطبّق على المجموع SUM)</h3>
+  <ol class="steps">
+    <li>انقر على الخلية <span class="f" dir="ltr">E9</span> (هنا سيظهر الإجمالي)، وفي الخلية <span class="f" dir="ltr">D9</span> اكتب كلمة «الإجمالي».</li>
+    <li>اضغط زرّ <span class="f" dir="ltr">fx</span> الموجود يسار شريط الصيغة (أو من تبويب «الصيغ» ← «إدراج دالة»).</li>
+    <li>اختر دالة <span class="f" dir="ltr">SUM</span> — تظهر نافذة «وسيطات الدالة».</li>
+    <li>عبّئ الوسيطة الموضّحة بالأسفل (انقر داخل الخانة ثم حدّد النطاق <span class="f" dir="ltr">E2:E7</span> بالفأرة)، ثم اضغط «موافق» — تظهر <strong>9000</strong>.</li>
+    <li>كرّر نفس الخطوات في <span class="f" dir="ltr">E10</span> للمتوسط <span class="f" dir="ltr">AVERAGE</span>، و<span class="f" dir="ltr">E11</span> للعدد <span class="f" dir="ltr">COUNT</span>، و<span class="f" dir="ltr">E12</span> للأعلى <span class="f" dir="ltr">MAX</span>، و<span class="f" dir="ltr">E13</span> للأقل <span class="f" dir="ltr">MIN</span> — كلها وسيطتها نفس النطاق <span class="f" dir="ltr">E2:E7</span>.</li>
+  </ol>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — SUM</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Number1</span><span class="fxv">E2:E7</span><span class="fxd">النطاق المراد جمعه (عمود المبلغ).</span></div>
+    </div>
+    <div class="fxres">النتيجة في E9: &nbsp;<span class="f" dir="ltr">=SUM(E2:E7)</span> = <strong>9000</strong></div>
+  </div>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">E9</div><div class="xl-fx">fx</div><div class="xl-formula">=SUM(E2:E7)</div></div>
+    <table><thead><tr><th class="corner"></th><th>D</th><th class="on">E</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">9</td><td class="muted">الإجمالي</td><td class="n sel">9000</td></tr>
+      <tr><td class="rh">10</td><td class="muted">المتوسط</td><td class="n">1500</td></tr>
+      <tr><td class="rh">11</td><td class="muted">العدد</td><td class="n">6</td></tr>
+      <tr><td class="rh">12</td><td class="muted">الأعلى</td><td class="n">3000</td></tr>
+      <tr><td class="rh">13</td><td class="muted">الأقل</td><td class="n">500</td></tr>
+    </tbody></table>
+  </div><figcaption>منطقة ملخّص في الخلايا E9:E13 فيها كل الدوال الأساسية محسوبة على عمود المبلغ.</figcaption></figure>
+  <div class="warn"><strong>⚠️ ملاحظة الفاصلة:</strong> داخل الدالة يفصل Excel بين الوسيطات بفاصلة <span class="f" dir="ltr">,</span> — وفي بعض الأجهزة (حسب الإعدادات) بفاصلة منقوطة <span class="f" dir="ltr">;</span>. فلو كتبت الفاصلة وأعطتك خطأ، بدّلها بفاصلة منقوطة (أو العكس). وميزة نافذة «وسيطات الدالة» أنها تريحك من هذا تماماً لأنها تضع الفاصل الصحيح وحدها.</div>
+  <div class="tip"><strong>نصيحة:</strong> <span class="f" dir="ltr">COUNT</span> يعدّ الأرقام فقط. لعدّ الأسماء (نصوص) استخدم <span class="f" dir="ltr">COUNTA</span>، ولعدّ الخلايا الفارغة <span class="f" dir="ltr">COUNTBLANK</span>.</div>
+</section>
+
+<!-- المحطة 7 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">الشرط: IF و IFS</h2>
+  <div class="goal"><strong>الهدف:</strong> تصنّف المتبرّعين تلقائياً حسب مبلغ تبرّعهم، وتفهم وسيطات الشرط.</div>
+  <p>دالة <span class="f" dir="ltr">IF</span> تختار قيمة حسب شرط واحد (صح/خطأ). ولو عندك أكثر من فئة كان الناس قديماً «يعشّشون» عدة <span class="f" dir="ltr">IF</span> داخل بعض (IF مركّبة) وهي مربكة — والأسهل منها دالة <span class="f" dir="ltr">IFS</span> التي تأخذ عدة شروط بالترتيب. سنضيف عمود «نوع المتبرّع»: ذهبي / فضي / برونزي.</p>
+  <h3>أولاً جرّب IF البسيط</h3>
+  <ol class="steps">
+    <li>انقر على الخلية <span class="f" dir="ltr">J2</span> (خلية جانبية للتجربة) واضغط زرّ <span class="f" dir="ltr">fx</span> واختر <span class="f" dir="ltr">IF</span>.</li>
+    <li>عبّئ وسيطاته الثلاث (موضّحة بالأسفل) ثم «موافق» — تظهر «كبير» لأن 1500 ≥ 1500.</li>
+  </ol>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — IF</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Logical_test</span><span class="fxv">E2&gt;=1500</span><span class="fxd">الشرط الذي نفحصه.</span></div>
+      <div class="fxrow"><span class="fxa">Value_if_true</span><span class="fxv">"كبير"</span><span class="fxd">الناتج لو الشرط صحيح.</span></div>
+      <div class="fxrow"><span class="fxa">Value_if_false</span><span class="fxv">"صغير"</span><span class="fxd">الناتج لو الشرط خطأ.</span></div>
+    </div>
+    <div class="fxres"><span class="f" dir="ltr">=IF(E2&gt;=1500,"كبير","صغير")</span> = <strong>كبير</strong></div>
+  </div>
+  <h3>ثم طبّق IFS لثلاث فئات في العمود G</h3>
+  <ol class="steps">
+    <li>في الخلية <span class="f" dir="ltr">G1</span> اكتب عنوان العمود: <strong>نوع المتبرّع</strong>.</li>
+    <li>انقر على الخلية <span class="f" dir="ltr">G2</span>، واضغط <span class="f" dir="ltr">fx</span> واختر <span class="f" dir="ltr">IFS</span>.</li>
+    <li>عبّئ الشروط بالترتيب (موضّحة بالأسفل) ثم «موافق» — تظهر «فضي».</li>
+    <li>حدّد <span class="f" dir="ltr">G2</span> واسحب مقبض التعبئة لأسفل حتى <span class="f" dir="ltr">G7</span>.</li>
+  </ol>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — IFS</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Logical_test1</span><span class="fxv">E2&gt;=2000</span><span class="fxd">الشرط الأول (تبرّع كبير).</span></div>
+      <div class="fxrow"><span class="fxa">Value_if_true1</span><span class="fxv">"ذهبي"</span><span class="fxd">ناتج الشرط الأول.</span></div>
+      <div class="fxrow"><span class="fxa">Logical_test2</span><span class="fxv">E2&gt;=1000</span><span class="fxd">الشرط الثاني.</span></div>
+      <div class="fxrow"><span class="fxa">Value_if_true2</span><span class="fxv">"فضي"</span><span class="fxd">ناتج الشرط الثاني.</span></div>
+      <div class="fxrow"><span class="fxa">Logical_test3</span><span class="fxv">TRUE</span><span class="fxd">«غير ذلك» (الحالة الأخيرة).</span></div>
+      <div class="fxrow"><span class="fxa">Value_if_true3</span><span class="fxv">"برونزي"</span><span class="fxd">الناتج لو ما تحقّق شرط قبله.</span></div>
+    </div>
+    <div class="fxres">في G2: &nbsp;<span class="f" dir="ltr">=IFS(E2&gt;=2000,"ذهبي",E2&gt;=1000,"فضي",TRUE,"برونزي")</span> = <strong>فضي</strong></div>
+  </div>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">G2</div><div class="xl-fx">fx</div><div class="xl-formula">=IFS(E2&gt;=2000,"ذهبي",E2&gt;=1000,"فضي",TRUE,"برونزي")</div></div>
+    <table><thead><tr><th class="corner"></th><th>B</th><th>E</th><th class="on">G</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td>المتبرّع</td><td>المبلغ</td><td class="on">نوع المتبرّع</td></tr>
+      <tr><td class="rh">2</td><td>عبدالله أحمد</td><td class="n">1500</td><td class="silver">فضي</td></tr>
+      <tr><td class="rh">3</td><td>منيرة سالم</td><td class="n">800</td><td class="bronze">برونزي</td></tr>
+      <tr><td class="rh">4</td><td>فهد ناصر</td><td class="n">2000</td><td class="gold">ذهبي</td></tr>
+      <tr><td class="rh">7</td><td>نورة عبدالعزيز</td><td class="n">3000</td><td class="gold">ذهبي</td></tr>
+    </tbody></table>
+  </div><figcaption>عمود «نوع المتبرّع» في G2:G7 صُنّف تلقائياً بدالة IFS حسب المبلغ.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> <span class="f" dir="ltr">IFS</span> تقرأ الشروط بالترتيب وتقف عند أول شرط يتحقّق. لذلك ابدأ بالأكبر؛ وكلمة <span class="f" dir="ltr">TRUE</span> في النهاية معناها «أي حالة أخرى».</div>
+</section>
+
+<!-- المحطة 8 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">الجمع والعدّ بشرط</h2>
+  <div class="goal"><strong>الهدف:</strong> تجمع أو تعدّ بشرط واحد أو أكثر، وتفهم وسيطات كل دالة.</div>
+  <p><span class="f" dir="ltr">SUMIF</span> يجمع بشرط، <span class="f" dir="ltr">COUNTIF</span> يعدّ بشرط، وبشرطين أو أكثر نستخدم <span class="f" dir="ltr">SUMIFS</span> و<span class="f" dir="ltr">COUNTIFS</span>. سنكتب نتائجها في منطقة التقارير أسفل الجدول.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>في <span class="f" dir="ltr">D15</span> اكتب «إجمالي كسوة الشتاء»، ثم انقر على <span class="f" dir="ltr">E15</span> واضغط <span class="f" dir="ltr">fx</span> واختر <span class="f" dir="ltr">SUMIF</span>، وعبّئ وسيطاته (بالأسفل) — تظهر <strong>2000</strong>.</li>
+    <li>في <span class="f" dir="ltr">D16</span> اكتب «عدد متبرّعي الرياض»، ثم في <span class="f" dir="ltr">E16</span> أدخل <span class="f" dir="ltr">COUNTIF</span> — تظهر <strong>3</strong>.</li>
+    <li>في <span class="f" dir="ltr">D17</span> اكتب «تبرّعات الرياض لإفطار صائم»، ثم في <span class="f" dir="ltr">E17</span> أدخل <span class="f" dir="ltr">SUMIFS</span> (شرطين) — تظهر <strong>5000</strong>.</li>
+  </ol>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — SUMIF (في الخلية E15)</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Range</span><span class="fxv">D2:D7</span><span class="fxd">نطاق الشرط (عمود الحملات).</span></div>
+      <div class="fxrow"><span class="fxa">Criteria</span><span class="fxv">"كسوة الشتاء"</span><span class="fxd">الشرط المطلوب مطابقته.</span></div>
+      <div class="fxrow"><span class="fxa">Sum_range</span><span class="fxv">E2:E7</span><span class="fxd">النطاق الذي نجمعه (المبالغ).</span></div>
+    </div>
+    <div class="fxres"><span class="f" dir="ltr">=SUMIF(D2:D7,"كسوة الشتاء",E2:E7)</span> = <strong>2000</strong></div>
+  </div>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — COUNTIF (في الخلية E16)</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Range</span><span class="fxv">C2:C7</span><span class="fxd">النطاق الذي نعدّ فيه (عمود المدن).</span></div>
+      <div class="fxrow"><span class="fxa">Criteria</span><span class="fxv">"الرياض"</span><span class="fxd">الشرط (المدينة المطلوبة).</span></div>
+    </div>
+    <div class="fxres"><span class="f" dir="ltr">=COUNTIF(C2:C7,"الرياض")</span> = <strong>3</strong></div>
+  </div>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — SUMIFS (في الخلية E17)</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Sum_range</span><span class="fxv">E2:E7</span><span class="fxd">النطاق الذي نجمعه (يأتي أولاً هنا).</span></div>
+      <div class="fxrow"><span class="fxa">Criteria_range1</span><span class="fxv">C2:C7</span><span class="fxd">نطاق الشرط الأول (المدن).</span></div>
+      <div class="fxrow"><span class="fxa">Criteria1</span><span class="fxv">"الرياض"</span><span class="fxd">الشرط الأول.</span></div>
+      <div class="fxrow"><span class="fxa">Criteria_range2</span><span class="fxv">D2:D7</span><span class="fxd">نطاق الشرط الثاني (الحملات).</span></div>
+      <div class="fxrow"><span class="fxa">Criteria2</span><span class="fxv">"إفطار صائم"</span><span class="fxd">الشرط الثاني.</span></div>
+    </div>
+    <div class="fxres"><span class="f" dir="ltr">=SUMIFS(E2:E7,C2:C7,"الرياض",D2:D7,"إفطار صائم")</span> = <strong>5000</strong></div>
+  </div>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">E15</div><div class="xl-fx">fx</div><div class="xl-formula">=SUMIF(D2:D7,"كسوة الشتاء",E2:E7)</div></div>
+    <table><thead><tr><th class="corner"></th><th>D — التقرير</th><th class="on">E — الناتج</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">15</td><td>إجمالي كسوة الشتاء</td><td class="n sel">2000</td></tr>
+      <tr><td class="rh">16</td><td>عدد متبرّعي الرياض</td><td class="n">3</td></tr>
+      <tr><td class="rh">17</td><td>تبرّعات الرياض (إفطار صائم)</td><td class="n">5000</td></tr>
+    </tbody></table>
+  </div><figcaption>منطقة التقارير في D15:E17 فيها نتائج الجمع والعدّ بشرط.</figcaption></figure>
+  <div class="warn"><strong>⚠️ انتبه للترتيب:</strong> في <span class="f" dir="ltr">SUMIF</span> الترتيب (النطاق، الشرط، نطاق الجمع)، أما <span class="f" dir="ltr">SUMIFS</span> فيبدأ بـ«نطاق الجمع» أولاً ثم أزواج (نطاق الشرط، الشرط). نافذة الوسيطات ترتّبها لك تلقائياً.</div>
+</section>
+
+<!-- المحطة 9 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">البحث VLOOKUP</h2>
+  <div class="goal"><strong>الهدف:</strong> تجيب معلومة (مبلغ تبرّع) برقمه تلقائياً، وتفهم وسيطاته الأربع.</div>
+  <p><span class="f" dir="ltr">VLOOKUP</span> يبحث عن قيمة في أول عمود من النطاق، ويرجّع لك قيمة من عمود ثانٍ في نفس الصف. سنعمل «بطاقة بحث» صغيرة.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>في الخلية <span class="f" dir="ltr">G16</span> اكتب رقم التبرّع المطلوب: <span class="f" dir="ltr">3</span>.</li>
+    <li>انقر على الخلية <span class="f" dir="ltr">H16</span> واضغط زرّ <span class="f" dir="ltr">fx</span> واختر <span class="f" dir="ltr">VLOOKUP</span>.</li>
+    <li>عبّئ الوسيطات الأربع (موضّحة بالأسفل) ثم اضغط «موافق» — تظهر <strong>2000</strong> (مبلغ تبرّع فهد ناصر رقم 3).</li>
+    <li>غيّر الرقم في <span class="f" dir="ltr">G16</span> لأي تبرّع، تتغيّر النتيجة في <span class="f" dir="ltr">H16</span> فوراً.</li>
+  </ol>
+  <div class="fxdlg">
+    <div class="fxdlg-h"><span class="ic">fx</span> وسيطات الدالة — VLOOKUP (في الخلية H16)</div>
+    <div class="fxdlg-b">
+      <div class="fxrow"><span class="fxa">Lookup_value</span><span class="fxv">G16</span><span class="fxd">القيمة التي نبحث عنها (الرقم في G16).</span></div>
+      <div class="fxrow"><span class="fxa">Table_array</span><span class="fxv">A2:E7</span><span class="fxd">جدول البحث كاملاً.</span></div>
+      <div class="fxrow"><span class="fxa">Col_index_num</span><span class="fxv">5</span><span class="fxd">رقم العمود المُرجَع (المبلغ هو الخامس).</span></div>
+      <div class="fxrow"><span class="fxa">Range_lookup</span><span class="fxv">FALSE</span><span class="fxd">مطابقة تامة (اكتب FALSE دائماً).</span></div>
+    </div>
+    <div class="fxres"><span class="f" dir="ltr">=VLOOKUP(G16,A2:E7,5,FALSE)</span> = <strong>2000</strong></div>
+  </div>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">H16</div><div class="xl-fx">fx</div><div class="xl-formula">=VLOOKUP(G16,A2:E7,5,FALSE)</div></div>
+    <table><thead><tr><th class="corner"></th><th>A</th><th>B</th><th class="on">E</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td>رقم</td><td>المتبرّع</td><td class="on">المبلغ</td></tr>
+      <tr><td class="rh">3</td><td class="n">2</td><td>منيرة سالم</td><td class="n">800</td></tr>
+      <tr><td class="rh rng">4</td><td class="n rng">3</td><td class="rng">فهد ناصر</td><td class="n rng sel">2000</td></tr>
+      <tr><td class="rh">5</td><td class="n">4</td><td>سارة محمد</td><td class="n">500</td></tr>
+    </tbody></table>
+  </div><figcaption>VLOOKUP بحث عن الرقم 3 في العمود الأول، فوجد صفّه وأرجع مبلغه 2000.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> عمود البحث (أرقام التبرّعات) لازم يكون أول عمود في النطاق <span class="f" dir="ltr">A2:E7</span>. وعدّ الأعمدة يبدأ من 1 عند أول عمود في النطاق.</div>
+</section>
+
+<!-- المحطة 10 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">تثبيت الخلية ($)</h2>
+  <div class="goal"><strong>الهدف:</strong> تثبّت خلية الإجمالي حتى لا تنكسر معادلتك عند السحب.</div>
+  <p>لمّا تسحب معادلة تتغيّر مراجعها صفّاً صفّاً (مفيد). لكن لو تبي خلية تبقى ثابتة (مثل خلية الإجمالي)، ضع علامة الدولار <span class="f" dir="ltr">$</span> قبل العمود وقبل الصف: <span class="f" dir="ltr">$E$9</span>. سنضيف عمود «النسبة» = مبلغ كل تبرّع ÷ الإجمالي.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>تأكّد أن الإجمالي موجود في الخلية <span class="f" dir="ltr">E9</span> (حسبناه في المحطة 6 = 9000).</li>
+    <li>في الخلية <span class="f" dir="ltr">H1</span> اكتب عنوان العمود: <strong>النسبة</strong>.</li>
+    <li>انقر على الخلية <span class="f" dir="ltr">H2</span> واكتب <span class="f" dir="ltr">=E2/E9</span>، وقبل أن تضغط Enter، انقر على <span class="f" dir="ltr">E9</span> داخل المعادلة واضغط مفتاح <span class="f" dir="ltr">F4</span> ليتحوّل إلى <span class="f" dir="ltr">$E$9</span>.</li>
+    <li>اضغط <span class="f" dir="ltr">Enter</span> ← تظهر <strong>16.7%</strong> (نسّقها كنسبة مئوية من زر <span class="f" dir="ltr">%</span> في الشريط).</li>
+    <li>حدّد <span class="f" dir="ltr">H2</span> واسحب لأسفل حتى <span class="f" dir="ltr">H7</span> — لاحظ أن <span class="f" dir="ltr">E2</span> تتغيّر (E3، E4…) بينما <span class="f" dir="ltr">$E$9</span> يبقى ثابتاً.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">H2</div><div class="xl-fx">fx</div><div class="xl-formula">=E2/$E$9</div></div>
+    <table><thead><tr><th class="corner"></th><th>B</th><th>E</th><th class="on">H</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">2</td><td>عبدالله أحمد</td><td class="n">1500</td><td class="n sel">16.7%</td></tr>
+      <tr><td class="rh">3</td><td>منيرة سالم</td><td class="n">800</td><td class="n">8.9%</td></tr>
+      <tr><td class="rh">4</td><td>فهد ناصر</td><td class="n">2000</td><td class="n">22.2%</td></tr>
+      <tr><td class="rh">7</td><td>نورة عبدالعزيز</td><td class="n">3000</td><td class="n">33.3%</td></tr>
+      <tr><td class="rh muted">9</td><td class="muted" style="text-align:left">الإجمالي المثبّت ←</td><td class="n rng">9000</td></tr>
+    </tbody></table>
+  </div><figcaption>عمود النسبة في H2:H7: كل مبلغ ÷ الإجمالي المثبّت $E$9، فبقيت النتائج صحيحة عند السحب.</figcaption></figure>
+  <div class="warn"><strong>⚠️ تنبيه:</strong> لو ما ثبّتنا الإجمالي، عند السحب يصير المقام <span class="f" dir="ltr">E10</span> ثم <span class="f" dir="ltr">E11</span> (خلايا فارغة) وتنكسر النتيجة. علامة <span class="f" dir="ltr">$</span> تعني «اقفل»، ومفتاح <span class="f" dir="ltr">F4</span> يضيفها بسرعة.</div>
+</section>
+
+<!-- المحطة 11 -->
+<section class="lesson">
+  <div class="lesson-num">محطة</div>
+  <h2 class="lesson-title">التحويل لجدول (Format as Table)</h2>
+  <div class="goal"><strong>الهدف:</strong> تحوّل بياناتك من نطاق عادي إلى «جدول» منسّق ذكي.</div>
+  <p>التحويل لجدول يعطيك تنسيقاً تلقائياً + أزرار فرز وتصفية + صف إجماليات، ويتمدّد وحده لما تضيف صفوفاً جديدة.</p>
+  <h3>الخطوات</h3>
+  <ol class="steps">
+    <li>انقر على أي خلية داخل بياناتك (مثلاً <span class="f" dir="ltr">B3</span>).</li>
+    <li>اضغط <span class="f" dir="ltr">Ctrl + T</span> (أو من تبويب «إدراج» ← «جدول»).</li>
+    <li>تأكّد أن النطاق <span class="f" dir="ltr">A1:E7</span> صحيح ومن علامة «جدولي يحتوي عناوين»، ثم اضغط موافق — صار جدولاً ملوّناً فيه أزرار تصفية <span class="f" dir="ltr">▾</span>.</li>
+    <li>من تبويب «تصميم الجدول» فعّل «صف الإجماليات» (Total Row) — يظهر صف يجمع المبلغ تلقائياً = <strong>9000</strong>.</li>
+    <li>أي صف جديد تكتبه تحت الجدول ينضمّ تلقائياً ويأخذ نفس التنسيق والمعادلات.</li>
+  </ol>
+  <figure class="xlfig"><div class="xl">
+    <div class="xl-bar"><div class="xl-name">جدول1</div><div class="xl-fx">fx</div><div class="xl-formula"></div></div>
+    <table><thead><tr><th class="corner"></th><th class="on">المتبرّع ▾</th><th class="on">المدينة ▾</th><th class="on">المبلغ ▾</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">2</td><td>عبدالله أحمد</td><td>الرياض</td><td class="n">1500</td></tr>
+      <tr><td class="rh">3</td><td>منيرة سالم</td><td>جدة</td><td class="n">800</td></tr>
+      <tr><td class="rh">4</td><td>فهد ناصر</td><td>الرياض</td><td class="n">2000</td></tr>
+      <tr><td class="rh muted">8</td><td class="muted">الإجمالي</td><td class="muted"></td><td class="n sel">9000</td></tr>
+    </tbody></table>
+  </div><figcaption>بعد Ctrl+T: جدول أنيق فيه أزرار تصفية وصف إجماليات تلقائي.</figcaption></figure>
+  <div class="tip"><strong>نصيحة:</strong> الجدول المنسّق يخلّي معادلاتك تتمدّد وحدها لما تكبر البيانات، ويسهّل الفرز والتصفية بضغطة على السهم <span class="f" dir="ltr">▾</span>.</div>
+</section>
+
+<!-- النهاية -->
+<section class="finalblock">
+  <div class="finalbanner">
+    <div class="fb-em">🎉</div>
+    <h2>مبروك! وصلت للورقة الاحترافية</h2>
+    <p>بدأت من جدول بسيط، وطبّقت ١١ محطة بنفسك خطوة بخطوة، وطلعت بورقة منظّمة فيها حسابات ذكية — وانت بدأت من الصفر.</p>
+  </div>
+  <div class="lesson" style="border-radius:0 0 14px 14px;margin-top:-2px">
+    <h3 style="margin-top:4px">📊 ورقتك النهائية — سجل تبرّعات الجمعية</h3>
+    <figure class="xlfig" style="margin-top:6px"><div class="xl" style="display:block">
+      <div class="xl-bar"><div class="xl-name">A1</div><div class="xl-fx">fx</div><div class="xl-formula">جدول التبرّعات</div></div>
+      <table>
+        <thead><tr><th>المتبرّع</th><th>المدينة</th><th>الحملة</th><th>المبلغ</th><th>الوجبات</th><th>النوع</th><th>النسبة</th></tr></thead>
+        <tbody>
+          <tr><td>عبدالله أحمد</td><td>الرياض</td><td>كسوة الشتاء</td><td class="n">1500</td><td class="n">60</td><td class="silver">فضي</td><td class="n">16.7%</td></tr>
+          <tr><td>منيرة سالم</td><td>جدة</td><td>سلة غذائية</td><td class="n">800</td><td class="n">32</td><td class="bronze">برونزي</td><td class="n">8.9%</td></tr>
+          <tr><td>فهد ناصر</td><td>الرياض</td><td>إفطار صائم</td><td class="n">2000</td><td class="n">80</td><td class="gold">ذهبي</td><td class="n">22.2%</td></tr>
+          <tr><td>سارة محمد</td><td>الدمام</td><td>كسوة الشتاء</td><td class="n">500</td><td class="n">20</td><td class="bronze">برونزي</td><td class="n">5.6%</td></tr>
+          <tr><td>خالد علي</td><td>جدة</td><td>سلة غذائية</td><td class="n">1200</td><td class="n">48</td><td class="silver">فضي</td><td class="n">13.3%</td></tr>
+          <tr><td>نورة عبدالعزيز</td><td>الرياض</td><td>إفطار صائم</td><td class="n">3000</td><td class="n">120</td><td class="gold">ذهبي</td><td class="n">33.3%</td></tr>
+          <tr><td class="muted">الإجمالي</td><td class="muted"></td><td class="muted"></td><td class="n sel">9000</td><td class="n">360</td><td class="muted"></td><td class="n">100%</td></tr>
+        </tbody>
+      </table>
+    </div></figure>
+    <div class="finalstats">
+      <div class="fs"><b>9000</b><span>إجمالي التبرّعات</span></div>
+      <div class="fs"><b>1500</b><span>متوسط التبرّع</span></div>
+      <div class="fs"><b>6</b><span>عدد المتبرّعين</span></div>
+      <div class="fs"><b>360</b><span>وجبة وُفّرت</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- مرجع: الاختصارات -->
+<section class="refcard">
+  <h3>⌨️ أهم الاختصارات التي استخدمناها</h3>
+  <p>احفظ هذي العشرة وبتشتغل أسرع بكثير:</p>
+  <table class="data">
+    <thead><tr><th>الاختصار</th><th>يسوّي إيش</th></tr></thead>
+    <tbody>
+      <tr><td><span class="f" dir="ltr">fx</span></td><td>يفتح نافذة «وسيطات الدالة» (أسهل طريقة لإدخال أي دالة)</td></tr>
+      <tr><td><span class="f" dir="ltr">Enter</span></td><td>يؤكّد ما كتبته ويُنزل للخلية التالية</td></tr>
+      <tr><td><span class="f" dir="ltr">F2</span></td><td>يعدّل محتوى الخلية المحدّدة</td></tr>
+      <tr><td><span class="f" dir="ltr">F4</span></td><td>يثبّت الخلية بعلامة الدولار <span class="f" dir="ltr">$A$1</span></td></tr>
+      <tr><td><span class="f" dir="ltr">Ctrl + T</span></td><td>يحوّل النطاق إلى جدول منسّق</td></tr>
+      <tr><td><span class="f" dir="ltr">Ctrl + C / V</span></td><td>نسخ / لصق</td></tr>
+      <tr><td><span class="f" dir="ltr">Ctrl + Z</span></td><td>تراجع عن آخر خطوة</td></tr>
+      <tr><td><span class="f" dir="ltr">Ctrl + S</span></td><td>حفظ الملف</td></tr>
+      <tr><td>مقبض التعبئة (السحب)</td><td>يكمّل السلسلة وينسخ المعادلة لكل الصفوف</td></tr>
+      <tr><td><span class="f" dir="ltr">Ctrl + Shift + End</span></td><td>يحدّد كل البيانات دفعة واحدة</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- مرجع: كل الدوال -->
+<section class="refcard">
+  <h3>📚 كل الدوال التي تعلّمناها</h3>
+  <p>مرجعك السريع — اسم الدالة، ماذا تفعل، وصيغتها بوسيطاتها:</p>
+  <table class="data">
+    <thead><tr><th>الدالة</th><th>تفعل ماذا</th><th>الصيغة (وسيطاتها)</th></tr></thead>
+    <tbody>
+      <tr><td colspan="3" style="background:#eef2f1;color:#5f6f6d;font-weight:700;text-align:right">دوال الحساب</td></tr>
+      <tr><td>المجموع (SUM)</td><td>تجمع الأرقام</td><td><span class="f" dir="ltr">=SUM(نطاق)</span></td></tr>
+      <tr><td>المتوسط (AVERAGE)</td><td>المعدّل</td><td><span class="f" dir="ltr">=AVERAGE(نطاق)</span></td></tr>
+      <tr><td>العدد (COUNT)</td><td>تعدّ الأرقام</td><td><span class="f" dir="ltr">=COUNT(نطاق)</span></td></tr>
+      <tr><td>الأعلى/الأقل (MAX/MIN)</td><td>أكبر/أصغر قيمة</td><td><span class="f" dir="ltr">=MAX(نطاق)</span></td></tr>
+      <tr><td colspan="3" style="background:#eef2f1;color:#5f6f6d;font-weight:700;text-align:right">دوال الشرط</td></tr>
+      <tr><td>الشرط (IF)</td><td>تختار حسب شرط واحد</td><td><span class="f" dir="ltr">=IF(الشرط, لو صح, لو خطأ)</span></td></tr>
+      <tr><td>عدة شروط (IFS)</td><td>تصنّف لعدة فئات</td><td><span class="f" dir="ltr">=IFS(شرط1, قيمة1, … , TRUE, الباقي)</span></td></tr>
+      <tr><td colspan="3" style="background:#eef2f1;color:#5f6f6d;font-weight:700;text-align:right">الجمع والعدّ بشرط</td></tr>
+      <tr><td>الجمع بشرط (SUMIF)</td><td>يجمع ما يحقّق شرطاً</td><td><span class="f" dir="ltr">=SUMIF(نطاق الشرط, الشرط, نطاق الجمع)</span></td></tr>
+      <tr><td>الجمع بعدة شروط (SUMIFS)</td><td>يجمع بشرطين أو أكثر</td><td><span class="f" dir="ltr">=SUMIFS(نطاق الجمع, نطاق شرط1, شرط1, …)</span></td></tr>
+      <tr><td>العدّ بشرط (COUNTIF)</td><td>يعدّ ما يحقّق شرطاً</td><td><span class="f" dir="ltr">=COUNTIF(النطاق, الشرط)</span></td></tr>
+      <tr><td>العدّ بعدة شروط (COUNTIFS)</td><td>يعدّ بشرطين أو أكثر</td><td><span class="f" dir="ltr">=COUNTIFS(نطاق شرط1, شرط1, …)</span></td></tr>
+      <tr><td colspan="3" style="background:#eef2f1;color:#5f6f6d;font-weight:700;text-align:right">دوال البحث</td></tr>
+      <tr><td>البحث الرأسي (VLOOKUP)</td><td>يبحث ويرجّع قيمة</td><td><span class="f" dir="ltr">=VLOOKUP(القيمة, الجدول, رقم العمود, FALSE)</span></td></tr>
+    </tbody>
+  </table>
+  <div class="warn" style="margin-top:14px"><strong>⚠️ تذكير الفاصلة:</strong> الفصل بين الوسيطات قد يكون فاصلة <span class="f" dir="ltr">,</span> أو فاصلة منقوطة <span class="f" dir="ltr">;</span> حسب إعدادات جهازك. لو أعطتك إحداهما خطأ، جرّب الثانية — أو استخدم زرّ <span class="f" dir="ltr">fx</span> ويريحك تماماً.</div>
+</section>
+  </main><!-- /content -->
+</div><!-- /shell -->
+
+<footer class="site-footer">
+  رحلة <b>Excel</b> العملية · من إعداد <b>المهندس محمد</b><br>
+  ١١ محطة على جدول واحد لجمعية خيرية — من الصفر إلى ورقة احترافية
+</footer>
+
+<script>
+(function(){
+  var content = document.getElementById('content');
+  var toc = document.getElementById('toc');
+  var ord = ['الأولى','الثانية','الثالثة','الرابعة','الخامسة','السادسة','السابعة','الثامنة','التاسعة','العاشرة','الحادية عشرة','الثانية عشرة','الثالثة عشرة','الرابعة عشرة','الخامسة عشرة','السادسة عشرة'];
+
+  // 1) اجمع الوحدات من تسلسل العناوين والدروس
+  var nodes = Array.prototype.slice.call(content.children);
+  var groups = [], cur = null;
+  nodes.forEach(function(n){
+    if(n.classList && n.classList.contains('hero')) return;
+    if(n.tagName === 'H1' && n.classList.contains('unit-title')){
+      cur = { title:n, items:[] }; groups.push(cur);
+    } else if(cur){ cur.items.push(n); }
+  });
+
+  // 2) ابنِ الأقسام والترقيم والفهرس
+  var unitN = 0, lessonN = 0, extraN = 0;
+  groups.forEach(function(g){
+    var noindex = g.title.hasAttribute('data-noindex');
+    var rawName = g.title.textContent.replace(/^\s*الوحدة[^:：]*[:：]\s*/, '').trim();
+    var uid, label;
+    if(noindex){ uid = 'unit-extra'; label = rawName; }
+    else { unitN++; uid = 'unit-'+unitN; label = rawName; }
+
+    var section = document.createElement('section');
+    section.className = 'unit'; section.id = uid;
+    var header = document.createElement('button');
+    header.className = 'unit-header'; header.type = 'button';
+    header.innerHTML = '<span class="u-chevron">▾</span><span class="u-label"></span><span class="u-count"></span>';
+    header.querySelector('.u-label').textContent = label;
+    var body = document.createElement('div'); body.className = 'unit-body';
+    g.items.forEach(function(it){ body.appendChild(it); });
+    section.appendChild(header); section.appendChild(body);
+    content.appendChild(section);
+    g.title.remove();
+
+    var lessons = body.querySelectorAll('.lesson');
+    header.querySelector('.u-count').textContent = lessons.length + ' محطة';
+
+    // فهرس الوحدة
+    var tUnit = document.createElement('div'); tUnit.className = 'toc-unit';
+    var tLink = document.createElement('a'); tLink.className = 'toc-unit-link'; tLink.href = '#'+uid; tLink.textContent = label;
+    var tList = document.createElement('div'); tList.className = 'toc-lessons';
+    tUnit.appendChild(tLink); tUnit.appendChild(tList); toc.appendChild(tUnit);
+
+    lessons.forEach(function(les){
+      var pill = les.querySelector('.lesson-num');
+      var titleEl = les.querySelector('.lesson-title');
+      var lid;
+      if(noindex){ extraN++; lid = 'app-'+extraN; les.classList.add('lesson--appendix'); }
+      else { lessonN++; lid = 'lesson-'+lessonN; if(pill) pill.textContent = 'المحطة '+lessonN; }
+      les.id = lid;
+      if(titleEl){
+        var ll = document.createElement('a'); ll.className = 'toc-lesson-link'; ll.href = '#'+lid;
+        ll.textContent = titleEl.textContent; ll.dataset.target = lid;
+        tList.appendChild(ll);
+      }
+    });
+  });
+
+  // عدّادات الواجهة
+  var su = document.getElementById('st-units'), sl = document.getElementById('st-lessons');
+  if(su) su.textContent = unitN; if(sl) sl.textContent = lessonN;
+
+  // 3) طي/فتح الوحدة
+  content.addEventListener('click', function(e){
+    var h = e.target.closest('.unit-header'); if(!h) return;
+    h.parentElement.classList.toggle('collapsed');
+  });
+
+  // اطوِ الكل / افتح الكل
+  var fold = document.getElementById('foldAll'); var allCollapsed = false;
+  if(fold) fold.addEventListener('click', function(){
+    allCollapsed = !allCollapsed;
+    document.querySelectorAll('.unit').forEach(function(u){ u.classList.toggle('collapsed', allCollapsed); });
+    fold.textContent = allCollapsed ? 'افتح الكل' : 'اطوِ الكل';
+  });
+
+  // 4) إغلاق درج الجوال عند اختيار رابط
+  toc.addEventListener('click', function(e){
+    if(e.target.closest('a')) document.body.classList.remove('nav-open');
+  });
+
+  // 5) البحث
+  var search = document.getElementById('search');
+  if(search) search.addEventListener('input', function(){
+    var q = search.value.trim().toLowerCase();
+    document.querySelectorAll('.unit').forEach(function(u){
+      var anyVisible = false;
+      u.querySelectorAll('.lesson').forEach(function(les){
+        var match = !q || les.textContent.toLowerCase().indexOf(q) > -1;
+        les.style.display = match ? '' : 'none';
+        if(match) anyVisible = true;
+      });
+      u.style.display = anyVisible ? '' : 'none';
+      if(q) u.classList.remove('collapsed');
+    });
+  });
+
+  // 6) إبراز الدرس النشط في الفهرس
+  var links = {}; document.querySelectorAll('.toc-lesson-link').forEach(function(a){ links[a.dataset.target] = a; });
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var a = links[en.target.id]; if(!a) return;
+          document.querySelectorAll('.toc-lesson-link.active').forEach(function(x){ x.classList.remove('active'); });
+          a.classList.add('active');
+          a.scrollIntoView({block:'nearest'});
+        }
+      });
+    }, { rootMargin:'-90px 0px -70% 0px', threshold:0 });
+    document.querySelectorAll('.lesson').forEach(function(l){ obs.observe(l); });
+  }
+})();
+</script>
+</body>
+</html>
