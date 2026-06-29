@@ -1,0 +1,726 @@
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حقيبة لوحات المبيعات — الأسبوع الثاني · المهندس محمد</title>
+<style>
+:root{--g:#0f766e;--gd:#0b5751;--g2:#1aa05a;--line:#e2eae8;--muted:#64746f;--ink:#16322f;--bg:#eef3f2}
+*{box-sizing:border-box}
+body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;background:var(--bg);color:var(--ink);margin:0;line-height:1.75}
+/* الشريط العلوي + الهيكل + القائمة */
+.topbar{position:sticky;top:0;z-index:50;height:58px;background:linear-gradient(110deg,#0f766e,#0b5751);color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+.topbar .brand .x{font-family:Consolas,monospace;background:#fff;color:#0b5751;border-radius:7px;padding:2px 9px}
+.topbar .brand small{font-weight:500;opacity:.85;font-size:12px;display:block}
+.topbar .spacer{flex:1}
+.topbar .search{position:relative}
+.topbar .search input{width:210px;max-width:42vw;border:none;border-radius:999px;padding:8px 14px 8px 34px;font-family:inherit;font-size:13.5px;background:rgba(255,255,255,.16);color:#fff;outline:none}
+.topbar .search input::placeholder{color:rgba(255,255,255,.75)}
+.topbar .search::after{content:"🔍";position:absolute;left:11px;top:7px;font-size:13px;opacity:.85}
+.topbar .hamb{display:none;font-size:22px;background:none;border:none;color:#fff;cursor:pointer;padding:4px 8px}
+.shell{display:flex;gap:24px;max-width:1180px;margin:0 auto;padding:22px 18px 60px;align-items:flex-start}
+.sidebar{width:280px;flex:none;position:sticky;top:76px;max-height:calc(100vh - 96px);overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.toc-h{font-weight:800;color:var(--gd);font-size:14px;padding:4px 8px 10px;border-bottom:2px solid #d7ece8;margin-bottom:8px}
+.toc-grp{margin-bottom:11px;border-radius:13px;padding:5px;border:1px solid #e4eae8;background:#fbfdfc}
+.toc-grp:nth-of-type(1){background:linear-gradient(180deg,#edf8f4,#fbfefd);border-color:#d2ece5}
+.toc-grp:nth-of-type(2){background:linear-gradient(180deg,#fff6e8,#fffdf7);border-color:#efe1bf}
+.toc-grp.opt{background:#f6f7f9;border-color:#dde1e6}
+.toc-grp>.gh{display:flex;gap:8px;align-items:center;width:100%;background:none;border:none;text-align:right;font-family:inherit;cursor:pointer;font-weight:800;color:var(--ink);padding:7px 8px;border-radius:9px;font-size:13.5px}
+.toc-grp>.gh .gnum{flex:none;width:24px;height:24px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-shadow:0 2px 5px rgba(15,118,110,.25)}
+.toc-grp:nth-of-type(2)>.gh .gnum{background:#d99700;box-shadow:0 2px 5px rgba(217,151,0,.25)}
+.toc-grp.opt>.gh .gnum{background:#8a93a0;box-shadow:none}
+.toc-grp>.gh .gl{flex:1;min-width:0;line-height:1.4}
+.toc-grp>.gh:hover{background:rgba(255,255,255,.6)}
+.toc-grp>.gh .cnt{flex:none;color:#9aa7a6;font-weight:600;font-size:11px}
+.toc-grp>.gh .cv{flex:none;color:#9aa7a6;font-size:11px;transition:transform .2s}
+.toc-grp.collapsed>.gh .cv{transform:rotate(-90deg)}
+.toc-les{display:flex;flex-direction:column;margin:2px 6px 4px;border-inline-start:2px solid #d2ece5;padding-inline-start:6px}
+.toc-grp:nth-of-type(2) .toc-les{border-inline-start-color:#efe1bf}
+.toc-grp.opt .toc-les{border-inline-start-color:#dde1e6}
+.toc-grp.collapsed .toc-les{display:none}
+.toc-les a{text-decoration:none;color:var(--muted);font-size:12.8px;padding:5px 10px;border-radius:6px}
+.toc-les a:hover{color:var(--gd);background:#f3faf9}
+.toc-les a.active{color:var(--gd);background:#e6f3f1;font-weight:700}
+.content{flex:1;min-width:0;max-width:820px}
+.nav-overlay{display:none}
+@media(max-width:900px){
+ .topbar .hamb{display:block}.topbar .spacer{display:none}
+ .topbar .brand{flex:1 1 auto;min-width:0;font-size:14px;gap:7px}
+ .topbar .brand>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .topbar .brand small{display:none}
+ .topbar .search input{width:118px;max-width:34vw}
+ .shell{padding:16px 12px 50px}
+ .sidebar{position:fixed;top:58px;right:0;bottom:0;width:284px;max-width:84vw;z-index:60;border-radius:0;display:none;max-height:none}
+ body.nav-open .sidebar{display:block}
+ body.nav-open .nav-overlay{display:block;position:fixed;inset:58px 0 0 0;background:rgba(0,0,0,.4);z-index:55}
+ .content{max-width:100%}
+}
+/* الواجهة */
+.hero{background:linear-gradient(135deg,#0f766e,#0b5751);color:#fff;border-radius:22px;padding:30px 24px;text-align:center;box-shadow:0 14px 40px rgba(15,118,110,.25)}
+.hero .x{background:#fff;color:#0f766e;border-radius:8px;padding:0 8px}
+.hero h1{font-size:27px;margin:6px 0 8px;font-weight:800}
+.hero .sub{opacity:.92;font-size:15px;max-width:540px;margin:0 auto}
+.hero .by{display:inline-block;margin-top:12px;background:rgba(255,255,255,.15);padding:5px 16px;border-radius:20px;font-size:13px;font-weight:600}
+.dls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.dl{display:inline-flex;gap:8px;align-items:center;background:#fff;color:#0b5751;text-decoration:none;padding:11px 18px;border-radius:12px;font-weight:800;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.dl.alt{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4)}
+/* خريطة الرحلة */
+.jmap{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin:18px 0;box-shadow:0 6px 22px rgba(15,118,110,.06)}
+.jmap h3{margin:0 0 14px;text-align:center;color:var(--gd);font-size:16px}
+.jstage{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.jstage .bub{flex:none;width:34px;height:34px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.jstage .tx b{color:var(--gd)}
+.jstage .tx span{color:var(--muted);font-size:13.5px}
+/* عنوان المرحلة */
+.stage{background:linear-gradient(135deg,#0f766e,#0b5751);color:#fff;border-radius:16px;padding:16px 22px;margin:26px 0 14px;display:flex;align-items:center;gap:14px}
+.stage .no{font-size:30px;font-weight:800;opacity:.5}
+.stage b{font-size:19px;display:block}
+.stage span{opacity:.9;font-size:13px}
+/* المحطة */
+.lesson{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.num{display:inline-block;background:#0f766e;color:#fff;font-size:12px;font-weight:800;padding:4px 14px;border-radius:20px}
+.lt{font-size:20px;font-weight:800;color:var(--gd);margin:10px 0 6px}
+.goal{color:var(--muted);font-size:15px;margin-bottom:14px}
+ol.steps{padding:0;list-style:none;counter-reset:s;margin:14px 0 0}
+ol.steps li{counter-increment:s;position:relative;padding:9px 46px 9px 12px;margin-bottom:7px;background:#f7faf9;border-radius:10px;font-size:14.5px}
+ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;width:26px;height:26px;background:#0f766e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.f{font-family:"SF Mono",Consolas,monospace;background:#eaf3f1;color:#0b5751;padding:1px 7px;border-radius:5px;font-weight:700;direction:ltr;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word;vertical-align:middle}
+.apply{background:#fff8e6;border-radius:10px;padding:9px 14px;margin-top:12px;font-size:14px;color:#6b5300}
+.apply b{color:#7a5b00}
+.mac{font-size:13px;color:#8a8a8a;font-style:italic;margin-top:8px}
+.exp{color:#3a4a48;font-size:14.5px;margin:0 0 12px;line-height:1.75}
+.see{background:#eef9f4;border-inline-start:3px solid #1aa05a;border-radius:8px;padding:9px 13px;margin-top:12px;font-size:13.5px;color:#1b5e3a}
+.see b{color:#14502f}
+.warn{background:#fff4ed;border-inline-start:3px solid #e07a3a;border-radius:8px;padding:9px 13px;margin-top:10px;font-size:13.5px;color:#7a4520}
+.warn b{color:#8a3a10}
+.why{background:#f3f0fb;border-inline-start:3px solid #7c5cd6;border-radius:8px;padding:9px 13px;margin-top:10px;font-size:13.5px;color:#4a3a7a}
+.why b{color:#3a2a6a}
+.intro{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.intro h2{color:var(--gd);font-size:18px;margin:0 0 10px}
+.chk{list-style:none;padding:0;margin:8px 0 0}
+.chk li{position:relative;padding:7px 30px 7px 0;font-size:14.5px}
+.chk li::before{content:"✓";position:absolute;right:0;top:7px;color:#1aa05a;font-weight:900}
+/* شريط ويندوز */
+.ribbon{border:1px solid #d4dad8;border-radius:9px;overflow:hidden;margin:12px 0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.ribbon .tabs{display:flex;background:#f3f2f1;border-bottom:1px solid #e1dfdd;font-size:12.5px;overflow-x:auto}
+.ribbon .tabs span{padding:8px 13px;color:#555;white-space:nowrap}
+.ribbon .tabs span.on{background:#fff;color:#0f766e;font-weight:800;box-shadow:inset 0 -2px 0 #0f766e}
+.ribbon .rb{display:flex;align-items:stretch;gap:6px;padding:8px 12px;flex-wrap:wrap}
+.ribbon .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 10px;border-radius:7px;color:#3a4a48;min-width:58px;font-size:11.5px;text-align:center}
+.ribbon .btn .ic{font-size:21px;line-height:1}
+.ribbon .btn.on{background:#e6f3f1;outline:2px solid #0f766e;color:#0b5751;font-weight:800}
+/* شبكة إكسل مصغّرة */
+.grid{border:1px solid #cfd8d6;border-radius:7px;overflow:hidden;font-size:13px;direction:rtl;display:inline-block;min-width:260px;margin:4px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.grid table{border-collapse:collapse;width:100%}
+.grid th,.grid td{border:1px solid #e4eae8;padding:5px 11px;text-align:center;white-space:nowrap}
+.grid thead th{background:#f3f6f5;color:#6a7775;font-weight:700;font-size:11px}
+.grid .rh{background:#f3f6f5;color:#8a9795;font-size:11px}
+.grid .hd{background:#0f766e;color:#fff;font-weight:700}
+.grid .sel{outline:2px solid #0f766e;outline-offset:-2px;font-weight:800;background:#f0faf8}
+.grid .n{font-family:Consolas,monospace}
+.grid .muted{color:#aab4b2}
+.gwrap{text-align:center;overflow-x:auto}
+/* بطاقات نتيجة */
+.mini{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.mini .c{background:linear-gradient(180deg,#fff,#f2faf8);border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-align:center;min-width:104px}
+.mini .c b{display:block;font-size:21px;color:var(--gd);font-family:Consolas,monospace}
+.mini .c span{font-size:12px;color:var(--muted)}
+/* نافذة حوار */
+.dlg{max-width:430px;margin:12px auto;border:1px solid #b3bdbb;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.2);background:#f1f4f3}
+.dlg .bar{background:linear-gradient(#fbfdfc,#e6ecea);border-bottom:1px solid #c8d1cf;padding:8px 13px;font-weight:800;font-size:13px;color:#2a3b39}
+.dlg .body{padding:13px 15px;font-size:13px}
+.dlg .arg{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.dlg .arg label{direction:ltr;font-family:Consolas,monospace;color:#1b5e20;min-width:84px;font-weight:700;text-align:left;font-size:12px}
+.dlg .arg .inp{flex:1;background:#fff;border:1px solid #9fb3b0;border-radius:4px;padding:6px 9px;direction:ltr;font-family:Consolas,monospace;min-height:30px}
+.dlg .res{border-top:1px solid #dde4e2;padding-top:8px;margin-top:4px;color:#0b5751;font-weight:800;direction:ltr;text-align:left}
+.dlg .ok{display:block;margin:11px 0 0 auto;background:#217346;color:#fff;border:none;border-radius:5px;padding:7px 24px;font-weight:800}
+.dlg .opt{padding:6px 10px;border-bottom:1px solid #eee;cursor:default}
+.dlg .opt.on{background:#0f766e;color:#fff}
+/* جدول محوري — نتيجة */
+.pvt{border:1px solid #cdd9d8;border-radius:8px;overflow:hidden;display:inline-block;font-size:13.5px;box-shadow:0 3px 12px rgba(0,0,0,.07);margin:6px 0}
+.pvt table{border-collapse:collapse}
+.pvt th,.pvt td{border:1px solid #e4eae8;padding:7px 16px}
+.pvt thead th{background:#0f766e;color:#fff;font-weight:800;font-size:12.5px}
+.pvt td.n{font-family:Consolas,monospace;text-align:center}
+.pvt .g{background:#eef6f4;font-weight:800}
+.pvt .sel{background:#fff7e0}
+/* لوحة حقول PivotTable */
+.pvf{max-width:330px;margin:6px auto;border:1px solid #c4cecc;border-radius:10px;background:#fafbfb;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.1);font-size:13.5px}
+.pvf .h{background:#f0f3f2;border-bottom:1px solid #d6dedc;padding:9px 13px;font-weight:800;color:#0b3d3a}
+.pvf .list{padding:9px 13px;border-bottom:1px solid #e6ebea}
+.pvf .list .row{display:flex;align-items:center;gap:8px;padding:3px 0;color:#37474f}
+.pvf .list .row .b{width:15px;height:15px;border:1.5px solid #8aa3a0;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#0f766e;font-weight:900}
+.pvf .list .row.on .b{background:#0f766e;border-color:#0f766e;color:#fff}
+.pvf .zones{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:11px 13px;background:#eef3f2}
+.pvf .z{background:#fff;border:1px dashed #b9c6c4;border-radius:7px;padding:7px 8px;min-height:62px;position:relative}
+.pvf .z .zt{font-size:11px;color:#7a8785;font-weight:800;margin-bottom:6px}
+.pvf .chip{display:inline-block;background:#217346;color:#fff;border-radius:5px;padding:4px 10px;font-size:12.5px;font-weight:700}
+.mk{position:absolute;left:-9px;top:-9px;width:22px;height:22px;background:#e0a800;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.mklist{list-style:none;padding:0;margin:12px auto 0;max-width:440px}
+.mklist li{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin-bottom:6px;color:#37474f}
+.mklist .n{flex:none;width:22px;height:22px;background:#e0a800;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+/* مقسّم */
+.slc{display:inline-block;border:1px solid #c4cecc;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.08);overflow:hidden;min-width:172px;vertical-align:top;margin:8px}
+.slc .sh{background:#0f766e;color:#fff;padding:9px 14px;font-weight:800;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+.slc .sh i{font-style:normal;opacity:.7}
+.slc .sb{padding:10px;display:flex;flex-direction:column;gap:7px}
+.slc .sb span{padding:9px 12px;border:1px solid #dbe5e3;border-radius:7px;text-align:center;font-weight:700;color:#37474f;font-size:13.5px}
+.slc .sb span.on{background:#0f766e;color:#fff;border-color:#0f766e;box-shadow:0 2px 7px rgba(15,118,110,.3)}
+/* مخطط زمني */
+.tl{border:1px solid #cdd9d8;border-radius:9px;background:#fff;padding:10px 12px;margin:8px 0;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+.tl .th{font-weight:800;color:#0b3d3a;margin-bottom:8px;font-size:13px}
+.tl .m{display:flex;gap:0}
+.tl .m span{flex:1;text-align:center;padding:8px 2px;border:1px solid #e3eae8;color:#5a6a68;font-size:12.5px;white-space:nowrap}
+.tl .m span.on{background:#bfe3d6;color:#0b3d3a;font-weight:800}
+/* بطاقات KPI */
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.kpi{flex:1;min-width:130px;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;background:linear-gradient(180deg,#fff,#f2faf8)}
+.kpi .ic{font-size:19px}
+.kpi .v{font-size:23px;font-weight:800;color:var(--gd);font-family:Consolas,monospace}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:2px}
+/* صورة حقيقية */
+.shot{margin:6px 0;text-align:center}
+.shot img{max-width:100%;border:1px solid #cdd7d5;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.13)}
+.shot .cap{font-size:13px;color:var(--muted);margin-top:7px}
+.badge{display:inline-block;background:#fff3cd;color:#7a5b00;font-size:11px;font-weight:800;padding:2px 11px;border-radius:12px;margin-bottom:7px}
+/* تعمّق اختياري */
+.opt-sec{background:#f6f7f9;border:1px dashed #c2c9d1;border-radius:18px;padding:18px;margin-top:26px}
+.opt-sec>h3{margin:0 0 4px;color:#445;text-align:center}
+.opt-sec>p{text-align:center;color:#778;font-size:13px;margin:0 0 14px}
+.pchart{text-align:center;margin:6px 0}
+.pchart svg{max-width:100%}
+.leg{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:6px;font-size:13.5px;color:#37474f;font-weight:600}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg i{width:13px;height:13px;border-radius:3px;display:inline-block;flex:none}
+/* دليل المخططات */
+.cgh{font-weight:800;color:var(--gd);font-size:15px;margin:16px 0 8px;text-align:center}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 4px}
+.cg.three{grid-template-columns:1fr 1fr 1fr}
+.cgc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 12px;text-align:center;box-shadow:0 3px 12px rgba(15,118,110,.05)}
+.cgc .cgv{height:74px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:8px}
+.cgc .cgv svg{height:74px;width:auto;max-width:100%}
+.cgc .cgn{font-weight:800;color:var(--gd);font-size:15px;margin-bottom:6px}
+.cgc .cgw{font-size:13px;color:#3a4a48;line-height:1.6}
+.cgc .cge{font-size:12.5px;color:var(--muted);margin-top:4px}
+.cgc .cgw b{color:#0b5751}
+.cgc .cge b{color:var(--gd)}
+.rcp{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.rcpr{display:flex;align-items:center;gap:10px;background:#f7faf9;border:1px solid var(--line);border-radius:11px;padding:10px 13px;flex-wrap:wrap}
+.rcpr .goal2{font-weight:800;color:var(--gd);font-size:13.5px;flex:1 1 130px;text-align:start}
+.rcpr .zon{font-size:12.5px;color:#3a4a48;flex:2 1 200px;text-align:start}
+.rcpr .zon b{color:#0b5751}
+.rcpr .typ{flex:none;background:#0f766e;color:#fff;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:800}
+@media(max-width:560px){.cg,.cg.three{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.cg,.cg.three{grid-template-columns:1fr}}
+@media(max-width:560px){.lt{font-size:18px}.hero h1{font-size:23px}}
+</style></head><body>
+<div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
+<header class="topbar">
+  <button class="hamb" aria-label="القائمة" onclick="document.body.classList.toggle('nav-open')">☰</button>
+  <div class="brand"><span class="x">Excel</span><span>لوحات المبيعات<small>الأسبوع الثاني · المهندس محمد</small></span></div>
+  <div class="spacer"></div>
+  <div class="search"><input id="search" type="search" placeholder="ابحث في المحطات…" autocomplete="off"></div>
+</header>
+<div class="shell">
+  <aside class="sidebar"><div class="toc-h">🗺️ محتوى الرحلة</div><nav id="toc"></nav></aside>
+  <main class="content" id="content">
+
+<section class="hero">
+  <div class="by" style="background:rgba(255,255,255,.18);color:#fff;margin:0 0 8px">الأسبوع الثاني · مستوى متوسط</div>
+  <h1>لوحات المبيعات — من جدول كبير إلى لوحة تفاعلية</h1>
+  <div class="sub">جدول مبيعات كبير ← تقارير ذكية متعددة ← لوحة واحدة تفاعلية بمقسّمات تصفّي الكل بضغطة.</div>
+  <div class="by">إعداد: المهندس محمد</div>
+  <div class="dls">
+    <a class="dl" href="مبيعات-شرح-بيانات.xlsx" download>⬇️ ملف الشرح</a>
+    <a class="dl" href="مبيعات-تمرين-بيانات.xlsx" download>⬇️ ملف التمرين</a>
+    <a class="dl alt" href="مبيعات-شرح-الحل.xlsx" download>⬇️ ملف الحل</a>
+  </div>
+</section>
+
+<div class="jmap">
+  <h3>🗺️ خريطة الحقيبة — مرحلتان</h3>
+  <div class="jstage"><div class="bub">١</div><div class="tx"><b>تقارير ذكية من جدول كبير</b><br><span>الجدول · المناطق · المنتجات · البائعين · الشهري · الفئات</span></div></div>
+  <div class="jstage"><div class="bub">٢</div><div class="tx"><b>اللوحة التفاعلية الموحّدة</b><br><span>بطاقات · جمع المخططات · مقسّمات · مخطط زمني · ربط الكل</span></div></div>
+</div>
+<div class="intro" style="margin-top:0"><p class="exp" style="margin:0"><b>📌 ملاحظة:</b> هذي تكملة الأسبوع الأول — نفترض إنك تعرف الجدول المحوري والمقسّم من قبل. هنا نكبّرها: جدول كبير، تقارير متعددة، ولوحة واحدة تربطها كلها.</p></div>
+<div class="intro">
+  <h2>👋 قبل ما تبدأ</h2>
+  <p class="exp">هذي حقيبة الأسبوع الثاني. الفكرة الكبيرة: عندنا جدول مبيعات <b>كبير</b> (١٥٠ عملية، ٨ أعمدة). راح نبني منه عدة <b>تقارير ذكية</b> — كل تقرير في ورقة (حسب المنطقة، المنتج، البائع، الشهر، الفئة) — ثم نجمعها كلها في <b>لوحة واحدة تفاعلية</b> بمقسّمات تصفّي الكل بضغطة.</p>
+  <ul class="chk">
+    <li>نزّل <b>«ملف الشرح»</b> من الأعلى وافتحه، وروح لورقة <b>«المبيعات»</b>.</li>
+    <li>طبّق المحطات بالترتيب على ملف الشرح.</li>
+    <li>بعدها درّب نفسك على <b>«ملف التمرين»</b> (بيانات جديدة، نفس الخطوات).</li>
+    <li>تهت؟ افتح <b>«ملف الحل»</b> وقارن.</li>
+  </ul>
+  <div class="see"><b>👀 المطلوب:</b> Excel (ويندوز أو ماك)، ومعرفة بسيطة بالجدول المحوري والمقسّم من الأسبوع الأول.</div>
+</div>
+
+<div class="intro" style="border:2px solid #1aa05a">
+  <h2>⬇️ كيف تنزّل ملف التدريب؟</h2>
+  <p class="exp" style="margin-bottom:6px">خطوة بخطوة — لا تتجاوزها، هي بدايتك:</p>
+  <ol class="steps">
+    <li>فوق هذي الصفحة فيه ثلاثة أزرار. اضغط الزر الأخضر <b>«ملف الشرح»</b> — راح ينزّل ملف Excel على جهازك.</li>
+    <li><b>على الكمبيوتر:</b> افتح مجلّد «التنزيلات» (Downloads)، ثم افتح الملف بنقرة مزدوجة (يفتح في Excel).</li>
+    <li><b>على الجوال:</b> بعد ما ينزّل، اضغط عليه ← «فتح بـ» ← اختر تطبيق <b>Excel</b> (لو ما هو مثبّت، نزّله مجاناً من المتجر).</li>
+    <li>داخل الملف، اضغط على ورقة <b>«المبيعات»</b> من الألسنة تحت — هذي بياناتنا اللي راح نشتغل عليها.</li>
+  </ol>
+  <div class="see"><b>👀 المهم:</b> ابدأ دائماً بـ <b>«ملف الشرح»</b> — نطبّق عليه المحطات بالترتيب. <b>«ملف التمرين»</b> تتدرّب عليه بنفسك بعدين، و<b>«ملف الحل»</b> تفتحه فقط لو حبيت تقارن.</div>
+  <div class="warn"><b>⚠️ لو طلب الملف «تمكين التحرير» (Enable Editing)</b> فوق بشريط أصفر — اضغطها عادي، ثم ابدأ.</div>
+</div>
+
+<div class="intro">
+  <h2>🎯 ماذا ستبني؟</h2>
+  <p class="exp">هذي اللوحة النهائية — أربع بطاقات وأربعة مخططات، ومقسّمات تصفّي كل شيء معاً. ستبنيها قطعة قطعة: تقارير أولاً، ثم توحّدها هنا.</p>
+  <div class="shot">
+    <img src="img/w2_dash_neutral.png" alt="معاينة لوحة مبيعات الشركة">
+    <div class="cap">لوحة مبيعات الشركة — وجهتك في نهاية الحقيبة.</div>
+  </div>
+</div>
+<div class="stage"><div class="no">١</div><div><b>المرحلة الأولى — تقارير ذكية من جدول كبير</b><span>من جدول واحد، تبني تقريراً لكل سؤال</span></div></div>
+
+<!-- 1 -->
+<section class="lesson">
+  <div class="num">المحطة ١</div>
+  <div class="lt">الجدول الكبير + حوّله إلى «جدول»</div>
+  <div class="goal">بياناتنا ١٥٠ عملية و٨ أعمدة. أول خطوة: نحوّلها إلى «جدول» ليكون مصدراً نظيفاً لكل التقارير.</div>
+  <p class="exp">الجدول (Table) كائن ذكي يتمدّد تلقائياً مع أي صف جديد، وكل التقارير اللي نبنيها منه تتحدّث معه. لهذا نبدأ به دائماً قبل أي تحليل.</p>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="rh"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">1</td><td class="hd">التاريخ</td><td class="hd">المنطقة</td><td class="hd">المدينة</td><td class="hd">الفئة</td><td class="hd">المنتج</td><td class="hd">البائع</td><td class="hd">الكمية</td><td class="hd">المبيعة</td></tr>
+      <tr><td class="rh">2</td><td class="n">2026-01-03</td><td>الشرقية</td><td>الخبر</td><td>جوالات</td><td>سامسونج</td><td>سارة</td><td class="n">8</td><td class="n">25,600</td></tr>
+      <tr><td class="rh">3</td><td class="n">2026-01-05</td><td>الوسطى</td><td>الرياض</td><td>إلكترونيات</td><td>لابتوب</td><td>أحمد</td><td class="n">11</td><td class="n">38,500</td></tr>
+    </tbody></table></div></div>
+  <ol class="steps">
+    <li>اضغط أي خلية داخل البيانات، ثم <span class="f" dir="ltr">Ctrl + T</span> ← تأكّد من «يحتوي جدولي على رؤوس» ← «موافق».</li>
+    <li>من تبويب «تصميم الجدول» سمِّ الجدول <span class="f" dir="ltr">المبيعات</span> (يسهّل التقارير لاحقاً).</li>
+  </ol>
+  <div class="see"><b>👀 ماذا سترى:</b> البيانات تلوّنت بصفوف متناوبة وظهرت أسهم فلترة على الرؤوس — صار «جدولاً».</div>
+  <div class="mac">على Mac: <span class="f" dir="ltr">⌘ + T</span>.</div>
+  <div class="apply"><b>طبّقها:</b> أي بيانات كبيرة، حوّلها لجدول أولاً — أساس كل تقرير.</div>
+</section>
+
+<!-- 2 -->
+<section class="lesson">
+  <div class="num">المحطة ٢</div>
+  <div class="lt">التقرير الأول — المبيعات حسب المنطقة</div>
+  <div class="goal">نبني أول جدول محوري في ورقة مستقلة: كم باعت كل منطقة؟</div>
+  <p class="exp">كل تقرير = جدول محوري في ورقته الخاصة، يجاوب سؤالاً واحداً. نبدأ بالمناطق، ثم نكرّر نفس الطريقة لبقية التقارير.</p>
+  <div class="ribbon">
+    <div class="tabs"><span>الصفحة الرئيسية</span><span class="on">إدراج</span><span>تخطيط الصفحة</span><span>البيانات</span></div>
+    <div class="rb"><div class="btn on"><span class="ic">📊</span>PivotTable</div><div class="btn"><span class="ic">📈</span>مخططات</div></div>
+  </div>
+  <div class="pvf">
+    <div class="h">حقول PivotTable</div>
+    <div class="list"><div class="row on"><span class="b">✓</span> المنطقة</div><div class="row on"><span class="b">✓</span> المبيعة</div><div class="row"><span class="b"></span> المنتج</div><div class="row"><span class="b"></span> البائع</div></div>
+    <div class="zones">
+      <div class="z"><div class="zt">التصفية</div></div><div class="z"><div class="zt">الأعمدة</div></div>
+      <div class="z"><span class="mk">٢</span><div class="zt">الصفوف</div><span class="chip">المنطقة</span></div>
+      <div class="z"><span class="mk">٣</span><div class="zt">القيم</div><span class="chip">مجموع المبيعة</span></div>
+    </div>
+  </div>
+  <ul class="mklist">
+    <li><span class="n">١</span> اضغط داخل الجدول ← «إدراج» ← «PivotTable» ← «ورقة عمل جديدة» ← «موافق». سمِّ الورقة «تقرير المناطق».</li>
+    <li><span class="n">٢</span> من لوحة الحقول، اسحب «المنطقة» إلى <b>الصفوف</b>.</li>
+    <li><span class="n">٣</span> اسحب «المبيعة» إلى <b>القيم</b>. ثم: «تحليل PivotTable» ← «PivotChart» ← أعمدة.</li>
+  </ul>
+  <div class="gwrap"><div class="pvt"><table>
+    <thead><tr><th>المنطقة</th><th>مجموع المبيعة</th></tr></thead>
+    <tbody>
+      <tr><td>الشرقية</td><td class="n sel">1,014,600</td></tr>
+      <tr><td>الغربية</td><td class="n">805,600</td></tr>
+      <tr><td>الوسطى</td><td class="n">719,300</td></tr>
+      <tr class="g"><td>الإجمالي</td><td class="n">2,539,500</td></tr>
+    </tbody></table></div></div>
+  <div class="see"><b>👀 ماذا سترى:</b> ورقة جديدة فيها التقرير: الشرقية الأعلى (1,014,600) والإجمالي 2,539,500، وبجانبه مخطط أعمدة.</div>
+  <div class="apply"><b>طبّقها:</b> هذي «وصفة التقرير» — راح نكرّرها لكل سؤال في المحطات الجاية.</div>
+</section>
+
+<!-- 3 -->
+<section class="lesson">
+  <div class="num">المحطة ٣</div>
+  <div class="lt">التقرير الثاني — أعلى المنتجات</div>
+  <div class="goal">كرّر الوصفة، بس بحقل «المنتج» — ونعرض الأعلى مبيعاً فقط.</div>
+  <p class="exp">نفس خطوات التقرير الأول تماماً، نغيّر فقط الحقل في «الصفوف». هذا التكرار هو اللي يرسّخ المهارة.</p>
+  <ul class="mklist">
+    <li><span class="n">١</span> «إدراج» ← «PivotTable» ← ورقة جديدة سمِّها «تقرير المنتجات».</li>
+    <li><span class="n">٢</span> «المنتج» إلى الصفوف، و«المبيعة» إلى القيم.</li>
+    <li><span class="n">٣</span> رتّب تنازلياً: يمين على أي رقم ← «فرز» ← «من الأكبر إلى الأصغر».</li>
+    <li><span class="n">٤</span> خذ أعلى ٥ فقط: اضغط سهم الفلترة بجانب «تسميات الصفوف» ← «عوامل تصفية القيمة» ← «أهم ١٠» ← غيّر الرقم من ١٠ إلى ٥ ← «موافق».</li>
+    <li><span class="n">٥</span> أضف المخطط: «تحليل PivotTable» ← «PivotChart» ← اختر «شريطي».</li>
+  </ul>
+  <div class="gwrap"><div class="pvt"><table>
+    <thead><tr><th>المنتج (أعلى ٥)</th><th>المبيعات</th></tr></thead>
+    <tbody>
+      <tr><td>آيفون</td><td class="n sel">814,500</td></tr>
+      <tr><td>سامسونج</td><td class="n">467,200</td></tr>
+      <tr><td>لابتوب</td><td class="n">406,000</td></tr>
+      <tr><td>غسالة</td><td class="n">195,700</td></tr>
+      <tr><td>ثلاجة</td><td class="n">179,400</td></tr>
+    </tbody></table></div></div>
+  <div class="see"><b>👀 ماذا سترى:</b> تقرير مرتّب من الأكبر للأصغر، آيفون يتصدّر (814,500).</div>
+  <div class="apply"><b>طبّقها:</b> «أعلى N» سؤال تحبّه الإدارة — يصلح لأي حقل (فروع، عملاء…).</div>
+</section>
+
+<!-- 4 -->
+<section class="lesson">
+  <div class="num">المحطة ٤</div>
+  <div class="lt">التقرير الثالث — أداء البائعين</div>
+  <div class="goal">نفس الوصفة بحقل «البائع» — مَن الأعلى مبيعاً؟</div>
+  <p class="exp">تقرير الأشخاص من أكثر التقارير طلباً في العمل. نفس الخطوات، حقل مختلف.</p>
+  <ul class="mklist">
+    <li><span class="n">١</span> ورقة جديدة «تقرير البائعين» ← PivotTable.</li>
+    <li><span class="n">٢</span> «البائع» في الصفوف، «المبيعة» في القيم، ثم أضف PivotChart أعمدة.</li>
+  </ul>
+  <div class="gwrap"><div class="pvt"><table>
+    <thead><tr><th>البائع</th><th>المبيعات</th></tr></thead>
+    <tbody>
+      <tr><td>خالد</td><td class="n sel">682,900</td></tr>
+      <tr><td>سارة</td><td class="n">681,600</td></tr>
+      <tr><td>أحمد</td><td class="n">466,900</td></tr>
+      <tr><td>فهد</td><td class="n">459,900</td></tr>
+      <tr><td>نورة</td><td class="n">248,200</td></tr>
+    </tbody></table></div></div>
+  <div class="see"><b>👀 ماذا سترى:</b> ترتيب البائعين، خالد وسارة متقاربان في الصدارة.</div>
+  <div class="apply"><b>طبّقها:</b> نفس الفكرة لتقييم أي فريق أو فرع.</div>
+</section>
+
+<!-- 5 -->
+<section class="lesson">
+  <div class="num">المحطة ٥</div>
+  <div class="lt">التقرير الرابع — الاتجاه الشهري</div>
+  <div class="goal">نفس الوصفة بحقل «التاريخ» مجمّعاً بالشهر — ونعرضه كخط زمني.</div>
+  <p class="exp">تقرير الزمن يكشف الصعود والهبوط عبر الأشهر. نضع التاريخ في الصفوف فيجمّعه Excel أشهراً، ونختار مخطط «خط».</p>
+  <ul class="mklist">
+    <li><span class="n">١</span> ورقة جديدة «تقرير شهري» ← PivotTable، «التاريخ» في الصفوف (يتجمّع أشهراً)، «المبيعة» في القيم.</li>
+    <li><span class="n">٢</span> أضف PivotChart واختر نوع «خط».</li>
+  </ul>
+  <div class="pchart"><svg viewBox="0 0 470 200" font-family="Tajawal,Segoe UI">
+    <text x="235" y="16" text-anchor="middle" font-size="13" font-weight="800" fill="#0b5751">المبيعات الشهرية</text>
+    <line x1="40" y1="170" x2="450" y2="170" stroke="#cdd9d8"/>
+    <polyline points="70,70 135,110 200,66 265,82 330,120 410,132" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+    <g fill="#0f766e"><circle cx="70" cy="70" r="3.5"/><circle cx="135" cy="110" r="3.5"/><circle cx="200" cy="66" r="3.5"/><circle cx="265" cy="82" r="3.5"/><circle cx="330" cy="120" r="3.5"/><circle cx="410" cy="132" r="3.5"/></g>
+    <g font-size="11" fill="#5a6a68" text-anchor="middle"><text x="70" y="187">يناير</text><text x="135" y="187">فبراير</text><text x="200" y="187">مارس</text><text x="265" y="187">أبريل</text><text x="330" y="187">مايو</text><text x="410" y="187">يونيو</text></g>
+  </svg></div>
+  <div class="see"><b>👀 ماذا سترى:</b> خط يصعد ويهبط: مارس الأعلى (470,900) ويونيو الأقل (368,100).</div>
+  <div class="warn"><b>⚠️ لو صار كذا:</b> التواريخ ما تجمّعت أشهراً؟ معناها عمود التاريخ نصّ لا تاريخ — حوّله ثم «تحديث».</div>
+  <div class="apply"><b>طبّقها:</b> تقرير الزمن من أهم ما تطلبه الإدارة — بقي تقرير أخير بشكل جديد: الدائري.</div>
+</section>
+
+<!-- 6 الفئات -->
+<section class="lesson">
+  <div class="num">المحطة ٦</div>
+  <div class="lt">التقرير الخامس — حصص الفئات (مخطط دائري)</div>
+  <div class="goal">نفس الوصفة بحقل «الفئة» — لكن نعرضه دائرياً ليُظهر <b>نسبة</b> كل فئة من الإجمالي.</div>
+  <p class="exp">المخطط الدائري يجاوب سؤال «كم نسبة كل فئة؟». مناسب لما يكون عندك فئات قليلة (٣–٥). نفس الخطوات، نغيّر فقط نوع المخطط إلى «دائري».</p>
+  <ul class="mklist">
+    <li><span class="n">١</span> ورقة جديدة سمِّها «تقرير الفئات» ← «إدراج» ← «PivotTable».</li>
+    <li><span class="n">٢</span> «الفئة» في الصفوف، و«المبيعة» في القيم.</li>
+    <li><span class="n">٣</span> «تحليل PivotTable» ← «PivotChart» ← اختر «دائري».</li>
+  </ul>
+  <div class="pchart" style="max-width:320px;margin:10px auto">
+    <svg viewBox="0 0 200 198" font-family="Tajawal,Segoe UI">
+      <text x="100" y="13" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b5751">المبيعات حسب الفئة</text>
+      <path d="M100,108 L100,26 A82,82 0 1,1 79.6,187.4 Z" fill="#4e79c0"/>
+      <path d="M100,108 L79.6,187.4 A82,82 0 0,1 20.6,87.6 Z" fill="#c0504d"/>
+      <path d="M100,108 L20.6,87.6 A82,82 0 0,1 100,26 Z" fill="#9bbb59"/>
+      <text x="146" y="120" font-size="15" font-weight="800" fill="#fff" text-anchor="middle">54%</text>
+      <text x="59" y="138" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">25%</text>
+      <text x="72" y="76" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">21%</text>
+    </svg>
+    <div class="leg"><span><i style="background:#4e79c0"></i>جوالات</span><span><i style="background:#c0504d"></i>إلكترونيات</span><span><i style="background:#9bbb59"></i>أجهزة منزلية</span></div>
+  </div>
+  <div class="see"><b>👀 ماذا سترى:</b> دائرة بثلاث شرائح: جوالات الأكبر (1,381,800 ≈ 54%)، ثم إلكترونيات (623,600 ≈ 25%)، فأجهزة منزلية (534,100 ≈ 21%).</div>
+  <div class="warn"><b>⚠️ لو صار كذا:</b> ما ظهرت النِّسب؟ يمين على الدائرة ← «إضافة تسميات البيانات» ← «تنسيق تسميات البيانات» ← فعّل «النسبة المئوية».</div>
+  <div class="apply"><b>طبّقها:</b> خصّصت الآن خمسة تقارير بأشكال متنوّعة — جاهزون نوحّدها في لوحة واحدة.</div>
+</section>
+<div class="stage"><div class="no">٢</div><div><b>المرحلة الثانية — اللوحة التفاعلية الموحّدة</b><span>تجمع تقاريرك في لوحة واحدة تتفاعل بضغطة</span></div></div>
+
+<!-- 7 -->
+<section class="lesson">
+  <div class="num">المحطة ٧</div>
+  <div class="lt">ورقة اللوحة + بطاقات المؤشرات</div>
+  <div class="goal">أنشئ ورقة «لوحة المعلومات»، وابدأها بأربعة أرقام كبيرة تلخّص كل شيء.</div>
+  <p class="exp">اللوحة ورقة عرض مستقلة عن البيانات والتقارير. نبدأها بالبطاقات لأنها أول ما يلفت نظر المدير.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="ic">💰</div><div class="v">2,539,500</div><div class="l">إجمالي المبيعات</div></div>
+    <div class="kpi"><div class="ic">🧾</div><div class="v">150</div><div class="l">عدد الطلبات</div></div>
+    <div class="kpi"><div class="ic">📊</div><div class="v">16,930</div><div class="l">متوسط الطلب</div></div>
+    <div class="kpi"><div class="ic">🏆</div><div class="v">الشرقية</div><div class="l">أعلى منطقة</div></div>
+  </div>
+  <ol class="steps">
+    <li>أنشئ ورقة جديدة (علامة <span class="f" dir="ltr">+</span> أسفل البرنامج) وسمِّها «لوحة المعلومات».</li>
+    <li>في أربع خلايا متجاورة بأعلى الورقة اكتب العناوين: «إجمالي المبيعات» · «عدد الطلبات» · «متوسط الطلب» · «أعلى منطقة».</li>
+    <li>تحت كل عنوان ضع الناتج. للإجمالي: اكتب <span class="f" dir="ltr">=SUM(</span> ← روح ورقة «المبيعات» ← انقر رأس عمود «المبيعة» ← أغلق القوس <span class="f" dir="ltr">)</span> ← <span class="f" dir="ltr">Enter</span>. يظهر 2,539,500.</li>
+    <li>كرّر نفس الطريقة: <span class="f" dir="ltr">=COUNT(</span> لعدد الطلبات (150)، و<span class="f" dir="ltr">=AVERAGE(</span> لمتوسط الطلب (16,930).</li>
+    <li>«أعلى منطقة» اكتبها يدوياً: «الشرقية» (شفتها في تقرير المناطق).</li>
+    <li>نسّق البطاقات: كبّر خط الأرقام، ولوّن الخلايا من «الصفحة الرئيسية» ← «لون التعبئة».</li>
+  </ol>
+  <div class="see"><b>👀 ماذا سترى:</b> صف من ٤ بطاقات أعلى الورقة بأرقام كبيرة (2,539,500 · 150 · 16,930 · الشرقية).</div>
+  <div class="warn"><b>⚠️ لو صار كذا:</b> ظهر <span class="f" dir="ltr">#NAME?</span> أو خطأ؟ غالباً نسيت تغلق القوس <span class="f" dir="ltr">)</span> — اضغط الخلية وأكمل الصيغة.</div>
+  <div class="apply"><b>طبّقها:</b> اختر ٣–٤ مؤشرات تهمّ القرار فقط — لا تزحم اللوحة بالأرقام.</div>
+</section>
+
+<!-- 8 -->
+<section class="lesson">
+  <div class="num">المحطة ٨</div>
+  <div class="lt">اجمع مخططات التقارير في اللوحة</div>
+  <div class="goal">انقل أربعة مخططات <b>مختلفة الأشكال</b> من أوراق التقارير إلى ورقة اللوحة، ورتّبها في شبكة ٢×٢.</div>
+  <p class="exp">بدل ما يتنقّل المدير بين الأوراق، نجمع المخططات المهمة في لوحة واحدة. لتظهر احترافية، نختار أربعة <b>أشكال مختلفة</b> تكمّل بعضها — والمخطط يبقى مربوطاً بتقريره فيتحدّث معه.</p>
+  <ol class="steps">
+    <li>افتح ورقة «تقرير المناطق»، اضغط على حافة المخطط ثم قص <span class="f" dir="ltr">Ctrl + X</span>.</li>
+    <li>افتح ورقة «لوحة المعلومات» والصق <span class="f" dir="ltr">Ctrl + V</span> تحت البطاقات.</li>
+    <li>كرّر النقل لمخططات: المنتجات (شريطي) والفئات (دائري) والشهري (خطّي)، ورتّبها ٢×٢.</li>
+  </ol>
+  <div class="see"><b>👀 ماذا سترى:</b> أربعة مخططات بأشكال مختلفة تحت البطاقات: <b>عمودي</b> (المناطق) · <b>شريطي</b> (المنتجات) · <b>دائري</b> (الفئات) · <b>خطّي</b> (الشهري).</div>
+  <div class="warn"><b>⚠️ لو صار كذا:</b> انتقل المخطط لكنه «مكسور»؟ تأكّد أنك نقلت المخطط نفسه لا بياناته — المخطط يبقى مرتبطاً بورقة تقريره ويعمل عن بُعد.</div>
+  <div class="apply"><b>طبّقها:</b> اختر للوحة المخططات الأهم والأوضح (٤ يكفي). تقرير البائعين يبقى في ورقته — مو كل تقرير لازم ينزل اللوحة.</div>
+</section>
+
+<!-- 9 -->
+<section class="lesson">
+  <div class="num">المحطة ٩</div>
+  <div class="lt">المقسّمات + المخطط الزمني</div>
+  <div class="goal">أضف أزرار تصفية بصرية (مقسّمات) وشريطاً زمنياً فوق اللوحة.</div>
+  <p class="exp">المقسّم أزرار كبيرة لقيم حقل، والمخطط الزمني شريط للتواريخ. هما أداتا التفاعل اللي تخلّي أي شخص يصفّي اللوحة بنقرة.</p>
+  <div class="ribbon">
+    <div class="tabs"><span>إدراج</span><span class="on">تحليل PivotTable</span><span>تصميم</span></div>
+    <div class="rb"><div class="btn on"><span class="ic">🔪</span>إدراج مقسّم شرائح</div><div class="btn on"><span class="ic">🗓️</span>إدراج مخطط زمني</div></div>
+  </div>
+  <div style="text-align:center">
+    <span class="slc"><span class="sh">المنطقة <i>▦</i></span><span class="sb"><span class="on">الشرقية</span><span>الغربية</span><span>الوسطى</span></span></span>
+    <span class="slc"><span class="sh">الفئة <i>▦</i></span><span class="sb"><span>إلكترونيات</span><span class="on">جوالات</span><span>أجهزة</span></span></span>
+  </div>
+  <div class="tl"><div class="th">التاريخ — حسب الشهر</div><div class="m"><span class="on">يناير</span><span class="on">فبراير</span><span class="on">مارس</span><span>أبريل</span><span>مايو</span><span>يونيو</span></div></div>
+  <ol class="steps">
+    <li>اضغط داخل أي جدول محوري ← «تحليل PivotTable» ← «إدراج مقسّم شرائح» ← ضع ✓ على «المنطقة» و«الفئة» ← «موافق».</li>
+    <li>ثم «إدراج مخطط زمني» ← «التاريخ». رتّبها فوق اللوحة أو على جانبها.</li>
+  </ol>
+  <div class="see"><b>👀 ماذا سترى:</b> صناديق أزرار + شريط أشهر. لكنها الآن تصفّي جدولها فقط — نوحّدها في المحطة الجاية.</div>
+  <div class="apply"><b>طبّقها:</b> اختر حقول التصفية التي يهتم بها المدير فعلاً.</div>
+</section>
+
+<!-- 10 -->
+<section class="lesson" style="border:2px solid #0f766e">
+  <div class="num" style="background:#e0a800">🔑 المحطة ١٠ — الأهم</div>
+  <div class="lt">اربط المقسّم بكل التقارير (السرّ)</div>
+  <div class="goal">اجعل مقسّماً واحداً يصفّي كل الجداول والمخططات في اللوحة معاً — هنا تصير «تفاعلية».</div>
+  <p class="exp">لأن كل تقاريرك بُنيت من <b>نفس الجدول</b> (مصدر واحد)، يقدر المقسّم الواحد يتحكّم بها كلها. هذا الربط هو الفرق بين «أوراق متناثرة» و«لوحة احترافية موحّدة».</p>
+  <div class="ribbon">
+    <div class="tabs"><span class="on">المقسّم</span><span>تنسيق</span></div>
+    <div class="rb"><div class="btn on"><span class="ic">🔗</span>اتصالات التقارير</div></div>
+  </div>
+  <ol class="steps">
+    <li>اضغط بزر الفأرة الأيمن على المقسّم ← «اتصالات التقارير».</li>
+    <li>ضع علامة ✓ على <b>كل</b> الجداول المحورية في القائمة ← «موافق».</li>
+    <li>كرّر لكل مقسّم وللمخطط الزمني.</li>
+  </ol>
+  <div class="see"><b>👀 ماذا سترى:</b> اضغط «الشرقية» مرة واحدة → كل البطاقات والمخططات (المنتجات، الفئات، الشهري) تتحدّث معاً في نفس اللحظة.</div>
+  <div class="warn"><b>⚠️ لو صار كذا:</b> مقسّم يصفّي جدولاً واحداً فقط؟ غالباً ما علّمت كل الجداول في «اتصالات التقارير» — افتحها وتأكّد من ✓ الكل. (ولو تقرير من مصدر مختلف لن يرتبط — لازم كلها من نفس الجدول.)</div>
+  <div class="apply"><b>طبّقها:</b> «اتصالات التقارير» هي قلب أي لوحة تفاعلية، مهما كان موضوعها.</div>
+</section>
+
+<!-- 11 المشروع الختامي -->
+<section class="lesson" style="border:2px solid #0f766e">
+  <div class="num" style="background:#e0a800">🎉 المشروع الختامي</div>
+  <div class="lt">لوحة المبيعات التفاعلية كاملة</div>
+  <div class="goal">نسّق اللوحة وارتّبها، وتأكّد أن كل شيء يتفاعل معاً.</div>
+  <p class="exp">مبروك! جمعت جدولاً كبيراً، خمسة تقارير، ولوحة موحّدة تفاعلية — هذا عمل محلّل بيانات محترف.</p>
+  <p class="exp" style="margin-bottom:6px"><b>🧩 خطة التجميع النهائية:</b></p>
+  <ol class="steps">
+    <li>في ورقة «لوحة المعلومات»: العنوان فوق، ثم البطاقات، ثم المخططات (٢×٢).</li>
+    <li>ضع المقسّمات والمخطط الزمني على جانب أو أعلى اللوحة.</li>
+    <li>تأكّد أن كل مقسّم مربوط بكل الجداول («اتصالات التقارير»).</li>
+    <li>من «عرض» أزِل ✓ «خطوط الشبكة». ولوّن البطاقات وعناوين المخططات بدرجة خضراء واحدة («الصفحة الرئيسية» ← «لون التعبئة»).</li>
+    <li>جرّب: اضغط منطقة + شهراً → راقب اللوحة كلها تتحدّث. 🎯</li>
+  </ol>
+  <div class="shot">
+    <div class="badge">📸 صورة حقيقية من ملف الحل</div>
+    <img src="img/w2_dash_neutral.png" alt="لوحة مبيعات الشركة الكاملة">
+    <div class="cap">اللوحة النهائية: ٤ بطاقات + ٤ مخططات + مقسّمات تصفّي الكل بضغطة.</div>
+  </div>
+  <div class="apply"><b>التالي:</b> درّب نفسك على «ملف التمرين» (بيانات جديدة، نفس الخطوات) — وبعدها جاهز للاختبار.</div>
+</section>
+<div class="opt-sec">
+  <h3>🧭 تعمّق: دليل المخططات</h3>
+  <p>اختياري — أيّ مخطط لأيّ بيانات، وكيف تسحب الحقول لتنتجه.</p>
+
+  <section class="lesson">
+    <div class="num" style="background:#8a93a0">★ محطة تعمّق</div>
+    <div class="lt">متى تستخدم كل مخطط؟</div>
+    <div class="goal">القاعدة الذهبية: <b>الشكل يتبع السؤال</b>. اسأل نفسك أولاً: مقارنة؟ نسبة؟ تغيّر عبر الزمن؟</div>
+
+    <div class="cgh">الأشكال الأربعة الأساسية</div>
+    <div class="cg">
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="10" y1="80" x2="116" y2="80" stroke="#cdd9d8" stroke-width="1.5"/>
+          <rect x="14" y="46" width="16" height="34" rx="2" fill="#0f766e"/>
+          <rect x="40" y="24" width="16" height="56" rx="2" fill="#0f766e"/>
+          <rect x="66" y="36" width="16" height="44" rx="2" fill="#0f766e"/>
+          <rect x="92" y="54" width="16" height="26" rx="2" fill="#0f766e"/>
+        </svg></div>
+        <div class="cgn">عمودي</div>
+        <div class="cgw"><b>متى:</b> مقارنة قيم بين فئات قليلة، أو عبر الزمن (أسماء قصيرة).</div>
+        <div class="cge"><b>مثال:</b> المبيعات حسب المنطقة.</div>
+      </div>
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="14" y1="8" x2="14" y2="84" stroke="#cdd9d8" stroke-width="1.5"/>
+          <rect x="14" y="12" width="92" height="13" rx="2" fill="#0f766e"/>
+          <rect x="14" y="32" width="68" height="13" rx="2" fill="#0f766e"/>
+          <rect x="14" y="52" width="52" height="13" rx="2" fill="#0f766e"/>
+          <rect x="14" y="72" width="34" height="13" rx="2" fill="#0f766e"/>
+        </svg></div>
+        <div class="cgn">شريطي</div>
+        <div class="cgw"><b>متى:</b> أسماء طويلة أو فئات كثيرة، مرتّبة من الأعلى للأقل.</div>
+        <div class="cge"><b>مثال:</b> أعلى المنتجات · أداء البائعين.</div>
+      </div>
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 110 92" font-family="Tajawal,Segoe UI">
+          <path d="M52,46 L52,10 A36,36 0 0,1 52,82 Z" fill="#0f766e"/>
+          <path d="M52,46 L52,82 A36,36 0 0,1 17.8,34.9 Z" fill="#d99700"/>
+          <path d="M52,46 L17.8,34.9 A36,36 0 0,1 52,10 Z" fill="#5aa399"/>
+        </svg></div>
+        <div class="cgn">دائري</div>
+        <div class="cgw"><b>متى:</b> حصص أجزاء من الكلّ (المجموع ١٠٠٪)، فئات قليلة (٣–٥).</div>
+        <div class="cge"><b>مثال:</b> حصص الفئات.</div>
+      </div>
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="10" y1="80" x2="116" y2="80" stroke="#cdd9d8" stroke-width="1.5"/>
+          <polyline points="14,58 40,36 66,48 92,22 112,30" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+          <g fill="#0f766e"><circle cx="14" cy="58" r="3"/><circle cx="40" cy="36" r="3"/><circle cx="66" cy="48" r="3"/><circle cx="92" cy="22" r="3"/><circle cx="112" cy="30" r="3"/></g>
+        </svg></div>
+        <div class="cgn">خطّي</div>
+        <div class="cgw"><b>متى:</b> اتجاه وتغيّر عبر الزمن (نقاط زمنية كثيرة).</div>
+        <div class="cge"><b>مثال:</b> المبيعات الشهرية.</div>
+      </div>
+    </div>
+
+    <div class="cgh">عائلة «البار» — ٣ أنواع لمّا تضيف حقلاً ثانياً</div>
+    <div class="cg three">
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="10" y1="80" x2="116" y2="80" stroke="#cdd9d8" stroke-width="1.5"/>
+          <rect x="22" y="36" width="15" height="44" rx="2" fill="#0f766e"/>
+          <rect x="38" y="22" width="15" height="58" rx="2" fill="#d99700"/>
+          <rect x="70" y="46" width="15" height="34" rx="2" fill="#0f766e"/>
+          <rect x="86" y="32" width="15" height="48" rx="2" fill="#d99700"/>
+        </svg></div>
+        <div class="cgn">متجمّع</div>
+        <div class="cgw"><b>متى:</b> مقارنة عدة قيم جنب بعض.</div>
+        <div class="cge"><b>مثال:</b> مبيعات كل بائع في كل فئة.</div>
+      </div>
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="10" y1="80" x2="116" y2="80" stroke="#cdd9d8" stroke-width="1.5"/>
+          <rect x="18" y="50" width="22" height="30" fill="#0f766e"/><rect x="18" y="30" width="22" height="20" fill="#d99700"/>
+          <rect x="54" y="44" width="22" height="36" fill="#0f766e"/><rect x="54" y="18" width="22" height="26" fill="#d99700"/>
+          <rect x="90" y="56" width="22" height="24" fill="#0f766e"/><rect x="90" y="40" width="22" height="16" fill="#d99700"/>
+        </svg></div>
+        <div class="cgn">مكدّس</div>
+        <div class="cgw"><b>متى:</b> المجموع + تركيبته معاً.</div>
+        <div class="cge"><b>مثال:</b> مبيعات المنطقة موزّعة على الفئات.</div>
+      </div>
+      <div class="cgc">
+        <div class="cgv"><svg viewBox="0 0 120 92" font-family="Tajawal,Segoe UI">
+          <line x1="10" y1="80" x2="116" y2="80" stroke="#cdd9d8" stroke-width="1.5"/>
+          <rect x="18" y="46" width="22" height="34" fill="#0f766e"/><rect x="18" y="26" width="22" height="20" fill="#d99700"/><rect x="18" y="12" width="22" height="14" fill="#a9d6cd"/>
+          <rect x="54" y="56" width="22" height="24" fill="#0f766e"/><rect x="54" y="28" width="22" height="28" fill="#d99700"/><rect x="54" y="12" width="22" height="16" fill="#a9d6cd"/>
+          <rect x="90" y="40" width="22" height="40" fill="#0f766e"/><rect x="90" y="24" width="22" height="16" fill="#d99700"/><rect x="90" y="12" width="22" height="12" fill="#a9d6cd"/>
+        </svg></div>
+        <div class="cgn">مكدّس بنسبة ١٠٠٪</div>
+        <div class="cgw"><b>متى:</b> مقارنة النِّسَب (كل عمود ١٠٠٪).</div>
+        <div class="cge"><b>مثال:</b> حصّة كل فئة داخل كل منطقة.</div>
+      </div>
+    </div>
+
+    <div class="cgh">وصفة السحب من بياناتك → تنتج المخطط</div>
+    <div class="rcp">
+      <div class="rcpr"><span class="goal2">مقارنة المناطق</span><span class="zon">الصفوف: <b>المنطقة</b> · القيم: <b>قيمة المبيعة</b></span><span class="typ">عمودي</span></div>
+      <div class="rcpr"><span class="goal2">ترتيب البائعين</span><span class="zon">الصفوف: <b>البائع</b> · القيم: <b>قيمة المبيعة</b> (فرز تنازلي)</span><span class="typ">شريطي</span></div>
+      <div class="rcpr"><span class="goal2">بائع × فئة جنب بعض</span><span class="zon">الصفوف: <b>البائع</b> · الأعمدة: <b>الفئة</b> · القيم: <b>المبيعة</b></span><span class="typ">متجمّع</span></div>
+      <div class="rcpr"><span class="goal2">منطقة وتركيبتها</span><span class="zon">الصفوف: <b>المنطقة</b> · الأعمدة: <b>الفئة</b> · القيم: <b>المبيعة</b></span><span class="typ">مكدّس</span></div>
+      <div class="rcpr"><span class="goal2">مقارنة النِّسَب</span><span class="zon">نفس السابق، وغيّر نوع المخطط فقط إلى «مكدّس ١٠٠٪»</span><span class="typ">مكدّس ١٠٠٪</span></div>
+    </div>
+
+    <div class="see"><b>👀 الخلاصة:</b> حقل تصنيفي في «الصفوف» + رقم في «القيم» = بار شارت. أضِف حقلاً ثانياً في «الأعمدة» → يتحوّل إلى متجمّع أو مكدّس.</div>
+    <div class="apply"><b>طبّقها:</b> قبل أي مخطط اسأل «وش أبغى أوري؟» — وبعدها اختر الشكل، لا العكس.</div>
+  </section>
+</div>
+  </main><!-- /content -->
+</div><!-- /shell -->
+<style>.lesson,.stage,.intro{scroll-margin-top:74px}html{scroll-behavior:smooth}
+.site-foot{text-align:center;color:#7a8a87;font-size:13px;padding:22px 16px 40px;background:#e7efed}</style>
+<footer class="site-foot">رحلة <b>Excel</b> — من الصفر إلى لوحة معلومات · إعداد <b>المهندس محمد</b></footer>
+
+<script>
+(function(){
+  var content=document.getElementById('content'), toc=document.getElementById('toc');
+  var groups=[], cur=null;
+  Array.prototype.slice.call(content.children).forEach(function(n){
+    if(!n.classList) return;
+    if(n.classList.contains('stage')){
+      var b=n.querySelector('b'); cur={label:(b?b.textContent:n.textContent).trim(),items:[]}; groups.push(cur);
+    } else if(n.classList.contains('opt-sec')){
+      var g={label:'محطات تعمّق (اختيارية)',items:[],opt:true};
+      n.querySelectorAll('.lesson').forEach(function(l){g.items.push(l);}); groups.push(g); cur=null;
+    } else if(cur && n.classList.contains('lesson')){ cur.items.push(n); }
+  });
+  var k=0, AR=['','١','٢','٣','٤','٥','٦'], sIdx=0;
+  var toAr=function(n){return String(n).replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[+d];});};
+  groups.forEach(function(g){
+    g.items.forEach(function(l){ if(!l.id){k++; l.id='st-'+k;} });
+    var grp=document.createElement('div'); grp.className='toc-grp'+(g.opt?' opt':'');
+    var gh=document.createElement('button'); gh.type='button'; gh.className='gh';
+    gh.innerHTML='<span class="gnum"></span><span class="gl"></span><span class="cnt"></span><span class="cv">▾</span>';
+    gh.querySelector('.gnum').textContent=g.opt?'★':AR[++sIdx];
+    gh.querySelector('.gl').textContent=g.label;
+    gh.querySelector('.cnt').textContent=toAr(g.items.length)+' محطة';
+    var box=document.createElement('div'); box.className='toc-les';
+    g.items.forEach(function(it){
+      var t=it.querySelector('.lt'); var a=document.createElement('a');
+      a.href='#'+it.id; a.textContent=t?t.textContent:''; a.dataset.target=it.id; box.appendChild(a);
+    });
+    grp.appendChild(gh); grp.appendChild(box); toc.appendChild(grp);
+    gh.addEventListener('click',function(){ grp.classList.toggle('collapsed'); });
+  });
+  toc.addEventListener('click',function(e){ if(e.target.closest('a')) document.body.classList.remove('nav-open'); });
+
+  // البحث
+  var search=document.getElementById('search');
+  var hideOnSearch=content.querySelectorAll('.hero,.jmap,.intro,.stage');
+  var optHeads=document.querySelectorAll('.opt-sec>h3,.opt-sec>p');
+  if(search) search.addEventListener('input',function(){
+    var q=search.value.trim().toLowerCase();
+    hideOnSearch.forEach(function(el){ el.style.display=q?'none':''; });
+    optHeads.forEach(function(el){ el.style.display=q?'none':''; });
+    content.querySelectorAll('.lesson').forEach(function(l){
+      l.style.display=(!q||l.textContent.toLowerCase().indexOf(q)>-1)?'':'none';
+    });
+    document.querySelectorAll('.toc-grp').forEach(function(grp){
+      var any=false;
+      grp.querySelectorAll('.toc-les a').forEach(function(a){
+        var l=document.getElementById(a.dataset.target); var v=l&&l.style.display!=='none';
+        a.style.display=v?'':'none'; if(v)any=true;
+      });
+      grp.style.display=any?'':'none'; if(q) grp.classList.remove('collapsed');
+    });
+    document.querySelectorAll('.opt-sec').forEach(function(o){
+      var any=[].some.call(o.querySelectorAll('.lesson'),function(l){return l.style.display!=='none';});
+      o.style.display=any?'':'none';
+    });
+  });
+
+  // إبراز المحطة النشطة
+  var links={}; document.querySelectorAll('.toc-les a').forEach(function(a){ links[a.dataset.target]=a; });
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ var a=links[en.target.id]; if(!a)return;
+        document.querySelectorAll('.toc-les a.active').forEach(function(x){x.classList.remove('active');});
+        a.classList.add('active'); a.scrollIntoView({block:'nearest'}); }});
+    },{rootMargin:'-80px 0px -55% 0px',threshold:0});
+    content.querySelectorAll('.lesson').forEach(function(l){ obs.observe(l); });
+  }
+})();
+</script>
+</body></html>
