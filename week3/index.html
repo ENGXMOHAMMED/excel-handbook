@@ -243,7 +243,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
 
 <div class="jmap">
   <h3>🗺️ خريطة الحقيبة — مرحلتان</h3>
-  <div class="jstage"><div class="bub">١</div><div class="tx"><b>نرتّب السجلّ</b><br><span>المسافات · نوع الهوية · فصل الفئة · توحيد الجوال · بطاقة المستفيد · رابط واتساب</span></div></div>
+  <div class="jstage"><div class="bub">١</div><div class="tx"><b>نرتّب السجلّ</b><br><span>المسافات · سنة التسجيل · فصل الفئة · توحيد الجوال · بطاقة المستفيد · رابط واتساب</span></div></div>
   <div class="jstage"><div class="bub">٢</div><div class="tx"><b>لوحة المستفيدين</b><br><span>حوّله جدولاً · تقرير الفئات · لوحة (بطاقات + مخططات)</span></div></div>
 </div>
 <div class="intro" style="margin-top:0"><p class="exp" style="margin:0"><b>📌 الفكرة:</b> سجلّ مستفيدي الجمعية كثير ما يجيك <b>غير مرتّب</b>: مسافات في الأسماء، الفئة وعدد الوجبات في خانة وحدة، أرقام جوال بصيغ مختلفة، صفوف مكرّرة. هنا نرتّبه خطوة خطوة بدوال النص، ونطلّع منه <b>لوحة مستفيدين</b> أنيقة، وحتى زرّ <b>واتساب</b> نراسل فيه المستفيد بضغطة.</p></div>
@@ -287,11 +287,11 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <div class="goal">قبل ما نصلح، نشوف وش غير مرتّب. افتح ورقة «السجلّ» وتأمّلها.</div>
   <p class="exp">هذي عيّنة من سجلّ المستفيدين. لاحظ المشاكل الملوّنة بالأحمر — راح نرتّبها وحدة وحدة.</p>
   <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th>اسم المستفيد</th><th>رقم الهوية</th><th>الجنس</th><th>رقم الجوال</th><th>الفئة-عدد الوجبات</th><th>ملاحظات</th></tr></thead>
+    <thead><tr><th>رقم الملف</th><th>اسم المستفيد</th><th>رقم الهوية</th><th>الجنس</th><th>رقم الجوال</th><th>الفئة-عدد الوجبات</th><th>ملاحظات</th></tr></thead>
     <tbody>
-      <tr><td class="bad"><span class="sp">␣␣</span>عبدالله الحربي</td><td>1023456789</td><td>ذكر</td><td class="bad">050 123 4567</td><td class="bad">يتيم-3</td><td>بحاجة ماسة</td></tr>
-      <tr><td class="bad">نوال القحطاني<span class="sp">␣</span></td><td>2098765432</td><td>أنثى</td><td class="bad">0552 22 3344</td><td class="bad">أرملة-5</td><td>منتظمة</td></tr>
-      <tr><td>سعد المطيري</td><td>1055667788</td><td>ذكر</td><td class="bad">053 1112233</td><td class="bad">مسنّ-2</td><td>كبير سن</td></tr>
+      <tr><td>2024-105</td><td class="bad"><span class="sp">␣␣</span>عبدالله الحربي</td><td>1023456789</td><td>ذكر</td><td class="bad">050 123 4567</td><td class="bad">يتيم-3</td><td>بحاجة ماسة</td></tr>
+      <tr><td>2023-088</td><td class="bad">نوال القحطاني<span class="sp">␣</span></td><td>2098765432</td><td>أنثى</td><td class="bad">0552 22 3344</td><td class="bad">أرملة-5</td><td>منتظمة</td></tr>
+      <tr><td>2025-012</td><td>سعد المطيري</td><td>1055667788</td><td>ذكر</td><td class="bad">053 1112233</td><td class="bad">مسنّ-2</td><td>كبير سن</td></tr>
     </tbody></table></div></div>
   <ol class="steps">
     <li><b>مسافات زائدة</b> قبل/بعد اسم المستفيد (المربّع البرتقالي <span class="sp">␣</span>).</li>
@@ -310,7 +310,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <div class="goal">نشيل المسافات الزائدة قبل/بعد الاسم بدالة وحدة: <span class="f" dir="ltr">TRIM</span>.</div>
   <p class="exp">المسافات المخفية تخرّب الفرز والبحث والمطابقة. <span class="f" dir="ltr">TRIM</span> تشيل كل مسافة زائدة وتترك مسافة وحدة بين الكلمات.</p>
   <ol class="steps">
-    <li>في عمود فاضي بجنب الاسم، اكتب في أول خلية: <span class="f" dir="ltr">=TRIM(A2)</span> ثم <span class="f" dir="ltr">Enter</span>.</li>
+    <li>في عمود فاضي بجنب الاسم (عمود B)، اكتب في أول خلية: <span class="f" dir="ltr">=TRIM(B2)</span> ثم <span class="f" dir="ltr">Enter</span>.</li>
     <li>اسحب الخلية من الزاوية لتحت لباقي الصفوف.</li>
   </ol>
   <div class="ba">
@@ -327,21 +327,21 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
 <!-- 3 -->
 <section class="lesson">
   <div class="num">المحطة ٣</div>
-  <div class="lt">نوع الهوية ← دالة LEFT</div>
-  <div class="goal">نعرف نوع المستفيد من أول رقم في الهوية بدالة <span class="f" dir="ltr">LEFT</span>: <b>1</b> مواطن، <b>2</b> مقيم.</div>
-  <p class="exp"><span class="f" dir="ltr">LEFT</span> تأخذ عدد أحرف من <b>يسار</b> النص (وعكسها <span class="f" dir="ltr">RIGHT</span> من اليمين). أول رقم في الهوية السعودية يحدّد النوع، فنستخرجه بسهولة.</p>
+  <div class="lt">سنة التسجيل ← دالة LEFT</div>
+  <div class="goal">نستخرج سنة تسجيل المستفيد من «رقم الملف» بدالة <span class="f" dir="ltr">LEFT</span> — مفيدة لمعرفة المستفيدين القدامى من الجدد.</div>
+  <p class="exp"><span class="f" dir="ltr">LEFT</span> تأخذ عدد أحرف من <b>يسار</b> النص (وعكسها <span class="f" dir="ltr">RIGHT</span> من اليمين). رقم الملف يبدأ بالسنة (مثل <span class="f" dir="ltr">2024-105</span>)، فنأخذ أول ٤ خانات.</p>
   <ol class="steps">
-    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=LEFT(B2,1)</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
+    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=LEFT(A2,4)</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
   </ol>
   <div class="ba">
-    <div class="col"><div class="lbl">رقم الهوية</div><div class="grid"><table><tbody>
-      <tr><td>1023456789</td></tr><tr><td>2098765432</td></tr></tbody></table></div></div>
+    <div class="col"><div class="lbl">رقم الملف</div><div class="grid"><table><tbody>
+      <tr><td>2024-105</td></tr><tr><td>2023-088</td></tr></tbody></table></div></div>
     <div class="arw">⟸</div>
-    <div class="col"><div class="lbl">بعد <span class="f" dir="ltr">=LEFT(B2,1)</span></div><div class="grid"><table><tbody>
-      <tr><td class="good">1</td></tr><tr><td class="good">2</td></tr></tbody></table></div></div>
+    <div class="col"><div class="lbl">بعد <span class="f" dir="ltr">=LEFT(A2,4)</span></div><div class="grid"><table><tbody>
+      <tr><td class="good">2024</td></tr><tr><td class="good">2023</td></tr></tbody></table></div></div>
   </div>
-  <div class="see"><b>👀 ماذا سترى:</b> عمود فيه أول رقم: 1 (مواطن) أو 2 (مقيم).</div>
-  <div class="apply"><b>طبّقها:</b> <span class="f" dir="ltr">LEFT</span> و<span class="f" dir="ltr">RIGHT</span> تفيد لاستخراج أكواد، مفاتيح مدن، أو بدايات/نهايات أي نص.</div>
+  <div class="see"><b>👀 ماذا سترى:</b> عمود فيه سنة التسجيل لكل مستفيد: 2024، 2023…</div>
+  <div class="apply"><b>طبّقها:</b> <span class="f" dir="ltr">LEFT</span> و<span class="f" dir="ltr">RIGHT</span> تفيد لاستخراج بدايات/نهايات أي كود (سنة، رمز فرع، تصنيف).</div>
 </section>
 
 <!-- 4 -->
@@ -401,7 +401,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <div class="goal">نجمع الاسم والفئة في خانة وحدة بعلامة <span class="f" dir="ltr">&amp;</span> لعرض أنيق.</div>
   <p class="exp">العلامة <span class="f" dir="ltr">&amp;</span> تلصق النصوص. نضيف بينها نصّاً ثابتاً بين علامتي تنصيص (مثل قوسين) عشان يطلع شكل مرتّب.</p>
   <ol class="steps">
-    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=A2&" ("&E2&")"</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
+    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=B2&" ("&F2&")"</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
   </ol>
   <div class="ba">
     <div class="col"><div class="lbl">المكوّنات</div><div class="grid"><table>
@@ -440,9 +440,9 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <div class="goal">نصنع خلية قابلة للضغط تفتح واتساب على رقم المستفيد برسالة جاهزة — مفيدة جداً لمتابعة المستفيدين.</div>
   <p class="exp">دالة <span class="f" dir="ltr">HYPERLINK</span> تسوّي رابطاً قابلاً للضغط. نبني رابط واتساب <span class="f" dir="ltr">wa.me</span> بدمج رقم الجوال مع رسالة. ونستخدم <span class="f" dir="ltr">RIGHT(الجوال,9)</span> ليأخذ آخر ٩ أرقام (يشيل الصفر) ونضيف قبلها رمز السعودية <span class="f" dir="ltr">966</span>.</p>
   <ol class="steps">
-    <li>في عمود فاضي اكتب هذي الصيغة (D = عمود الجوال):</li>
+    <li>في عمود فاضي اكتب هذي الصيغة (E = عمود الجوال):</li>
   </ol>
-  <div style="text-align:center;margin:6px 0 12px"><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(D2,9)&"?text=السلام عليكم","💬 راسل")</span></div>
+  <div style="text-align:center;margin:6px 0 12px"><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(E2,9)&"?text=السلام عليكم","💬 راسل")</span></div>
   <div class="ba">
     <div class="col"><div class="lbl">رقم الجوال</div><div class="grid"><table><tbody>
       <tr><td>0501234567</td></tr></tbody></table></div></div>
@@ -451,7 +451,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
       <tr><td class="good">💬 راسل</td></tr></tbody></table></div></div>
   </div>
   <div class="see"><b>👀 ماذا سترى:</b> خلية مكتوب فيها «💬 راسل» — تضغطها فيفتح واتساب على رقم المستفيد ورسالة «السلام عليكم» جاهزة.</div>
-  <div class="warn"><b>⚠️ شرح سريع:</b> <span class="f" dir="ltr">RIGHT(D2,9)</span> تأخذ آخر ٩ أرقام من الجوال (بدون الصفر)، و<span class="f" dir="ltr">966</span> رمز السعودية، و<span class="f" dir="ltr">text=</span> الرسالة الجاهزة (غيّرها لو حبيت).</div>
+  <div class="warn"><b>⚠️ شرح سريع:</b> <span class="f" dir="ltr">RIGHT(E2,9)</span> تأخذ آخر ٩ أرقام من الجوال (بدون الصفر)، و<span class="f" dir="ltr">966</span> رمز السعودية، و<span class="f" dir="ltr">text=</span> الرسالة الجاهزة (غيّرها لو حبيت).</div>
   <div class="apply"><b>طبّقها:</b> نفس الفكرة لأي رابط: موقع، خريطة موقع المستفيد، أو بريد — كله بـ <span class="f" dir="ltr">HYPERLINK</span>.</div>
 </section>
 <div class="stage"><div class="no">٢</div><div><b>المرحلة الثانية — لوحة المستفيدين</b><span>سجلّنا صار مرتّباً، نطلّع منه لوحة جميلة</span></div></div>
@@ -485,13 +485,13 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <div class="gwrap"><div class="pvt"><table>
     <thead><tr><th>الفئة</th><th>عدد المستفيدين</th></tr></thead>
     <tbody>
-      <tr><td>يتيم</td><td class="n sel">10</td></tr>
-      <tr><td>أرملة</td><td class="n">9</td></tr>
+      <tr><td>يتيم</td><td class="n sel">11</td></tr>
+      <tr><td>أسرة متعففة</td><td class="n">8</td></tr>
+      <tr><td>أرملة</td><td class="n">7</td></tr>
       <tr><td>مسنّ</td><td class="n">7</td></tr>
-      <tr><td>أسرة متعففة</td><td class="n">7</td></tr>
       <tr class="g"><td>الإجمالي</td><td class="n">33</td></tr>
     </tbody></table></div></div>
-  <div class="see"><b>👀 ماذا سترى:</b> «يتيم» الأعلى (10) والإجمالي 33، وبجانبه مخطط أعمدة.</div>
+  <div class="see"><b>👀 ماذا سترى:</b> «يتيم» الأعلى (11) والإجمالي 33، وبجانبه مخطط أعمدة.</div>
   <div class="apply"><b>طبّقها:</b> كرّر نفس الوصفة بحقل «الجنس» لو تبي تقريراً للذكور والإناث.</div>
 </section>
 
@@ -503,8 +503,8 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <p class="exp">مبروك! أخذت سجلّاً غير مرتّب، رتّبته بالكامل، أضفت زرّ واتساب، وطلّعت منه لوحة — هذا شغل محترف يخدم الجمعية.</p>
   <div class="kpis">
     <div class="kpi"><div class="ic">👥</div><div class="v">33</div><div class="l">عدد المستفيدين</div></div>
-    <div class="kpi"><div class="ic">🍽️</div><div class="v">101</div><div class="l">إجمالي الوجبات</div></div>
-    <div class="kpi"><div class="ic">⚖️</div><div class="v">14 / 19</div><div class="l">ذكور / إناث</div></div>
+    <div class="kpi"><div class="ic">🍽️</div><div class="v">111</div><div class="l">إجمالي الوجبات</div></div>
+    <div class="kpi"><div class="ic">⚖️</div><div class="v">17 / 16</div><div class="l">ذكور / إناث</div></div>
     <div class="kpi"><div class="ic">🏆</div><div class="v">يتيم</div><div class="l">أكثر فئة</div></div>
   </div>
   <ol class="steps">
@@ -538,22 +538,22 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
       <div class="cgc">
         <div class="cgn">LEFT / RIGHT</div>
         <div class="cgw">يأخذ عدد أحرف من اليسار / اليمين.</div>
-        <div class="cge"><span class="f" dir="ltr">=LEFT(B2,1)</span></div>
+        <div class="cge"><span class="f" dir="ltr">=LEFT(A2,4)</span></div>
       </div>
       <div class="cgc">
         <div class="cgn">MID</div>
         <div class="cgw">يأخذ أحرفاً من وسط النص (من موضع، بعدد).</div>
-        <div class="cge"><span class="f" dir="ltr">=MID(B2,2,3)</span></div>
+        <div class="cge"><span class="f" dir="ltr">=MID(A2,6,3)</span></div>
       </div>
       <div class="cgc">
         <div class="cgn">&amp; (الدمج)</div>
         <div class="cgw">يلصق نصوصاً مع بعض، وبينها نص ثابت.</div>
-        <div class="cge"><span class="f" dir="ltr">=A2&" ("&E2&")"</span></div>
+        <div class="cge"><span class="f" dir="ltr">=B2&" ("&F2&")"</span></div>
       </div>
       <div class="cgc">
         <div class="cgn">LEN</div>
         <div class="cgw">يعدّ كم حرفاً في الخانة (مفيد للتأكد من طول الهوية/الجوال).</div>
-        <div class="cge"><span class="f" dir="ltr">=LEN(D2)</span></div>
+        <div class="cge"><span class="f" dir="ltr">=LEN(E2)</span></div>
       </div>
       <div class="cgc">
         <div class="cgn">HYPERLINK</div>
