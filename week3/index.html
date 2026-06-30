@@ -341,6 +341,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
       <tr><td class="good">2024</td></tr><tr><td class="good">2023</td></tr></tbody></table></div></div>
   </div>
   <div class="see"><b>👀 ماذا سترى:</b> عمود فيه سنة التسجيل لكل مستفيد: 2024، 2023…</div>
+  <div class="warn"><b>⚠️ ملاحظة تنفعك في كل الدوال:</b> لو إكسل رفض الفاصلة <span class="f" dir="ltr">,</span> بين الوسائط، استخدم الفاصلة المنقوطة <span class="f" dir="ltr">;</span> بدلها (حسب إعداد جهازك) — مثل <span class="f" dir="ltr">=LEFT(A2;4)</span>.</div>
   <div class="apply"><b>طبّقها:</b> <span class="f" dir="ltr">LEFT</span> و<span class="f" dir="ltr">RIGHT</span> تفيد لاستخراج بدايات/نهايات أي كود (سنة، رمز فرع، تصنيف).</div>
 </section>
 
@@ -397,21 +398,22 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
 <!-- 6 -->
 <section class="lesson">
   <div class="num">المحطة ٦</div>
-  <div class="lt">بطاقة المستفيد ← الدمج &amp;</div>
-  <div class="goal">نجمع الاسم والفئة في خانة وحدة بعلامة <span class="f" dir="ltr">&amp;</span> لعرض أنيق.</div>
-  <p class="exp">العلامة <span class="f" dir="ltr">&amp;</span> تلصق النصوص. نضيف بينها نصّاً ثابتاً بين علامتي تنصيص (مثل قوسين) عشان يطلع شكل مرتّب.</p>
+  <div class="lt">بطاقة المستفيد ← دالة CONCAT</div>
+  <div class="goal">نجمع الاسم والفئة في خانة وحدة بدالة <span class="f" dir="ltr">CONCAT</span> لعرض أنيق.</div>
+  <p class="exp">دالة <span class="f" dir="ltr">CONCAT</span> تجمع عدة نصوص في خانة وحدة. نكتب الخلايا والنصوص مفصولة بفواصل، والنص الثابت (مثل القوسين) بين علامتي تنصيص.</p>
   <ol class="steps">
-    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=B2&" ("&F2&")"</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
+    <li>في عمود فاضي اكتب: <span class="f" dir="ltr">=CONCAT(B2," (",F2,")")</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
   </ol>
   <div class="ba">
     <div class="col"><div class="lbl">المكوّنات</div><div class="grid"><table>
       <thead><tr><th>الاسم</th><th>الفئة</th></tr></thead>
       <tbody><tr><td>عبدالله الحربي</td><td>يتيم</td></tr></tbody></table></div></div>
     <div class="arw">⟸</div>
-    <div class="col"><div class="lbl">بعد <span class="f" dir="ltr">&amp;</span></div><div class="grid"><table><tbody>
+    <div class="col"><div class="lbl">بعد <span class="f" dir="ltr">CONCAT</span></div><div class="grid"><table><tbody>
       <tr><td class="good">عبدالله الحربي (يتيم)</td></tr></tbody></table></div></div>
   </div>
   <div class="see"><b>👀 ماذا سترى:</b> بطاقة وحدة تجمع الاسم والفئة: «عبدالله الحربي (يتيم)».</div>
+  <div class="warn"><b>💡 لو نسخة إكسل قديمة (٢٠١٦ أو أقدم) وما فيها CONCAT:</b> استخدم العلامة <span class="f" dir="ltr">&amp;</span> — نفس النتيجة تماماً:<br><span class="f" dir="ltr">=B2&" ("&F2&")"</span></div>
   <div class="apply"><b>طبّقها:</b> الدمج مفيد لعمل بطاقات عرض، عناوين، أو رسائل جاهزة.</div>
 </section>
 
@@ -524,9 +526,9 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
         <div class="cge"><span class="f" dir="ltr">=MID(A2,6,3)</span></div>
       </div>
       <div class="cgc">
-        <div class="cgn">&amp; (الدمج)</div>
-        <div class="cgw">يلصق نصوصاً مع بعض، وبينها نص ثابت.</div>
-        <div class="cge"><span class="f" dir="ltr">=B2&" ("&F2&")"</span></div>
+        <div class="cgn">CONCAT (الدمج)</div>
+        <div class="cgw">يجمع عدة نصوص في خانة وحدة (وبدلها <span class="f" dir="ltr">&amp;</span> في النسخ القديمة).</div>
+        <div class="cge"><span class="f" dir="ltr">=CONCAT(B2," (",F2,")")</span></div>
       </div>
       <div class="cgc">
         <div class="cgn">LEN</div>
