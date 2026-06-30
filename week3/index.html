@@ -442,7 +442,7 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
   <ol class="steps">
     <li>في عمود فاضي اكتب هذي الصيغة (E = عمود الجوال):</li>
   </ol>
-  <div style="text-align:center;margin:6px 0 12px"><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(E2,9)&"?text=السلام عليكم","💬 راسل")</span></div>
+  <div style="text-align:center;margin:6px 0 12px"><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(E2,9)&"?text=السلام%20عليكم","💬 راسل")</span></div>
   <div class="ba">
     <div class="col"><div class="lbl">رقم الجوال</div><div class="grid"><table><tbody>
       <tr><td>0501234567</td></tr></tbody></table></div></div>
@@ -451,7 +451,10 @@ ol.steps li::before{content:counter(s);position:absolute;right:10px;top:8px;widt
       <tr><td class="good">💬 راسل</td></tr></tbody></table></div></div>
   </div>
   <div class="see"><b>👀 ماذا سترى:</b> خلية مكتوب فيها «💬 راسل» — تضغطها فيفتح واتساب على رقم المستفيد ورسالة «السلام عليكم» جاهزة.</div>
-  <div class="warn"><b>⚠️ شرح سريع:</b> <span class="f" dir="ltr">RIGHT(E2,9)</span> تأخذ آخر ٩ أرقام من الجوال (بدون الصفر)، و<span class="f" dir="ltr">966</span> رمز السعودية، و<span class="f" dir="ltr">text=</span> الرسالة الجاهزة (غيّرها لو حبيت).</div>
+  <div class="warn"><b>⚠️ مهم — لا تترك مسافة في الرابط:</b> داخل الرسالة نكتب <span class="f" dir="ltr">%20</span> بدل المسافة (هكذا يفهمها الرابط). المسافة العادية تكسر الرابط فلا يفتح.</div>
+  <div class="warn"><b>⚠️ لو الصيغة ما قُبلت (خصوصاً على ماك/إكسل عربي):</b> بدّل كل فاصلة <span class="f" dir="ltr">,</span> بفاصلة منقوطة <span class="f" dir="ltr">;</span> هكذا:<br><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(E2;9)&"?text=السلام%20عليكم";"💬 راسل")</span></div>
+  <div class="warn"><b>⚠️ أبسط نسخة (بدون رسالة):</b> لو تبي تتأكد إنها تشتغل أول، جرّب تفتح المحادثة فقط:<br><span class="f" dir="ltr">=HYPERLINK("https://wa.me/966"&RIGHT(E2,9),"💬 راسل")</span></div>
+  <div class="warn"><b>💡 شرح سريع:</b> <span class="f" dir="ltr">RIGHT(E2,9)</span> تأخذ آخر ٩ أرقام (بدون الصفر)، و<span class="f" dir="ltr">966</span> رمز السعودية، و<span class="f" dir="ltr">text=</span> الرسالة (غيّرها لو حبيت).</div>
   <div class="apply"><b>طبّقها:</b> نفس الفكرة لأي رابط: موقع، خريطة موقع المستفيد، أو بريد — كله بـ <span class="f" dir="ltr">HYPERLINK</span>.</div>
 </section>
 <div class="stage"><div class="no">٢</div><div><b>المرحلة الثانية — لوحة المستفيدين</b><span>سجلّنا صار مرتّباً، نطلّع منه لوحة جميلة</span></div></div>
