@@ -1,6 +1,6 @@
 <!doctype html><html lang="ar" dir="rtl"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>الاختبار النهائي — مبيعات المتجر · المهندس محمد</title>
+<title>شرح حل الاختبار النهائي — مبيعات المتجر · المهندس محمد</title>
 <style>
 :root{--g:#0f766e;--gd:#0b5751;--g2:#1aa05a;--line:#e2eae8;--muted:#64746f;--ink:#16322f;--bg:#eef3f2}
 *{box-sizing:border-box}
@@ -103,153 +103,206 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
 .grid .hd{background:#1f5fbf;color:#fff;font-weight:700}
 .grid .sp{background:#ffcaa8;color:#a23b16;border-radius:2px;padding:0 2px;font-family:Consolas,monospace}
 .gwrap{text-align:center;overflow-x:auto}
+.shot{margin:8px 0;text-align:center}
+.shot img{max-width:100%;height:auto;border:1px solid #cdd7d5;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.13)}
+.shot .cap{font-size:13px;color:var(--muted);margin-top:8px}
+.badge{display:inline-block;background:#fff3cd;color:#7a5b00;font-size:11px;font-weight:800;padding:3px 12px;border-radius:12px;margin-bottom:8px}
 .site-foot{text-align:center;color:#7a8a87;font-size:13px;padding:22px 16px 40px;background:#e7efed}
 @media(max-width:560px){.lt{font-size:18px}.hero h1{font-size:22px}}
 </style></head><body>
 <div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
 <header class="topbar">
   <button class="hamb" aria-label="القائمة" onclick="document.body.classList.toggle('nav-open')">☰</button>
-  <div class="brand"><span class="x">Excel</span><span>الاختبار النهائي<small>مبيعات المتجر · المهندس محمد</small></span></div>
+  <div class="brand"><span class="x">Excel</span><span>شرح الحل<small>الاختبار النهائي · المهندس محمد</small></span></div>
   <div class="spacer"></div>
-  <div class="search"><input id="search" type="search" placeholder="ابحث في الأسئلة…" autocomplete="off"></div>
+  <div class="search"><input id="search" type="search" placeholder="ابحث في الحل…" autocomplete="off"></div>
 </header>
 <div class="shell">
-  <aside class="sidebar"><div class="toc-h">📝 أسئلة الاختبار</div><nav id="toc"></nav></aside>
+  <aside class="sidebar"><div class="toc-h">✅ حل الأسئلة</div><nav id="toc"></nav></aside>
   <main class="content" id="content">
 
 <section class="hero">
-  <div class="exam-badge">🎓 الاختبار النهائي</div>
-  <h1>مبيعات المتجر — نظّف البيانات واصنع لوحة</h1>
-  <div class="sub">ملف مبيعات غير مرتّب. نظّفه، حوّله جدولاً، حلّله، واصنع لوحة تحكم. ١٠ أسئلة — لكل سؤال درجة.</div>
+  <div class="exam-badge">✅ الحل النموذجي</div>
+  <h1>طريقة حل الاختبار النهائي</h1>
+  <div class="sub">حل مشروع «مبيعات المتجر» خطوة بخطوة. قارن شغلك، وافهم أي خطوة صعبت عليك. ١٠ أسئلة بحلولها.</div>
   <div class="by">إعداد: المهندس محمد</div>
-  <div class="dls">
-    <a class="dl" href="مبيعات-الاختبار.xlsx" download>⬇️ نزّل ملف الاختبار</a>
-  </div>
 </section>
 
 <div class="jmap">
-  <h3>🗺️ خطوات الاختبار — ثلاث مراحل</h3>
-  <div class="jstage"><div class="bub">١</div><div class="tx"><b>نظّف البيانات</b><br><span>المسافات · فصل عمود · دمج عمودين</span></div></div>
-  <div class="jstage"><div class="bub">٢</div><div class="tx"><b>جدول وتحليل</b><br><span>حوّله جدولاً · محوري للفئة · محوري للمدينة</span></div></div>
+  <h3>🗺️ رحلة الحل — ثلاث مراحل</h3>
+  <div class="jstage"><div class="bub">١</div><div class="tx"><b>نظّفنا البيانات</b><br><span>المسافات · فصل عمود · دمج عمودين</span></div></div>
+  <div class="jstage"><div class="bub">٢</div><div class="tx"><b>جدول وتحليل</b><br><span>حوّلناه جدولاً · محوري للفئة · محوري للمدينة</span></div></div>
   <div class="jstage"><div class="bub">٣</div><div class="tx"><b>المخططات واللوحة</b><br><span>مخطط عمودي · مخطط دائري · لوحة تحكم بعنوان</span></div></div>
 </div>
 
 <div class="intro" style="margin-top:0">
-  <h2>📌 قبل ما تبدأ — اقرأ هذي</h2>
+  <h2>📌 كيف تقرأ هذا الشرح</h2>
   <ul class="chk">
-    <li>نزّل «ملف الاختبار» من الزر فوق، واشتغل عليه في إكسل.</li>
-    <li>الأسئلة مرتّبة بالترتيب — ابدأ من الأول للأخير، كل سؤال يبني على اللي قبله.</li>
-    <li>كل سؤال عليه <b>درجة واحدة</b> — المجموع ١٠ درجات.</li>
-    <li>خذ وقتك، ما فيه استعجال. لو وقفت عند سؤال، انتقل للي بعده وارجع له.</li>
-    <li>بعد ما تخلّص، احفظ الملف باسمك وأرسله للمهندس محمد.</li>
+    <li>هذا هو <b>الحل النموذجي</b> — افتح ملفك جنبه وقارن خطوة بخطوة.</li>
+    <li>كل سؤال فيه <b>الخطوات</b> و<b>المعادلة</b> إن وُجدت، ثم <b>النتيجة</b> الصحيحة.</li>
+    <li>لو نسختك قديمة وما فيها <span class="f" dir="ltr">CONCAT</span>، استخدم العلامة <span class="f" dir="ltr">&amp;</span> — نفس النتيجة.</li>
+    <li>لو جهازك رفض الفاصلة <span class="f" dir="ltr">,</span> بين الوسائط، استخدم الفاصلة المنقوطة <span class="f" dir="ltr">;</span> بدلها.</li>
+    <li>المهم تفهم <b>ليش</b> كل خطوة — مو تحفظها.</li>
   </ul>
 </div>
-<div class="stage"><div class="no">١</div><div><b>المرحلة الأولى — نظّف البيانات</b><span>ملف المبيعات وصلك غير مرتّب. نظّفه أول.</span></div></div>
+<div class="stage"><div class="no">١</div><div><b>المرحلة الأولى — نظّفنا البيانات</b><span>أول خطوة دائماً: نرتّب قبل ما نحلّل.</span></div></div>
 
 <!-- 1 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ١</span><span class="mkchip">درجة</span></div>
-  <div class="lt">احذف المسافات الزائدة من عمود «المنتج»</div>
-  <div class="goal">عمود «المنتج» فيه مسافات زائدة قبل الأسماء وبعدها. نظّفها بحيث يصير كل اسم مرتّباً بلا مسافات.</div>
-  <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th class="hd">المنتج (قبل)</th></tr></thead>
-    <tbody>
-      <tr><td><span class="sp">◻︎◻︎</span>لابتوب</td></tr>
-      <tr><td>شاحن<span class="sp">◻︎◻︎</span></td></tr>
-      <tr><td><span class="sp">◻︎</span>سماعة<span class="sp">◻︎</span></td></tr>
-    </tbody></table></div></div>
-  <div class="want"><b>المطلوب:</b> عمود جديد فيه أسماء المنتجات نظيفة، بدون أي مسافة بادئة أو زائدة.</div>
+  <div class="qhead"><span class="num">حل السؤال ١</span></div>
+  <div class="lt">حذف المسافات الزائدة من «المنتج»</div>
+  <div class="exp">عمود «المنتج» فيه مسافات قبل الأسماء وبعدها. ننظّفها بدالة تشيل المسافات الزائدة.</div>
+  <ol class="steps">
+    <li>في عمود فاضٍ بجانب «المنتج» اكتب: <span class="f" dir="ltr">=TRIM(B2)</span> ثم <span class="f" dir="ltr">Enter</span>، واسحب لتحت.</li>
+    <li>انسخ العمود الناتج ← لصق «قيم» فوق عمود المنتج الأصلي لتثبيته (اختياري لكنه أنظف).</li>
+  </ol>
+  <div class="tip"><b>أسهل بديل:</b> «التعبئة السريعة» — اكتب أول اسم صحيحاً، ثم <span class="f" dir="ltr">Ctrl + E</span> ويكمّل الباقي.</div>
+  <div class="want"><b>النتيجة:</b> أسماء منتجات نظيفة، بلا أي مسافة بادئة أو زائدة.</div>
 </section>
 
 <!-- 2 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٢</span><span class="mkchip">درجة</span></div>
-  <div class="lt">افصل عمود «الفئة-الكمية» إلى عمودين</div>
-  <div class="goal">عمود «الفئة-الكمية» جامع قيمتين في خانة وحدة (الفئة والكمية بينهما شرطة). افصلهما إلى عمودين مستقلّين: «الفئة» و«الكمية».</div>
-  <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th class="hd">الفئة-الكمية</th><th>←</th><th class="hd">الفئة</th><th class="hd">الكمية</th></tr></thead>
-    <tbody>
-      <tr><td>إلكترونيات-3</td><td>←</td><td>إلكترونيات</td><td>3</td></tr>
-      <tr><td>ملابس-2</td><td>←</td><td>ملابس</td><td>2</td></tr>
-    </tbody></table></div></div>
-  <div class="want"><b>المطلوب:</b> عمودان منفصلان — واحد للفئة وواحد للكمية.</div>
+  <div class="qhead"><span class="num">حل السؤال ٢</span></div>
+  <div class="lt">فصل «الفئة-الكمية» إلى عمودين</div>
+  <div class="exp">القيمتان مدموجتان بينهما شرطة. نفصلهما بأداة «نص إلى أعمدة».</div>
+  <ol class="steps">
+    <li>حدّد عمود «الفئة-الكمية» ← تبويب «البيانات» ← «نص إلى أعمدة».</li>
+    <li>اختر «محدّد» ← التالي ← علّم «أخرى» واكتب الشرطة <span class="f" dir="ltr">-</span> ← «إنهاء».</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> عمودان مستقلّان — «الفئة» و«الكمية».</div>
 </section>
 
 <!-- 3 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٣</span><span class="mkchip">درجة</span></div>
-  <div class="lt">ادمج «المنتج» و«المدينة» في عمود «الوصف»</div>
-  <div class="goal">أنشئ عموداً جديداً اسمه «الوصف» يجمع اسم المنتج ومدينته في خانة واحدة، بينهما شرطة.</div>
-  <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th class="hd">المنتج</th><th class="hd">المدينة</th><th>←</th><th class="hd">الوصف</th></tr></thead>
-    <tbody>
-      <tr><td>لابتوب</td><td>الرياض</td><td>←</td><td>لابتوب - الرياض</td></tr>
-      <tr><td>قميص</td><td>جدة</td><td>←</td><td>قميص - جدة</td></tr>
-    </tbody></table></div></div>
-  <div class="want"><b>المطلوب:</b> عمود «الوصف» يعرض الناتج بالشكل: «المنتج - المدينة».</div>
+  <div class="qhead"><span class="num">حل السؤال ٣</span></div>
+  <div class="lt">دمج «المنتج» و«المدينة» في «الوصف»</div>
+  <div class="exp">نجمع نصّين في خانة واحدة بدالة الدمج، مع شرطة بينهما.</div>
+  <ol class="steps">
+    <li>في عمود «الوصف» اكتب: <span class="f" dir="ltr">=CONCAT(B2," - ",E2)</span> ثم اسحب لتحت.</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> «الوصف» = «المنتج - المدينة»، مثل: <b>لابتوب - الرياض</b>.</div>
+  <div class="tip"><b>نسخة قديمة؟</b> استخدم العلامة <span class="f" dir="ltr">&amp;</span> — نفس النتيجة: <span class="f" dir="ltr">=B2&" - "&E2</span></div>
 </section>
-<div class="stage s2"><div class="no">٢</div><div><b>المرحلة الثانية — جدول وتحليل</b><span>بعد ما نظّفت البيانات، حوّلها جدولاً وحلّلها.</span></div></div>
+<div class="stage s2"><div class="no">٢</div><div><b>المرحلة الثانية — جدول وتحليل</b><span>بعد التنظيف، نحوّل ونحلّل.</span></div></div>
 
 <!-- 4 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٤</span><span class="mkchip">درجة</span></div>
-  <div class="lt">حوّل السجلّ إلى «جدول» وسمِّه «المبيعات»</div>
-  <div class="goal">حوّل بيانات المبيعات المرتّبة إلى «جدول» منسّق، ثم غيّر اسم الجدول إلى «المبيعات».</div>
-  <div class="want"><b>المطلوب:</b> جدول منسّق (بصفوف متناوبة وأسهم فلترة)، واسمه <span class="f" dir="ltr">المبيعات</span>.</div>
+  <div class="qhead"><span class="num">حل السؤال ٤</span></div>
+  <div class="lt">تحويل البيانات إلى «جدول» باسم «المبيعات»</div>
+  <div class="exp">الجدول يتمدّد تلقائياً مع أي صف جديد، وكل تحليل نبنيه منه يتحدّث معه.</div>
+  <ol class="steps">
+    <li>اضغط أي خلية داخل البيانات ← <span class="f" dir="ltr">Ctrl + T</span> ← تأكّد من «يحتوي جدولي على رؤوس» ← «موافق».</li>
+    <li>من «تصميم الجدول» غيّر الاسم إلى <span class="f" dir="ltr">المبيعات</span>.</li>
+  </ol>
+  <div class="mac">على Mac: <span class="f" dir="ltr">⌘ + T</span>.</div>
+  <div class="want"><b>النتيجة:</b> جدول منسّق بصفوف متناوبة وأسهم فلترة، اسمه «المبيعات».</div>
 </section>
 
 <!-- 5 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٥</span><span class="mkchip">درجة</span></div>
+  <div class="qhead"><span class="num">حل السؤال ٥</span></div>
   <div class="lt">جدول محوري — المبيعات حسب الفئة</div>
-  <div class="goal">أنشئ جدولاً محورياً يعدّ المبيعات لكل فئة (كم عملية بيع في كل فئة).</div>
-  <div class="want"><b>المطلوب:</b> جدول محوري يعرض عدد المبيعات لكل فئة. ثم اكتب في خلية جنبه: <b>أعلى فئة وعدد مبيعاتها</b>.</div>
+  <div class="exp">المحوري يعدّ لنا كم عملية بيع في كل فئة، بضغطات بسيطة.</div>
+  <ol class="steps">
+    <li>اضغط داخل الجدول ← «إدراج» ← «PivotTable» ← «ورقة جديدة».</li>
+    <li>اسحب «الفئة» إلى <b>الصفوف</b>، و«المنتج» إلى <b>القيم</b> (يصير «عدد»).</li>
+  </ol>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="hd">الفئة</th><th class="hd">عدد المبيعات</th></tr></thead>
+    <tbody>
+      <tr><td>إلكترونيات</td><td>13</td></tr>
+      <tr><td>أدوات منزلية</td><td>7</td></tr>
+      <tr><td>ألعاب</td><td>5</td></tr>
+      <tr><td>ملابس</td><td>5</td></tr>
+    </tbody></table></div></div>
+  <div class="want"><b>الإجابة:</b> أعلى فئة = <b>إلكترونيات</b> بعدد <b>١٣</b> مبيعة.</div>
 </section>
 
 <!-- 6 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٦</span><span class="mkchip">درجة</span></div>
+  <div class="qhead"><span class="num">حل السؤال ٦</span></div>
   <div class="lt">جدول محوري — المبيعات حسب المدينة</div>
-  <div class="goal">أنشئ جدولاً محورياً ثانياً يعدّ المبيعات لكل مدينة.</div>
-  <div class="want"><b>المطلوب:</b> جدول محوري يعرض عدد المبيعات لكل مدينة. ثم اكتب في خلية جنبه: <b>أعلى مدينة وعدد مبيعاتها</b>.</div>
+  <div class="exp">نفس طريقة السؤال السابق، بس نضع «المدينة» في الصفوف.</div>
+  <ol class="steps">
+    <li>محوري جديد ← «المدينة» في <b>الصفوف</b>، و«المنتج» في <b>القيم</b> (عدد).</li>
+  </ol>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="hd">المدينة</th><th class="hd">عدد المبيعات</th></tr></thead>
+    <tbody>
+      <tr><td>الرياض</td><td>13</td></tr>
+      <tr><td>جدة</td><td>8</td></tr>
+      <tr><td>مكة</td><td>5</td></tr>
+      <tr><td>الدمام</td><td>4</td></tr>
+    </tbody></table></div></div>
+  <div class="want"><b>الإجابة:</b> أعلى مدينة = <b>الرياض</b> بعدد <b>١٣</b> مبيعة.</div>
 </section>
-<div class="stage s3"><div class="no">٣</div><div><b>المرحلة الثالثة — المخططات ولوحة التحكم</b><span>حوّل تحليلك إلى صورة جميلة يفهمها أي أحد.</span></div></div>
+<div class="stage s3"><div class="no">٣</div><div><b>المرحلة الثالثة — المخططات ولوحة التحكم</b><span>نحوّل الأرقام إلى صورة جميلة.</span></div></div>
 
 <!-- 7 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٧</span><span class="mkchip">درجة</span></div>
+  <div class="qhead"><span class="num">حل السؤال ٧</span></div>
   <div class="lt">مخطط عمودي للفئات</div>
-  <div class="goal">من جدول الفئات المحوري، أنشئ مخططاً <b>عمودياً</b> يوضّح المبيعات حسب الفئة.</div>
-  <div class="want"><b>المطلوب:</b> مخطط عمودي، عنوانه: «المبيعات حسب الفئة».</div>
+  <div class="exp">من المحوري نطلّع مخططاً يوضّح الفروق بين الفئات بلمحة.</div>
+  <ol class="steps">
+    <li>اضغط داخل محوري الفئات ← «تحليل PivotTable» ← «PivotChart» ← اختر «عمودي» ← «موافق».</li>
+    <li>اضغط على عنوان المخطط واكتب: «المبيعات حسب الفئة».</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> مخطط أعمدة، «إلكترونيات» أطول عمود، عنوانه «المبيعات حسب الفئة».</div>
 </section>
 
 <!-- 8 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٨</span><span class="mkchip">درجة</span></div>
+  <div class="qhead"><span class="num">حل السؤال ٨</span></div>
   <div class="lt">مخطط دائري للمدن</div>
-  <div class="goal">من جدول المدن المحوري، أنشئ مخططاً <b>دائرياً</b> يوضّح نصيب كل مدينة من المبيعات.</div>
-  <div class="want"><b>المطلوب:</b> مخطط دائري، عنوانه: «المبيعات حسب المدينة».</div>
+  <div class="exp">الدائري ممتاز لعرض «نصيب» كل مدينة من الإجمالي.</div>
+  <ol class="steps">
+    <li>اضغط داخل محوري المدن ← «PivotChart» ← اختر «دائري» ← «موافق».</li>
+    <li>غيّر العنوان إلى: «المبيعات حسب المدينة».</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> مخطط دائري، أكبر شريحة «الرياض»، عنوانه «المبيعات حسب المدينة».</div>
 </section>
 
 <!-- 9 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ٩</span><span class="mkchip">درجة</span></div>
-  <div class="lt">اجمع المخططين في ورقة «لوحة التحكم»</div>
-  <div class="goal">أنشئ ورقة جديدة سمّها «لوحة التحكم»، وانقل إليها المخطط العمودي والمخطط الدائري، ثم أزِل خطوط الشبكة عن الورقة ليصير شكلها نظيفاً.</div>
-  <div class="want"><b>المطلوب:</b> ورقة اسمها <span class="f" dir="ltr">لوحة التحكم</span> فيها المخططان، وبدون خطوط شبكة.</div>
+  <div class="qhead"><span class="num">حل السؤال ٩</span></div>
+  <div class="lt">جمع المخططين في ورقة «لوحة التحكم»</div>
+  <div class="exp">نجمع كل شي في ورقة واحدة نظيفة اسمها لوحة التحكم.</div>
+  <ol class="steps">
+    <li>أنشئ ورقة جديدة وسمّها <span class="f" dir="ltr">لوحة التحكم</span>.</li>
+    <li>قصّ المخطط العمودي (<span class="f" dir="ltr">Ctrl + X</span>) والصقه (<span class="f" dir="ltr">Ctrl + V</span>) في اللوحة، وكرّر للدائري.</li>
+    <li>من تبويب «عرض» أزِل ✓ «خطوط الشبكة».</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> ورقة «لوحة التحكم» فيها المخططان، بخلفية بيضاء نظيفة بلا خطوط.</div>
 </section>
 
 <!-- 10 -->
 <section class="lesson">
-  <div class="qhead"><span class="num">السؤال ١٠</span><span class="mkchip">درجة</span></div>
-  <div class="lt">أضِف عنواناً فوق اللوحة</div>
-  <div class="goal">في ورقة «لوحة التحكم»، حدّد النطاق <span class="f" dir="ltr">A1:F1</span> وادمجه في خلية واحدة، ثم اكتب فيه عنوان اللوحة، وكبّر الخط وثقّله.</div>
-  <div class="want"><b>المطلوب:</b> خلية مدموجة من <span class="f" dir="ltr">A1</span> إلى <span class="f" dir="ltr">F1</span>، مكتوب فيها «لوحة مبيعات المتجر» بخط كبير وعريض.</div>
+  <div class="qhead"><span class="num">حل السؤال ١٠</span></div>
+  <div class="lt">عنوان فوق اللوحة</div>
+  <div class="exp">لمسة أخيرة: عنوان كبير يعطي اللوحة شكلاً احترافياً.</div>
+  <ol class="steps">
+    <li>حدّد النطاق <span class="f" dir="ltr">A1:F1</span> ← «دمج وتوسيط».</li>
+    <li>اكتب: «لوحة مبيعات المتجر» ← كبّر الخط (مثلاً ١٨) ← اضغط «عريض» <span class="f" dir="ltr">B</span>.</li>
+  </ol>
+  <div class="want"><b>النتيجة:</b> عنوان واحد كبير وعريض ممتد فوق اللوحة.</div>
+</section>
+
+<!-- الختام -->
+<section class="lesson" style="border:2px solid #1f5fbf">
+  <div class="qhead"><span class="num" style="background:#1f5fbf">🎉 اللوحة النهائية</span></div>
+  <div class="lt">شكل اللوحة بعد الحل الكامل</div>
+  <div class="exp">مبروك! من ملف مبيعات غير مرتّب ← إلى لوحة تحكم واضحة تخدم أي متجر. هذا شغل محترف.</div>
+  <div class="shot">
+    <div class="badge">📸 لوحة مبيعات المتجر</div>
+    <img src="img/dash.png" alt="لوحة مبيعات المتجر الكاملة">
+    <div class="cap">مخطط أعمدة للفئات + مخطط دائري للمدن + عنوان — في ورقة واحدة نظيفة.</div>
+  </div>
+  <div class="want"><b>الأهم:</b> الترتيب قبل التحليل. رتّب بياناتك أولاً، وبعدها كل تحليل يطلع صحيحاً. 🎯</div>
 </section>
   </main><!-- /content -->
 </div><!-- /shell -->
 <style>.lesson,.stage,.intro{scroll-margin-top:74px}html{scroll-behavior:smooth}</style>
-<footer class="site-foot">الاختبار النهائي — <b>Excel</b> · إعداد <b>المهندس محمد</b> · بالتوفيق للجميع 🎯</footer>
+<footer class="site-foot">شرح حل الاختبار النهائي — <b>Excel</b> · إعداد <b>المهندس محمد</b> 🎯</footer>
 
 <script>
 (function(){
@@ -270,7 +323,7 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
     gh.innerHTML='<span class="gnum"></span><span class="gl"></span><span class="cnt"></span><span class="cv">▾</span>';
     gh.querySelector('.gnum').textContent=AR[++sIdx];
     gh.querySelector('.gl').textContent=g.label;
-    gh.querySelector('.cnt').textContent=toAr(g.items.length)+' أسئلة';
+    gh.querySelector('.cnt').textContent=toAr(g.items.length)+' حلول';
     var box=document.createElement('div'); box.className='toc-les';
     g.items.forEach(function(it){
       var t=it.querySelector('.lt'); var a=document.createElement('a');
