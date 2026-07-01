@@ -1,0 +1,313 @@
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>الاختبار النهائي — مبيعات المتجر · المهندس محمد</title>
+<style>
+:root{--g:#0f766e;--gd:#0b5751;--g2:#1aa05a;--line:#e2eae8;--muted:#64746f;--ink:#16322f;--bg:#eef3f2}
+*{box-sizing:border-box}
+body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;background:var(--bg);color:var(--ink);margin:0;line-height:1.75}
+.topbar{position:sticky;top:0;z-index:50;height:58px;background:linear-gradient(110deg,#0f766e,#0b5751);color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+.topbar .brand .x{font-family:Consolas,monospace;background:#fff;color:#0b5751;border-radius:7px;padding:2px 9px}
+.topbar .brand small{font-weight:500;opacity:.85;font-size:12px;display:block}
+.topbar .spacer{flex:1}
+.topbar .search{position:relative}
+.topbar .search input{width:210px;max-width:42vw;border:none;border-radius:999px;padding:8px 14px 8px 34px;font-family:inherit;font-size:13.5px;background:rgba(255,255,255,.16);color:#fff;outline:none}
+.topbar .search input::placeholder{color:rgba(255,255,255,.75)}
+.topbar .search::after{content:"🔍";position:absolute;left:11px;top:7px;font-size:13px;opacity:.85}
+.topbar .hamb{display:none;font-size:22px;background:none;border:none;color:#fff;cursor:pointer;padding:4px 8px}
+.shell{display:flex;gap:24px;max-width:1180px;margin:0 auto;padding:22px 18px 60px;align-items:flex-start}
+.sidebar{width:280px;flex:none;position:sticky;top:76px;max-height:calc(100vh - 96px);overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.toc-h{font-weight:800;color:var(--gd);font-size:14px;padding:4px 8px 10px;border-bottom:2px solid #d7ece8;margin-bottom:8px}
+.toc-grp{margin-bottom:11px;border-radius:13px;padding:5px;border:1px solid #e4eae8;background:#fbfdfc}
+.toc-grp:nth-of-type(1){background:linear-gradient(180deg,#edf8f4,#fbfefd);border-color:#d2ece5}
+.toc-grp:nth-of-type(2){background:linear-gradient(180deg,#fff6e8,#fffdf7);border-color:#efe1bf}
+.toc-grp:nth-of-type(3){background:linear-gradient(180deg,#eef2fb,#fbfcff);border-color:#cfd9ef}
+.toc-grp>.gh{display:flex;gap:8px;align-items:center;width:100%;background:none;border:none;text-align:right;font-family:inherit;cursor:pointer;font-weight:800;color:var(--ink);padding:7px 8px;border-radius:9px;font-size:13.5px}
+.toc-grp>.gh .gnum{flex:none;width:24px;height:24px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-shadow:0 2px 5px rgba(15,118,110,.25)}
+.toc-grp:nth-of-type(2)>.gh .gnum{background:#d99700;box-shadow:0 2px 5px rgba(217,151,0,.25)}
+.toc-grp:nth-of-type(3)>.gh .gnum{background:#1f5fbf;box-shadow:0 2px 5px rgba(31,95,191,.25)}
+.toc-grp>.gh .gl{flex:1;min-width:0;line-height:1.4}
+.toc-grp>.gh:hover{background:rgba(255,255,255,.6)}
+.toc-grp>.gh .cnt{flex:none;color:#9aa7a6;font-weight:600;font-size:11px}
+.toc-grp>.gh .cv{flex:none;color:#9aa7a6;font-size:11px;transition:transform .2s}
+.toc-grp.collapsed>.gh .cv{transform:rotate(-90deg)}
+.toc-les{display:flex;flex-direction:column;margin:2px 6px 4px;border-inline-start:2px solid #d2ece5;padding-inline-start:6px}
+.toc-grp:nth-of-type(2) .toc-les{border-inline-start-color:#efe1bf}
+.toc-grp:nth-of-type(3) .toc-les{border-inline-start-color:#cfd9ef}
+.toc-grp.collapsed .toc-les{display:none}
+.toc-les a{text-decoration:none;color:var(--muted);font-size:12.8px;padding:5px 10px;border-radius:6px}
+.toc-les a:hover{color:var(--gd);background:#f3faf9}
+.toc-les a.active{color:var(--gd);background:#e6f3f1;font-weight:700}
+.content{flex:1;min-width:0;max-width:820px}
+.nav-overlay{display:none}
+@media(max-width:900px){
+ .topbar .hamb{display:block}.topbar .spacer{display:none}
+ .topbar .brand{flex:1 1 auto;min-width:0;font-size:14px;gap:7px}
+ .topbar .brand>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .topbar .brand small{display:none}
+ .topbar .search input{width:118px;max-width:34vw}
+ .shell{padding:16px 12px 50px}
+ .sidebar{position:fixed;top:58px;right:0;bottom:0;width:284px;max-width:84vw;z-index:60;border-radius:0;display:none;max-height:none}
+ body.nav-open .sidebar{display:block}
+ body.nav-open .nav-overlay{display:block;position:fixed;inset:58px 0 0 0;background:rgba(0,0,0,.4);z-index:55}
+ .content{max-width:100%}
+}
+.hero{background:linear-gradient(135deg,#0f766e,#0b5751);color:#fff;border-radius:22px;padding:30px 24px;text-align:center;box-shadow:0 14px 40px rgba(15,118,110,.25)}
+.hero .x{background:#fff;color:#0f766e;border-radius:8px;padding:0 8px}
+.hero h1{font-size:27px;margin:6px 0 8px;font-weight:800}
+.hero .sub{opacity:.92;font-size:15px;max-width:560px;margin:0 auto}
+.hero .by{display:inline-block;margin-top:12px;background:rgba(255,255,255,.15);padding:5px 16px;border-radius:20px;font-size:13px;font-weight:600}
+.hero .exam-badge{display:inline-block;margin:0 0 8px;background:#e0a800;color:#3a2c00;padding:5px 18px;border-radius:20px;font-size:13px;font-weight:800;letter-spacing:.3px}
+.dls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.dl{display:inline-flex;gap:8px;align-items:center;background:#fff;color:#0b5751;text-decoration:none;padding:12px 20px;border-radius:12px;font-weight:800;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+/* خريطة */
+.jmap{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin:18px 0;box-shadow:0 6px 22px rgba(15,118,110,.06)}
+.jmap h3{margin:0 0 14px;text-align:center;color:var(--gd);font-size:16px}
+.jstage{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.jstage .bub{flex:none;width:34px;height:34px;border-radius:50%;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.jstage:nth-child(3) .bub{background:#d99700}
+.jstage:nth-child(4) .bub{background:#1f5fbf}
+.jstage .tx b{color:var(--gd)}
+.jstage .tx span{color:var(--muted);font-size:13.5px}
+/* عنوان المرحلة */
+.stage{background:linear-gradient(135deg,#0f766e,#0b5751);color:#fff;border-radius:16px;padding:16px 22px;margin:26px 0 14px;display:flex;align-items:center;gap:14px}
+.stage.s2{background:linear-gradient(135deg,#d99700,#a86f00)}
+.stage.s3{background:linear-gradient(135deg,#1f5fbf,#164a97)}
+.stage .no{font-size:30px;font-weight:800;opacity:.5}
+.stage b{font-size:19px;display:block}
+.stage span{opacity:.9;font-size:13px}
+/* السؤال */
+.lesson{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.qhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.num{display:inline-block;background:#0f766e;color:#fff;font-size:12px;font-weight:800;padding:4px 14px;border-radius:20px}
+.mkchip{display:inline-block;background:#fff3cd;color:#7a5b00;font-weight:800;font-size:12px;padding:4px 13px;border-radius:20px}
+.lt{font-size:20px;font-weight:800;color:var(--gd);margin:10px 0 6px}
+.goal{color:#2c3b39;font-size:15.5px;margin-bottom:6px}
+.f{font-family:"SF Mono",Consolas,monospace;background:#eaf3f1;color:#0b5751;padding:1px 7px;border-radius:5px;font-weight:700;direction:ltr;unicode-bidi:isolate;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word;vertical-align:middle}
+.want{background:#eef9f4;border-inline-start:3px solid #1aa05a;border-radius:8px;padding:9px 13px;margin-top:12px;font-size:13.5px;color:#1b5e3a}
+.want b{color:#14502f}
+.tip{background:#fff4ed;border-inline-start:3px solid #e07a3a;border-radius:8px;padding:9px 13px;margin-top:10px;font-size:13.5px;color:#7a4520}
+.tip b{color:#8a3a10}
+.mac{font-size:13px;color:#8a8a8a;font-style:italic;margin-top:8px}
+.exp{color:#3a4a48;font-size:14.5px;margin:0 0 6px;line-height:1.75}
+.intro{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px rgba(15,118,110,.06)}
+.intro h2{color:var(--gd);font-size:18px;margin:0 0 10px;text-align:center}
+.chk{list-style:none;padding:0;margin:8px 0 0}
+.chk li{position:relative;padding:8px 32px 8px 8px;font-size:14.5px;background:#f7faf9;border-radius:9px;margin-bottom:7px}
+.chk li::before{content:"✓";position:absolute;right:11px;top:9px;color:#1aa05a;font-weight:900}
+/* شبكة إكسل مصغّرة */
+.grid{border:1px solid #cfd8d6;border-radius:7px;overflow:hidden;font-size:13px;direction:rtl;display:inline-block;min-width:220px;margin:4px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.grid table{border-collapse:collapse;width:100%}
+.grid th,.grid td{border:1px solid #e4eae8;padding:5px 11px;text-align:center;white-space:nowrap}
+.grid thead th{background:#f3f6f5;color:#6a7775;font-weight:700;font-size:11px}
+.grid .hd{background:#1f5fbf;color:#fff;font-weight:700}
+.grid .sp{background:#ffcaa8;color:#a23b16;border-radius:2px;padding:0 2px;font-family:Consolas,monospace}
+.gwrap{text-align:center;overflow-x:auto}
+.site-foot{text-align:center;color:#7a8a87;font-size:13px;padding:22px 16px 40px;background:#e7efed}
+@media(max-width:560px){.lt{font-size:18px}.hero h1{font-size:22px}}
+</style></head><body>
+<div class="nav-overlay" onclick="document.body.classList.remove('nav-open')"></div>
+<header class="topbar">
+  <button class="hamb" aria-label="القائمة" onclick="document.body.classList.toggle('nav-open')">☰</button>
+  <div class="brand"><span class="x">Excel</span><span>الاختبار النهائي<small>مبيعات المتجر · المهندس محمد</small></span></div>
+  <div class="spacer"></div>
+  <div class="search"><input id="search" type="search" placeholder="ابحث في الأسئلة…" autocomplete="off"></div>
+</header>
+<div class="shell">
+  <aside class="sidebar"><div class="toc-h">📝 أسئلة الاختبار</div><nav id="toc"></nav></aside>
+  <main class="content" id="content">
+
+<section class="hero">
+  <div class="exam-badge">🎓 الاختبار النهائي</div>
+  <h1>مبيعات المتجر — نظّف البيانات واصنع لوحة</h1>
+  <div class="sub">ملف مبيعات غير مرتّب. نظّفه، حوّله جدولاً، حلّله، واصنع لوحة تحكم. ١٠ أسئلة — لكل سؤال درجة.</div>
+  <div class="by">إعداد: المهندس محمد</div>
+  <div class="dls">
+    <a class="dl" href="مبيعات-الاختبار.xlsx" download>⬇️ نزّل ملف الاختبار</a>
+  </div>
+</section>
+
+<div class="jmap">
+  <h3>🗺️ خطوات الاختبار — ثلاث مراحل</h3>
+  <div class="jstage"><div class="bub">١</div><div class="tx"><b>نظّف البيانات</b><br><span>المسافات · فصل عمود · دمج عمودين</span></div></div>
+  <div class="jstage"><div class="bub">٢</div><div class="tx"><b>جدول وتحليل</b><br><span>حوّله جدولاً · محوري للفئة · محوري للمدينة</span></div></div>
+  <div class="jstage"><div class="bub">٣</div><div class="tx"><b>المخططات واللوحة</b><br><span>مخطط عمودي · مخطط دائري · لوحة تحكم بعنوان</span></div></div>
+</div>
+
+<div class="intro" style="margin-top:0">
+  <h2>📌 قبل ما تبدأ — اقرأ هذي</h2>
+  <ul class="chk">
+    <li>نزّل «ملف الاختبار» من الزر فوق، واشتغل عليه في إكسل.</li>
+    <li>الأسئلة مرتّبة بالترتيب — ابدأ من الأول للأخير، كل سؤال يبني على اللي قبله.</li>
+    <li>كل سؤال عليه <b>درجة واحدة</b> — المجموع ١٠ درجات.</li>
+    <li>خذ وقتك، ما فيه استعجال. لو وقفت عند سؤال، انتقل للي بعده وارجع له.</li>
+    <li>بعد ما تخلّص، احفظ الملف باسمك وأرسله للمهندس محمد.</li>
+  </ul>
+</div>
+<div class="stage"><div class="no">١</div><div><b>المرحلة الأولى — نظّف البيانات</b><span>ملف المبيعات وصلك غير مرتّب. نظّفه أول.</span></div></div>
+
+<!-- 1 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ١</span><span class="mkchip">درجة</span></div>
+  <div class="lt">احذف المسافات الزائدة من عمود «المنتج»</div>
+  <div class="goal">عمود «المنتج» فيه مسافات زائدة قبل الأسماء وبعدها. نظّفها بحيث يصير كل اسم مرتّباً بلا مسافات.</div>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="hd">المنتج (قبل)</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sp">◻︎◻︎</span>لابتوب</td></tr>
+      <tr><td>شاحن<span class="sp">◻︎◻︎</span></td></tr>
+      <tr><td><span class="sp">◻︎</span>سماعة<span class="sp">◻︎</span></td></tr>
+    </tbody></table></div></div>
+  <div class="want"><b>المطلوب:</b> عمود جديد فيه أسماء المنتجات نظيفة، بدون أي مسافة بادئة أو زائدة.</div>
+</section>
+
+<!-- 2 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٢</span><span class="mkchip">درجة</span></div>
+  <div class="lt">افصل عمود «الفئة-الكمية» إلى عمودين</div>
+  <div class="goal">عمود «الفئة-الكمية» جامع قيمتين في خانة وحدة (الفئة والكمية بينهما شرطة). افصلهما إلى عمودين مستقلّين: «الفئة» و«الكمية».</div>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="hd">الفئة-الكمية</th><th>←</th><th class="hd">الفئة</th><th class="hd">الكمية</th></tr></thead>
+    <tbody>
+      <tr><td>إلكترونيات-3</td><td>←</td><td>إلكترونيات</td><td>3</td></tr>
+      <tr><td>ملابس-2</td><td>←</td><td>ملابس</td><td>2</td></tr>
+    </tbody></table></div></div>
+  <div class="want"><b>المطلوب:</b> عمودان منفصلان — واحد للفئة وواحد للكمية.</div>
+</section>
+
+<!-- 3 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٣</span><span class="mkchip">درجة</span></div>
+  <div class="lt">ادمج «المنتج» و«المدينة» في عمود «الوصف»</div>
+  <div class="goal">أنشئ عموداً جديداً اسمه «الوصف» يجمع اسم المنتج ومدينته في خانة واحدة، بينهما شرطة.</div>
+  <div class="gwrap"><div class="grid"><table>
+    <thead><tr><th class="hd">المنتج</th><th class="hd">المدينة</th><th>←</th><th class="hd">الوصف</th></tr></thead>
+    <tbody>
+      <tr><td>لابتوب</td><td>الرياض</td><td>←</td><td>لابتوب - الرياض</td></tr>
+      <tr><td>قميص</td><td>جدة</td><td>←</td><td>قميص - جدة</td></tr>
+    </tbody></table></div></div>
+  <div class="want"><b>المطلوب:</b> عمود «الوصف» يعرض الناتج بالشكل: «المنتج - المدينة».</div>
+</section>
+<div class="stage s2"><div class="no">٢</div><div><b>المرحلة الثانية — جدول وتحليل</b><span>بعد ما نظّفت البيانات، حوّلها جدولاً وحلّلها.</span></div></div>
+
+<!-- 4 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٤</span><span class="mkchip">درجة</span></div>
+  <div class="lt">حوّل السجلّ إلى «جدول» وسمِّه «المبيعات»</div>
+  <div class="goal">حوّل بيانات المبيعات المرتّبة إلى «جدول» منسّق، ثم غيّر اسم الجدول إلى «المبيعات».</div>
+  <div class="want"><b>المطلوب:</b> جدول منسّق (بصفوف متناوبة وأسهم فلترة)، واسمه <span class="f" dir="ltr">المبيعات</span>.</div>
+</section>
+
+<!-- 5 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٥</span><span class="mkchip">درجة</span></div>
+  <div class="lt">جدول محوري — المبيعات حسب الفئة</div>
+  <div class="goal">أنشئ جدولاً محورياً يعدّ المبيعات لكل فئة (كم عملية بيع في كل فئة).</div>
+  <div class="want"><b>المطلوب:</b> جدول محوري يعرض عدد المبيعات لكل فئة. ثم اكتب في خلية جنبه: <b>أعلى فئة وعدد مبيعاتها</b>.</div>
+</section>
+
+<!-- 6 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٦</span><span class="mkchip">درجة</span></div>
+  <div class="lt">جدول محوري — المبيعات حسب المدينة</div>
+  <div class="goal">أنشئ جدولاً محورياً ثانياً يعدّ المبيعات لكل مدينة.</div>
+  <div class="want"><b>المطلوب:</b> جدول محوري يعرض عدد المبيعات لكل مدينة. ثم اكتب في خلية جنبه: <b>أعلى مدينة وعدد مبيعاتها</b>.</div>
+</section>
+<div class="stage s3"><div class="no">٣</div><div><b>المرحلة الثالثة — المخططات ولوحة التحكم</b><span>حوّل تحليلك إلى صورة جميلة يفهمها أي أحد.</span></div></div>
+
+<!-- 7 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٧</span><span class="mkchip">درجة</span></div>
+  <div class="lt">مخطط عمودي للفئات</div>
+  <div class="goal">من جدول الفئات المحوري، أنشئ مخططاً <b>عمودياً</b> يوضّح المبيعات حسب الفئة.</div>
+  <div class="want"><b>المطلوب:</b> مخطط عمودي، عنوانه: «المبيعات حسب الفئة».</div>
+</section>
+
+<!-- 8 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٨</span><span class="mkchip">درجة</span></div>
+  <div class="lt">مخطط دائري للمدن</div>
+  <div class="goal">من جدول المدن المحوري، أنشئ مخططاً <b>دائرياً</b> يوضّح نصيب كل مدينة من المبيعات.</div>
+  <div class="want"><b>المطلوب:</b> مخطط دائري، عنوانه: «المبيعات حسب المدينة».</div>
+</section>
+
+<!-- 9 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ٩</span><span class="mkchip">درجة</span></div>
+  <div class="lt">اجمع المخططين في ورقة «لوحة التحكم»</div>
+  <div class="goal">أنشئ ورقة جديدة سمّها «لوحة التحكم»، وانقل إليها المخطط العمودي والمخطط الدائري، ثم أزِل خطوط الشبكة عن الورقة ليصير شكلها نظيفاً.</div>
+  <div class="want"><b>المطلوب:</b> ورقة اسمها <span class="f" dir="ltr">لوحة التحكم</span> فيها المخططان، وبدون خطوط شبكة.</div>
+</section>
+
+<!-- 10 -->
+<section class="lesson">
+  <div class="qhead"><span class="num">السؤال ١٠</span><span class="mkchip">درجة</span></div>
+  <div class="lt">أضِف عنواناً فوق اللوحة</div>
+  <div class="goal">في ورقة «لوحة التحكم»، حدّد النطاق <span class="f" dir="ltr">A1:F1</span> وادمجه في خلية واحدة، ثم اكتب فيه عنوان اللوحة، وكبّر الخط وثقّله.</div>
+  <div class="want"><b>المطلوب:</b> خلية مدموجة من <span class="f" dir="ltr">A1</span> إلى <span class="f" dir="ltr">F1</span>، مكتوب فيها «لوحة مبيعات المتجر» بخط كبير وعريض.</div>
+</section>
+  </main><!-- /content -->
+</div><!-- /shell -->
+<style>.lesson,.stage,.intro{scroll-margin-top:74px}html{scroll-behavior:smooth}</style>
+<footer class="site-foot">الاختبار النهائي — <b>Excel</b> · إعداد <b>المهندس محمد</b> · بالتوفيق للجميع 🎯</footer>
+
+<script>
+(function(){
+  var content=document.getElementById('content'), toc=document.getElementById('toc');
+  var groups=[], cur=null;
+  Array.prototype.slice.call(content.children).forEach(function(n){
+    if(!n.classList) return;
+    if(n.classList.contains('stage')){
+      var b=n.querySelector('b'); cur={label:(b?b.textContent:n.textContent).trim(),items:[]}; groups.push(cur);
+    } else if(cur && n.classList.contains('lesson')){ cur.items.push(n); }
+  });
+  var k=0, AR=['','١','٢','٣','٤','٥','٦'], sIdx=0;
+  var toAr=function(n){return String(n).replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[+d];});};
+  groups.forEach(function(g){
+    g.items.forEach(function(l){ if(!l.id){k++; l.id='q-'+k;} });
+    var grp=document.createElement('div'); grp.className='toc-grp';
+    var gh=document.createElement('button'); gh.type='button'; gh.className='gh';
+    gh.innerHTML='<span class="gnum"></span><span class="gl"></span><span class="cnt"></span><span class="cv">▾</span>';
+    gh.querySelector('.gnum').textContent=AR[++sIdx];
+    gh.querySelector('.gl').textContent=g.label;
+    gh.querySelector('.cnt').textContent=toAr(g.items.length)+' أسئلة';
+    var box=document.createElement('div'); box.className='toc-les';
+    g.items.forEach(function(it){
+      var t=it.querySelector('.lt'); var a=document.createElement('a');
+      a.href='#'+it.id; a.textContent=t?t.textContent:''; a.dataset.target=it.id; box.appendChild(a);
+    });
+    grp.appendChild(gh); grp.appendChild(box); toc.appendChild(grp);
+    gh.addEventListener('click',function(){ grp.classList.toggle('collapsed'); });
+  });
+  toc.addEventListener('click',function(e){ if(e.target.closest('a')) document.body.classList.remove('nav-open'); });
+
+  var search=document.getElementById('search');
+  var hideOnSearch=content.querySelectorAll('.hero,.jmap,.intro,.stage');
+  if(search) search.addEventListener('input',function(){
+    var q=search.value.trim().toLowerCase();
+    hideOnSearch.forEach(function(el){ el.style.display=q?'none':''; });
+    content.querySelectorAll('.lesson').forEach(function(l){
+      l.style.display=(!q||l.textContent.toLowerCase().indexOf(q)>-1)?'':'none';
+    });
+    document.querySelectorAll('.toc-grp').forEach(function(grp){
+      var any=false;
+      grp.querySelectorAll('.toc-les a').forEach(function(a){
+        var l=document.getElementById(a.dataset.target); var v=l&&l.style.display!=='none';
+        a.style.display=v?'':'none'; if(v)any=true;
+      });
+      grp.style.display=any?'':'none'; if(q) grp.classList.remove('collapsed');
+    });
+  });
+
+  var links={}; document.querySelectorAll('.toc-les a').forEach(function(a){ links[a.dataset.target]=a; });
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ var a=links[en.target.id]; if(!a)return;
+        document.querySelectorAll('.toc-les a.active').forEach(function(x){x.classList.remove('active');});
+        a.classList.add('active'); a.scrollIntoView({block:'nearest'}); }});
+    },{rootMargin:'-80px 0px -55% 0px',threshold:0});
+    content.querySelectorAll('.lesson').forEach(function(l){ obs.observe(l); });
+  }
+})();
+</script>
+</body></html>
