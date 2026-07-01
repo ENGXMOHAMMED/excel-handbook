@@ -202,39 +202,40 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
 <section class="lesson">
   <div class="qhead"><span class="num">حل السؤال ٥</span></div>
   <div class="lt">جدول محوري — المبيعات حسب الفئة</div>
-  <div class="exp">المحوري يعدّ لنا كم عملية بيع في كل فئة، بضغطات بسيطة.</div>
+  <div class="exp">المحوري يجمع لنا الكميات المُباعة في كل فئة، بضغطات بسيطة.</div>
   <ol class="steps">
     <li>اضغط داخل الجدول ← «إدراج» ← «PivotTable» ← «ورقة جديدة».</li>
-    <li>اسحب «الفئة» إلى <b>الصفوف</b>، و«المنتج» إلى <b>القيم</b> (يصير «عدد»).</li>
+    <li>اسحب «الفئة» إلى <b>الصفوف</b>، و«الكمية» إلى <b>القيم</b> (يصير «مجموع»).</li>
   </ol>
   <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th class="hd">الفئة</th><th class="hd">عدد المبيعات</th></tr></thead>
+    <thead><tr><th class="hd">الفئة</th><th class="hd">إجمالي الكمية</th></tr></thead>
     <tbody>
-      <tr><td>إلكترونيات</td><td>13</td></tr>
-      <tr><td>أدوات منزلية</td><td>7</td></tr>
-      <tr><td>ألعاب</td><td>5</td></tr>
-      <tr><td>ملابس</td><td>5</td></tr>
+      <tr><td>إلكترونيات</td><td>45</td></tr>
+      <tr><td>أدوات منزلية</td><td>31</td></tr>
+      <tr><td>ألعاب</td><td>20</td></tr>
+      <tr><td>ملابس</td><td>15</td></tr>
     </tbody></table></div></div>
-  <div class="want"><b>الإجابة:</b> أعلى فئة = <b>إلكترونيات</b> بعدد <b>١٣</b> مبيعة.</div>
+  <div class="tip"><b>⚠️ مهم جداً:</b> اقرأ الأرقام والمقسّم (Slicer) <b>غير مفعّل تماماً</b> — لو فيه فلتر مطبّق تتغيّر الأرقام وتطلع غلط. امسح الفلتر أولاً (اختر «الكل»).</div>
+  <div class="want"><b>الإجابة:</b> أعلى فئة = <b>إلكترونيات</b> بإجمالي <b>٤٥</b> وحدة.</div>
 </section>
 
 <!-- 6 -->
 <section class="lesson">
   <div class="qhead"><span class="num">حل السؤال ٦</span></div>
   <div class="lt">جدول محوري — المبيعات حسب المدينة</div>
-  <div class="exp">نفس طريقة السؤال السابق، بس نضع «المدينة» في الصفوف.</div>
+  <div class="exp">نفس طريقة السؤال السابق، بس نضع «المدينة» في الصفوف و«الكمية» في القيم.</div>
   <ol class="steps">
-    <li>محوري جديد ← «المدينة» في <b>الصفوف</b>، و«المنتج» في <b>القيم</b> (عدد).</li>
+    <li>محوري جديد ← «المدينة» في <b>الصفوف</b>، و«الكمية» في <b>القيم</b> (مجموع).</li>
   </ol>
   <div class="gwrap"><div class="grid"><table>
-    <thead><tr><th class="hd">المدينة</th><th class="hd">عدد المبيعات</th></tr></thead>
+    <thead><tr><th class="hd">المدينة</th><th class="hd">إجمالي الكمية</th></tr></thead>
     <tbody>
-      <tr><td>الرياض</td><td>13</td></tr>
-      <tr><td>جدة</td><td>8</td></tr>
-      <tr><td>مكة</td><td>5</td></tr>
-      <tr><td>الدمام</td><td>4</td></tr>
+      <tr><td>الرياض</td><td>46</td></tr>
+      <tr><td>جدة</td><td>32</td></tr>
+      <tr><td>الدمام</td><td>17</td></tr>
+      <tr><td>مكة</td><td>16</td></tr>
     </tbody></table></div></div>
-  <div class="want"><b>الإجابة:</b> أعلى مدينة = <b>الرياض</b> بعدد <b>١٣</b> مبيعة.</div>
+  <div class="want"><b>الإجابة:</b> أعلى مدينة = <b>الرياض</b> بإجمالي <b>٤٦</b> وحدة — والمقسّم غير مفعّل.</div>
 </section>
 <div class="stage s3"><div class="no">٣</div><div><b>المرحلة الثالثة — المخططات ولوحة التحكم</b><span>نحوّل الأرقام إلى صورة جميلة.</span></div></div>
 
