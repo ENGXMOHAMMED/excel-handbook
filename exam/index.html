@@ -132,7 +132,7 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
   <h3>🗺️ رحلة الحل — ثلاث مراحل</h3>
   <div class="jstage"><div class="bub">١</div><div class="tx"><b>نظّفنا البيانات</b><br><span>المسافات · فصل عمود · دمج عمودين</span></div></div>
   <div class="jstage"><div class="bub">٢</div><div class="tx"><b>جدول وتحليل</b><br><span>حوّلناه جدولاً · محوري للفئة · محوري للمدينة</span></div></div>
-  <div class="jstage"><div class="bub">٣</div><div class="tx"><b>المخططات واللوحة</b><br><span>مخطط عمودي · مخطط دائري · لوحة تحكم بعنوان</span></div></div>
+  <div class="jstage"><div class="bub">٣</div><div class="tx"><b>المخططات واللوحة</b><br><span>مخطط عمودي · مخطط دائري · لوحة بعنوان · مقسّم تفاعلي</span></div></div>
 </div>
 
 <div class="intro" style="margin-top:0">
@@ -265,26 +265,29 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
 <!-- 9 -->
 <section class="lesson">
   <div class="qhead"><span class="num">حل السؤال ٩</span></div>
-  <div class="lt">جمع المخططين في ورقة «لوحة التحكم»</div>
-  <div class="exp">نجمع كل شي في ورقة واحدة نظيفة اسمها لوحة التحكم.</div>
+  <div class="lt">ورقة «لوحة التحكم» + عنوان فوقها</div>
+  <div class="exp">نجمع كل شي في ورقة واحدة نظيفة، ونضيف عنواناً كبيراً يعطيها شكلاً احترافياً.</div>
   <ol class="steps">
     <li>أنشئ ورقة جديدة وسمّها <span class="f" dir="ltr">لوحة التحكم</span>.</li>
     <li>قصّ المخطط العمودي (<span class="f" dir="ltr">Ctrl + X</span>) والصقه (<span class="f" dir="ltr">Ctrl + V</span>) في اللوحة، وكرّر للدائري.</li>
     <li>من تبويب «عرض» أزِل ✓ «خطوط الشبكة».</li>
+    <li>حدّد <span class="f" dir="ltr">A1:F1</span> ← «دمج وتوسيط» ← اكتب «لوحة مبيعات المتجر» ← كبّر الخط (١٨) واضغط «عريض» <span class="f" dir="ltr">B</span>.</li>
   </ol>
-  <div class="want"><b>النتيجة:</b> ورقة «لوحة التحكم» فيها المخططان، بخلفية بيضاء نظيفة بلا خطوط.</div>
+  <div class="want"><b>النتيجة:</b> ورقة نظيفة فيها المخططان وعنوان كبير عريض فوقها.</div>
 </section>
 
 <!-- 10 -->
 <section class="lesson">
   <div class="qhead"><span class="num">حل السؤال ١٠</span></div>
-  <div class="lt">عنوان فوق اللوحة</div>
-  <div class="exp">لمسة أخيرة: عنوان كبير يعطي اللوحة شكلاً احترافياً.</div>
+  <div class="lt">المقسّم — لوحة تفاعلية حقيقية</div>
+  <div class="exp">المقسّم (Slicer) هو أزرار تفلتر اللوحة بضغطة — هذا اللي يخلّيها لوحة تحكم حيّة، مو مجرّد صور.</div>
   <ol class="steps">
-    <li>حدّد النطاق <span class="f" dir="ltr">A1:F1</span> ← «دمج وتوسيط».</li>
-    <li>اكتب: «لوحة مبيعات المتجر» ← كبّر الخط (مثلاً ١٨) ← اضغط «عريض» <span class="f" dir="ltr">B</span>.</li>
+    <li>اضغط داخل الجدول المحوري (أو مخطط الفئة) ← «تحليل PivotTable» ← «إدراج مقسّم».</li>
+    <li>علّم «الفئة» ← «موافق»، وانقل المقسّم إلى ورقة «لوحة التحكم» بجانب المخططات.</li>
+    <li>جرّب اضغط «إلكترونيات» — بتشوف اللوحة تتغيّر معك. 🎛️</li>
   </ol>
-  <div class="want"><b>النتيجة:</b> عنوان واحد كبير وعريض ممتد فوق اللوحة.</div>
+  <div class="tip"><b>خطوة احترافية:</b> عشان زرّ واحد يفلتر كل المخططات معاً: يمين على المقسّم ← «اتصالات التقارير» ← علّم كل الجداول المحورية.</div>
+  <div class="want"><b>النتيجة:</b> مقسّم «الفئة» على اللوحة، أول ضغطة تفلتر البيانات — لوحة تفاعلية حقيقية.</div>
 </section>
 
 <!-- الختام -->
@@ -295,7 +298,7 @@ body{font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;backgrou
   <div class="shot">
     <div class="badge">📸 لوحة مبيعات المتجر</div>
     <img src="img/dash.png" alt="لوحة مبيعات المتجر الكاملة">
-    <div class="cap">مخطط أعمدة للفئات + مخطط دائري للمدن + عنوان — في ورقة واحدة نظيفة.</div>
+    <div class="cap">مخطط أعمدة + مخطط دائري + مقسّم «الفئة» التفاعلي + عنوان — لوحة تحكم حقيقية.</div>
   </div>
   <div class="want"><b>الأهم:</b> الترتيب قبل التحليل. رتّب بياناتك أولاً، وبعدها كل تحليل يطلع صحيحاً. 🎯</div>
 </section>
